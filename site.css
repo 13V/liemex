@@ -323,6 +323,9 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
 .ftr__grid li + li { margin-top: 7px; }
 .ftr a { text-decoration: none; }
 .ftr__grid a:hover { color: var(--amber); }
+/* Liemex's own logo, a round badge: it sits a little proud of the header bar. */
+.logo img { display: block; width: auto; height: 104px; margin: 12px 0 -40px; position: relative; z-index: 2; filter: drop-shadow(0 4px 14px rgba(20, 16, 12, 0.35)); }
+.logo--ftr img { height: 150px; margin: 0; }
 .logo--ftr { margin-bottom: 18px; }
 .logo--ftr b { font-size: 56px; }
 .hours { margin-top: 14px; max-width: 260px; }
@@ -583,6 +586,7 @@ html.room-open { overflow: hidden; }
   body { font-size: 16.5px; }
   .hdr .btn { display: none; }
   .logo b { font-size: 32px; }
+  .logo img { height: 70px; margin: 8px 0 -14px; }
   .hero__in { padding-block: 120px 72px; }
   .hero__row { grid-template-columns: 1fr; }
   .hero__cta .btn { flex: 1 1 100%; justify-content: space-between; }

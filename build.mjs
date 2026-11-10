@@ -17,7 +17,7 @@ const header = (current, overlay) => `
 <a class="skip" href="#main">Skip to content</a>
 <header class="hdr${overlay ? " hdr--over" : ""}" data-header>
   <div class="wrap hdr__in">
-    <a class="logo" href="/" aria-label="${site.name}, home"><b>Liemex</b><i class="dot"></i><span>Solid timber<br>specialists</span></a>
+    <a class="logo" href="/" aria-label="${site.name}, home"><img src="/images/liemex-logo.png" alt="Liemex, the solid timber specialists" width="512" height="476"></a>
     <nav class="hdr__nav" aria-label="Main">
       ${nav.map(([label, href]) => `<a href="${href}"${href === current ? ` aria-current="page"` : ""}>${label}</a>`).join("\n      ")}
     </nav>
@@ -45,7 +45,7 @@ const footer = () => `
     <a class="ftr__tel" href="${site.phoneHref}" data-split>${site.phone.replace(/[()]/g, "")}</a>
     <div class="ftr__grid" data-rule>
       <div>
-        <a class="logo logo--ftr" href="/"><b>Liemex</b><i class="dot"></i></a>
+        <a class="logo logo--ftr" href="/"><img src="/images/liemex-logo.png" alt="Liemex" width="512" height="476" loading="lazy"></a>
         <p>Trading as ${esc(site.trading)}. Solid timber, machined in Port Adelaide.</p>
       </div>
       <div>
