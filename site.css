@@ -412,9 +412,11 @@ html:not(.has-room) .specie [data-room] { display: none; }
 html.room-open { overflow: hidden; }
 .room { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--ink); color: var(--on); overflow: hidden; }
 .room::backdrop { background: var(--ink); }
+.room__top .mono, .room__close { text-shadow: none; }
+.room__hint { color: var(--text) !important; background: rgba(240, 233, 220, 0.7); padding: 6px 10px; }
 .room__canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
 .room__canvas:active { cursor: grabbing; }
-.room::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(20, 16, 12, 0.78) 0, rgba(20, 16, 12, 0.3) 34%, rgba(20, 16, 12, 0) 56%), linear-gradient(0deg, rgba(20, 16, 12, 0.7) 0, rgba(20, 16, 12, 0) 26%); }
+.room::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(20, 16, 12, 0.72) 0, rgba(20, 16, 12, 0) 24%); }
 .room__planks { position: absolute; inset: 0; z-index: 3; display: flex; pointer-events: none; }
 .room__planks i { flex: 1; margin-right: -1px; background: var(--ink) repeating-linear-gradient(90deg, transparent 0 22px, rgba(240, 233, 220, 0.035) 22px 23px); transition: transform 1200ms var(--ease-io); }
 .room__planks i:nth-child(1) { transition-delay: 240ms; } .room__planks i:nth-child(2) { transition-delay: 60ms; } .room__planks i:nth-child(3) { transition-delay: 320ms; }
@@ -426,9 +428,9 @@ html.room-open { overflow: hidden; }
 .room.is-dragged .room__hint { opacity: 0; }
 .room__close { pointer-events: auto; min-height: 44px; padding: 0 18px; background: rgba(20, 16, 12, 0.5); border: 1.5px solid rgba(240, 233, 220, 0.5); border-radius: 2px; color: inherit; font-weight: 700; cursor: pointer; transition: background-color 200ms, color 200ms; }
 .room__close:hover { background: var(--on); color: var(--ink); }
-.room__info { left: var(--gutter); bottom: 132px; width: min(460px, calc(100vw - 2 * var(--gutter))); display: grid; gap: 14px; justify-items: start; }
+.room__info { left: var(--gutter); bottom: 132px; width: min(440px, calc(100vw - 2 * var(--gutter))); display: grid; gap: 14px; justify-items: start; padding: 28px; background: rgba(20, 16, 12, 0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .room__info .mono { color: var(--amber); }
-.room__info .h-xl { font-size: clamp(48px, 7vw, 116px); }
+.room__info .h-xl { font-size: clamp(44px, 5vw, 84px); }
 .room__text { max-width: 36ch; }
 .room__lay { display: flex; gap: 8px; }
 .room .chip { border-color: rgba(240, 233, 220, 0.45); color: var(--on); background: rgba(20, 16, 12, 0.4); }
@@ -447,7 +449,7 @@ html.room-open { overflow: hidden; }
 .room__strip { transition: opacity 700ms var(--ease-out) 1300ms, transform 900ms var(--ease-out) 1300ms; }
 @media (max-width: 820px) {
   .room::after { background: linear-gradient(0deg, rgba(20, 16, 12, 0.9) 0, rgba(20, 16, 12, 0.55) 34%, rgba(20, 16, 12, 0) 58%); }
-  .room__info { bottom: 122px; gap: 10px; }
+  .room__info { bottom: 122px; gap: 10px; padding: 18px; }
   .room__text { font-size: 15px; }
   .room__strip { height: 52px; bottom: 54px; }
   .room__note { font-size: 11px; line-height: 1.3; }
