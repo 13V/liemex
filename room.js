@@ -363,7 +363,7 @@ const tonesOf = (slug, im) => {
 const plank = (ctx, gtx, im, tn, r, x, y, w, h, across) => {
   [ctx, gtx].forEach((c) => { c.save(); c.translate(x, y); if (across) { c.rotate(-Math.PI / 2); c.translate(-h, 0); } });
   if (across) [w, h] = [h, w];
-  const sw = 60 + r() * 110, sh = 360 + r() * 440;
+  const sw = im.width * (0.17 + r() * 0.3), sh = im.height * (0.4 + r() * 0.48);   // a strip of the sample, whatever its size
   ctx.drawImage(im, r() * (im.width - sw), r() * (im.height - sh), sw, sh, 0, 0, w, h);
   const tone = r() - 0.5;
   ctx.fillStyle = tone > 0 ? `rgba(${tn.light},${tone * 0.22})` : `rgba(${tn.dark},${-tone * 0.3})`;

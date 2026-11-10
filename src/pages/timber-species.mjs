@@ -18,7 +18,7 @@ ${pageHead({ kicker: "Timber species", title: "In the rack", lede: "Pick a timbe
   <ul class="species" id="species">
     ${species.map((s, i) => `
     <li class="specie" id="${s.slug}" data-item data-tags="${s.type}">
-      ${photo(`species/${s.slug}`, `${s.name} grain`, { w: 640, h: 400 })}
+      ${photo(`species/${s.slug}`, `${s.name} grain`, { w: 1280, h: 800 })}
       <div class="specie__body">
         <p class="mono">${String(i + 1).padStart(2, "0")} · ${s.type}</p>
         <h2>${s.name}</h2>
