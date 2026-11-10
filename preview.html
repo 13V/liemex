@@ -110,55 +110,55 @@ button { font: inherit; color: inherit; }
 .b__row svg { width: 100%; color: var(--soft); stroke-width: 1; }
 .b__row .caps { color: var(--soft); }
 
-/* ================= E: green and wide ================= */
+/* ================= E: experimental ================= */
 @font-face { font-family: "Archivo"; src: url("/fonts/archivo.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
-.e { --green: #1d3a2f; --green-2: #162d24; --cream: #f3eee3; --ink: #14201a; --soft: #9fb3a6; background: var(--cream); color: var(--ink); }
-.e .wide { font-family: "Archivo", sans-serif; font-stretch: 125%; text-transform: uppercase; }
+.e { --green: #1d3a2f; --green-2: #12261e; --cream: #f3eee3; --ink: #14201a; background: var(--green); color: var(--cream); overflow: hidden; }
 .e .cap { font: 600 11.5px/1.3 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.14em; text-transform: uppercase; }
-.e__hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(94vh, 920px); background: var(--green); color: var(--cream); }
-.e__left { display: flex; flex-direction: column; padding: 0 clamp(18px, 4vw, 56px) clamp(32px, 4vw, 56px); }
-.e__bar { display: flex; align-items: center; gap: 26px; height: 84px; }
-.e__logo { margin-right: auto; font: 800 24px/1 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.02em; text-transform: uppercase; }
-.e__nav { display: flex; gap: 22px; font-size: 14.5px; font-weight: 500; color: #d5ddd4; }
-.e__h1 { margin-top: auto; font: 500 clamp(40px, 5.3vw, 96px)/0.96 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.035em; text-transform: uppercase; }
-.e__h1 span { display: block; font-weight: 200; }
-.e__lede { display: grid; grid-template-columns: minmax(0, 34ch) auto; gap: 24px; align-items: end; justify-content: space-between; margin-top: clamp(24px, 3vw, 44px); padding-top: 22px; border-top: 1px solid rgba(243, 238, 227, 0.28); }
-.e__lede p { color: #d5ddd4; }
-.e .btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; background: var(--cream); color: var(--ink); font: 600 12.5px "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.1em; text-transform: uppercase; transition: background-color 300ms, color 300ms; }
+.e__hero { position: relative; height: min(100vh, 980px); min-height: 620px; isolation: isolate; overflow: clip; }
+.e__bar { position: absolute; inset: 0 0 auto; z-index: 4; display: flex; align-items: center; gap: 26px; height: 76px; padding-inline: clamp(18px, 3vw, 44px); }
+.e__logo { margin-right: auto; font: 800 22px/1 "Archivo", sans-serif; font-stretch: 125%; text-transform: uppercase; }
+.e__nav { display: flex; gap: 24px; font-size: 14.5px; font-weight: 500; }
+/* Seven boards carry one photograph. Each slides on its own: they arrive from above and below, lean towards the
+   pointer, and pull apart as the page scrolls. */
+.e__boards { position: absolute; inset: 0; z-index: 1; display: flex; gap: 5px; padding-inline: clamp(18px, 3vw, 44px); }
+.e__board { position: relative; flex: 1; height: 74%; top: 13%; overflow: hidden; transform: translate3d(0, var(--y, 0px), 0); will-change: transform; }
+.e__board img { position: absolute; top: -12%; height: 124%; max-width: none; width: calc(100vw - 2 * clamp(18px, 3vw, 44px)); left: calc(var(--i) * -100% - var(--i) * 5px); object-fit: cover; object-position: 50% 60%; transform: translate3d(0, calc(var(--y, 0px) * -0.35), 0); }
+/* The headline is set in one variable font. Letters near the pointer swell wide and heavy; the rest stay narrow. */
+.e__h1 { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; justify-content: space-between; padding: 92px clamp(18px, 3vw, 44px) 104px; font: 300 clamp(54px, 11.6vw, 220px)/0.8 "Archivo", sans-serif; text-transform: uppercase; letter-spacing: -0.02em; color: var(--cream); pointer-events: none; }
+/* Two copies of the headline: one behind every board, one in front of all but two of them. The words weave through. */
+.e__h1--back { z-index: 0; }
+.e__h1--front { z-index: 3; -webkit-mask-image: var(--weave); mask-image: var(--weave); text-shadow: 0 2px 30px rgba(18, 38, 30, 0.45); }
+.e__h1 span.l { display: flex; white-space: nowrap; }
+.e__h1 span.l:last-child { justify-content: flex-end; }
+.e__h1 i { font-style: normal; font-stretch: var(--w, 70%); font-weight: var(--b, 300); display: inline-block; min-width: 0.16em; }
+.e__foot { position: absolute; inset: auto 0 0; z-index: 4; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 28px; padding: 22px clamp(18px, 3vw, 44px); background: linear-gradient(0deg, var(--green) 30%, transparent); }
+.e__foot p { max-width: 52ch; font-size: 16px; color: #d9e0d8; }
+.e .btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; background: var(--cream); color: var(--ink); font: 600 12.5px "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.1em; text-transform: uppercase; transition: background-color 300ms; }
 .e .btn:hover { background: #fff; }
-.e .btn--green { background: var(--green); color: var(--cream); }
-.e .btn--green:hover { background: var(--green-2); }
-/* The photo is laid like a floor: five boards with staggered ends. They square up when you hover. */
-.e__right { position: relative; display: grid; place-items: stretch; padding: clamp(18px, 3vw, 44px); background: var(--green-2); }
-.e__boards { position: relative; clip-path: polygon(0 9%, 20% 9%, 20% 0, 40% 0, 40% 15%, 60% 15%, 60% 4%, 80% 4%, 80% 11%, 100% 11%, 100% 93%, 80% 93%, 80% 100%, 60% 100%, 60% 87%, 40% 87%, 40% 96%, 20% 96%, 20% 89%, 0 89%); transition: clip-path 1100ms cubic-bezier(0.7, 0, 0.2, 1); }
-.e__right:hover .e__boards { clip-path: polygon(0 0, 20% 0, 20% 0, 40% 0, 40% 0, 60% 0, 60% 0, 80% 0, 80% 0, 100% 0, 100% 100%, 80% 100%, 80% 100%, 60% 100%, 60% 100%, 40% 100%, 40% 100%, 20% 100%, 20% 100%, 0 100%); }
-.e__boards img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.e__boards::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(20% - 3px), var(--green-2) calc(20% - 3px) 20%); }
-.e__note { position: absolute; left: clamp(18px, 3vw, 44px); bottom: 14px; color: var(--soft); }
-.e__index { padding-block: clamp(64px, 8vw, 128px); }
-.e__indexhead { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 32px; align-items: end; margin-bottom: clamp(28px, 4vw, 56px); }
-.e__indexhead h2 { font: 500 clamp(32px, 4.4vw, 76px)/0.98 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.035em; text-transform: uppercase; }
-.e__indexhead h2 span { font-weight: 200; }
-.e__indexhead p { color: #4c5a52; }
+/* The index: every name narrow and light, packed like a poster. The one you touch stretches wide and opens onto its timber. */
+.e__index { background: var(--cream); color: var(--ink); padding-block: clamp(56px, 7vw, 112px); }
+.e__indexhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px 32px; margin-bottom: clamp(20px, 3vw, 40px); }
+.e__indexhead p { max-width: 40ch; color: #4c5a52; }
 .e__list { border-top: 1.5px solid var(--ink); }
-.e__row { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1fr) 150px 180px; gap: 20px; align-items: center; width: 100%; padding: 0 16px; height: 68px; border: 0; border-bottom: 1px solid rgba(20, 32, 26, 0.2); background: none; text-align: left; cursor: pointer; overflow: hidden; isolation: isolate; transition: height 700ms cubic-bezier(0.16, 1, 0.3, 1), color 400ms; }
-.e__row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(20, 16, 12, 0.62), rgba(20, 16, 12, 0.12) 70%), var(--g, none) 50% 50% / cover; clip-path: inset(0 100% 0 0); transition: clip-path 800ms cubic-bezier(0.7, 0, 0.2, 1); }
-.e__row[aria-pressed="true"] { height: 190px; color: #fff8ec; }
+.e__row { position: relative; display: flex; align-items: center; gap: 18px; width: 100%; height: clamp(46px, 5.4vw, 86px); padding: 0 12px; border: 0; border-bottom: 1px solid rgba(20, 32, 26, 0.22); background: none; color: inherit; text-align: left; cursor: pointer; overflow: hidden; isolation: isolate; transition: height 800ms cubic-bezier(0.16, 1, 0.3, 1), color 400ms; }
+.e__row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(20, 16, 12, 0.6), rgba(20, 16, 12, 0.1) 75%), var(--g, none) 50% 50% / cover; clip-path: inset(0 100% 0 0); transition: clip-path 900ms cubic-bezier(0.7, 0, 0.2, 1); }
+.e__row .cap { flex: none; width: 34px; opacity: 0.65; }
+.e__row b { flex: 1; min-width: 0; font: 300 clamp(34px, 5.6vw, 96px)/1 "Archivo", sans-serif; transition-property: font-stretch, font-weight, letter-spacing, font-size; font-stretch: 62%; letter-spacing: -0.01em; text-transform: uppercase; white-space: nowrap; transition: font-stretch 800ms cubic-bezier(0.16, 1, 0.3, 1), font-weight 800ms cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 800ms; }
+.e__row em { flex: none; font-style: normal; font-size: 14.5px; font-weight: 600; opacity: 0; transition: opacity 400ms; }
+.e__row:nth-child(even) b { text-align: right; }
+.e__row[aria-pressed="true"] { height: clamp(140px, 17vw, 260px); color: #fff8ec; }
 .e__row[aria-pressed="true"]::before { clip-path: inset(0); }
-.e__row .cap { opacity: 0.7; }
-.e__row b { font: 500 clamp(20px, 2.3vw, 38px)/1 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.03em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: font-size 700ms cubic-bezier(0.16, 1, 0.3, 1); }
-.e__row[aria-pressed="true"] b { font-size: clamp(26px, 3.6vw, 62px); }
-.e__row em { font-style: normal; font-size: 14.5px; opacity: 0; transition: opacity 400ms; justify-self: end; font-weight: 600; }
-.e__row[aria-pressed="true"] em { opacity: 1; transition-delay: 300ms; }
+.e__row[aria-pressed="true"] b { font-stretch: 125%; font-weight: 700; letter-spacing: -0.04em; text-align: left; font-size: clamp(24px, 4.3vw, 74px); }
+.e__row[aria-pressed="true"] em { opacity: 1; transition-delay: 350ms; }
 @media (max-width: 860px) {
-  .e__hero { grid-template-columns: 1fr; }
   .e__nav { display: none; }
-  .e__right { min-height: 62vh; order: -1; }
-  .e__lede, .e__indexhead { grid-template-columns: 1fr; }
-  .e__row { grid-template-columns: 34px minmax(0, 1fr); height: 56px; padding: 0 10px; }
-  .e__row > .cap:nth-of-type(2), .e__row em { display: none; }
-  .e__row[aria-pressed="true"] { height: 132px; }
+  .e__hero { height: 88vh; }
+  .e__h1 { font-size: 15.5vw; padding-bottom: 200px; }
+  .e__row em { display: none; }
+  .e__row b { font-size: 9.4vw; }
+  .e__row[aria-pressed="true"] b { font-size: 6vw; }
 }
+@media (prefers-reduced-motion: reduce) { .e__board, .e__board img { transform: none !important; } }
 
 /* ================= D: the material library (professional) ================= */
 .d { --paper: #f6f3ee; --ink: #1d1a17; --soft: #6f675e; --line: rgba(29, 26, 23, 0.16); --sp: #923c2d; background: var(--paper); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif; }
@@ -297,7 +297,7 @@ button { font: inherit; color: inherit; }
 
 <nav class="switch" aria-label="Directions">
   <span>Liemex: five looks. E is the new one.</span>
-  <a href="#e">E · Green and wide</a>
+  <a href="#e">E · Experimental</a>
   <a href="#d">D · Material library</a>
   <a href="#c">C · Cut from timber</a>
   <a href="#a">A · Wood type</a>
@@ -306,31 +306,28 @@ button { font: inherit; color: inherit; }
 </nav>
 
 <!-- ============ E ============ -->
-<p class="tag" id="e"><b>E · Green and wide.</b> Colour-led and confident: deep eucalypt green, wide capitals, a photo laid like floorboards, and the species as an index that opens onto the timber.</p>
+<p class="tag" id="e"><b>E · Experimental.</b> Move the pointer across the headline and the boards. One photograph on seven boards that slide on their own; letters that swell as you pass; an index that stretches open onto the timber.</p>
 <section class="e" data-e>
-  <div class="e__hero">
-    <div class="e__left">
-      <div class="e__bar">
-        <a class="e__logo" href="#e">Liemex</a>
-        <div class="e__nav"><a href="#e">Products</a><a href="#e">Species</a><a href="#e">Gallery</a><a href="#e">(08) 8444 1800</a></div>
-      </div>
-      <h1 class="e__h1">Solid timber, <span>machined here.</span></h1>
-      <div class="e__lede">
-        <p>Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Over 30 years in Port Adelaide.</p>
-        <a class="btn" href="#e">Get a quote</a>
-      </div>
+  <div class="e__hero" data-e-hero>
+    <div class="e__bar">
+      <a class="e__logo" href="#e">Liemex</a>
+      <div class="e__nav"><a href="#e">Products</a><a href="#e">Species</a><a href="#e">Gallery</a><a href="#e">(08) 8444 1800</a></div>
     </div>
-    <div class="e__right">
-      <div class="e__boards"><img src="/images/hero-tall.webp" alt="Herringbone oak parquetry in a double-height living room"></div>
-      <p class="cap e__note">Herringbone oak parquetry</p>
+    <div class="e__boards" aria-hidden="true">
+      <div class="e__board" style="--i:0"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:1"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:2"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:3"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:4"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:5"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:6"><img src="/images/hero-wide.webp" alt=""></div>
+    </div>
+    <h1 class="e__h1 e__h1--back" aria-label="Solid timber, machined here."><span class="l" aria-hidden="true"><i>S</i><i>o</i><i>l</i><i>i</i><i>d</i><i style="min-width:.22em"></i><i>t</i><i>i</i><i>m</i><i>b</i><i>e</i><i>r</i></span><span class="l" aria-hidden="true"><i>m</i><i>a</i><i>c</i><i>h</i><i>i</i><i>n</i><i>e</i><i>d</i><i style="min-width:.22em"></i><i>h</i><i>e</i><i>r</i><i>e</i></span></h1>
+    <div class="e__h1 e__h1--front" aria-hidden="true"><span class="l" aria-hidden="true"><i>S</i><i>o</i><i>l</i><i>i</i><i>d</i><i style="min-width:.22em"></i><i>t</i><i>i</i><i>m</i><i>b</i><i>e</i><i>r</i></span><span class="l" aria-hidden="true"><i>m</i><i>a</i><i>c</i><i>h</i><i>i</i><i>n</i><i>e</i><i>d</i><i style="min-width:.22em"></i><i>h</i><i>e</i><i>r</i><i>e</i></span></div>
+    <div class="e__foot">
+      <p>Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Over 30 years in Port Adelaide.</p>
+      <a class="btn" href="#e">Get a quote</a>
     </div>
   </div>
-  <div class="wrap e__index">
-    <div class="e__indexhead">
-      <h2>Seventeen timbers, <span>one yard.</span></h2>
-      <p>Run down the index. Each line opens onto the board itself.</p>
+  <div class="e__index">
+    <div class="wrap">
+      <div class="e__indexhead"><p class="cap">Seventeen timbers · one yard</p><p>Run down the index. The line you touch opens onto the board itself.</p></div>
+      <div class="e__list" data-e-list></div>
     </div>
-    <div class="e__list" data-e-list></div>
   </div>
 </section>
 
@@ -615,11 +612,10 @@ document.querySelectorAll("[data-dir]").forEach((dir) => {
   pick(3, true);
 })();
 
-// E: an index of timbers. The selected line opens onto a slab of that timber.
+// E: an index of timbers, a headline that swells under the pointer, and seven boards that move on their own.
 (() => {
   const list = document.querySelector("[data-e-list]");
-  const soft = new Set(["baltic-pine", "cypress-pine", "radiata-pine"]);
-  list.innerHTML = species.map(([slug, nm], i) => `<button class="e__row" type="button" aria-pressed="false" data-i="${i}"><span class="cap">${String(i + 1).padStart(2, "0")}</span><b>${nm}</b><span class="cap">${soft.has(slug) ? "Softwood" : "Hardwood"}</span><em>See it in a room →</em></button>`).join("");
+  list.innerHTML = species.map(([slug, nm], i) => `<button class="e__row" type="button" aria-pressed="false" data-i="${i}"><span class="cap">${String(i + 1).padStart(2, "0")}</span><b>${nm}</b><em>See it in a room →</em></button>`).join("");
   const rows = [...list.children];
   const pick = async (i) => {
     const row = rows[i];
@@ -630,6 +626,46 @@ document.querySelectorAll("[data-dir]").forEach((dir) => {
   list.addEventListener("click", (e) => { const r = e.target.closest("button"); if (r) pick(+r.dataset.i); });
   list.addEventListener("pointerover", (e) => { const r = e.target.closest("button"); if (r && matchMedia("(hover: hover)").matches) pick(+r.dataset.i); });
   pick(3);
+
+  const hero = document.querySelector("[data-e-hero]");
+  const boards = [...hero.querySelectorAll(".e__board")], letters = [...hero.querySelectorAll(".e__h1 i")];
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // The mask that lets the front copy of the headline show over the even boards only.
+  const weave = () => {
+    const w = hero.clientWidth, pad = parseFloat(getComputedStyle(hero.querySelector(".e__boards")).paddingLeft), gap = 5, bw = (w - 2 * pad - 6 * gap) / 7;
+    const stops = ["#000 0"];                                   // in front everywhere, except behind two boards
+    for (const i of [1, 4]) { const x0 = pad + i * (bw + gap), x1 = x0 + bw; stops.push(`#000 ${x0}px`, `transparent ${x0}px`, `transparent ${x1}px`, `#000 ${x1}px`); }
+    hero.style.setProperty("--weave", `linear-gradient(90deg, ${stops.join(", ")})`);
+  };
+  weave(); addEventListener("resize", weave);
+  const base = [38, -54, 22, -30, 60, -18, 44];                 // the resting stagger, like board ends
+  let mx = -1, my = 0.5, tx = -1, seen = false, t0 = performance.now();
+  hero.addEventListener("pointermove", (e) => { const r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; my = (e.clientY - r.top) / r.height; seen = true; });
+  hero.addEventListener("pointerleave", () => { seen = false; });
+  new IntersectionObserver(([en]) => { hero.dataset.on = en.isIntersecting ? "1" : ""; }).observe(hero);
+  const frame = (now) => {
+    requestAnimationFrame(frame);
+    if (!hero.dataset.on) return;
+    const t = (now - t0) / 1000;
+    if (!seen) tx = 0.5 + Math.sin(t * 0.45) * 0.42;            // with no pointer, a slow pass back and forth
+    mx += ((mx < 0 ? tx : tx) - mx) * (mx < 0 ? 1 : 0.07);
+    const r = hero.getBoundingClientRect(), sc = Math.max(0, -r.top) / r.height;
+    const arrive = Math.min(1, t / 1.6), ea = 1 - Math.pow(1 - arrive, 4);
+    boards.forEach((b, i) => {
+      const d = (i + 0.5) / boards.length - mx;
+      const lean = Math.exp(-d * d * 18) * -70 * (seen ? 1 : 0.6);          // the board under the pointer lifts
+      const y = (base[i] + lean) * ea + (1 - ea) * (i % 2 ? 900 : -900) + base[i] * sc * 2.2;
+      b.style.setProperty("--y", `${still ? base[i] : y.toFixed(1)}px`);
+    });
+    if (still) return;
+    letters.forEach((el) => {
+      const q = el.getBoundingClientRect(), d = ((q.left + q.width / 2 - r.left) / r.width - mx) * 3.2;
+      const k = Math.exp(-d * d);
+      el.style.setProperty("--w", `${(64 + k * 61).toFixed(1)}%`);
+      el.style.setProperty("--b", Math.round(250 + k * 600));
+    });
+  };
+  requestAnimationFrame(frame);
 })();
 </script>
 </body>
