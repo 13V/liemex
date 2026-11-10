@@ -112,29 +112,46 @@ button { font: inherit; color: inherit; }
 
 /* ================= E: experimental ================= */
 @font-face { font-family: "Archivo"; src: url("/fonts/archivo.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
-.e { --green: #1d3a2f; --green-2: #12261e; --cream: #f3eee3; --ink: #14201a; background: var(--green); color: var(--cream); overflow: hidden; }
+.e { --green: #1d3a2f; --green-2: #12261e; --cream: #f3eee3; --ink: #14201a; background: var(--green); color: var(--cream); overflow: clip; }
 .e .cap { font: 600 11.5px/1.3 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.14em; text-transform: uppercase; }
-.e__hero { position: relative; height: min(100vh, 980px); min-height: 620px; isolation: isolate; overflow: clip; }
-.e__bar { position: absolute; inset: 0 0 auto; z-index: 4; display: flex; align-items: center; gap: 26px; height: 76px; padding-inline: clamp(18px, 3vw, 44px); }
+/* One scroll-driven scene. It opens as a calm split hero: headline left, the photograph on five staggered boards
+   right. As you scroll the page holds, the boards square up and spread across the screen, and each one turns
+   from a slice of the photograph into a board of timber. Nothing else moves. */
+.e__scene { position: relative; }
+.e__pin { position: relative; min-height: 100vh; overflow: clip; }
+.e__bar { position: absolute; inset: 0 0 auto; z-index: 5; display: flex; align-items: center; gap: 26px; height: 80px; padding-inline: clamp(18px, 4vw, 56px); }
 .e__logo { margin-right: auto; font: 800 22px/1 "Archivo", sans-serif; font-stretch: 125%; text-transform: uppercase; }
-.e__nav { display: flex; gap: 24px; font-size: 14.5px; font-weight: 500; }
-/* Seven boards carry one photograph. Each slides on its own: they arrive from above and below, lean towards the
-   pointer, and pull apart as the page scrolls. */
-.e__boards { position: absolute; inset: 0; z-index: 1; display: flex; gap: 5px; padding-inline: clamp(18px, 3vw, 44px); }
-.e__board { position: relative; flex: 1; height: 74%; top: 13%; overflow: hidden; transform: translate3d(0, var(--y, 0px), 0); will-change: transform; }
-.e__board img { position: absolute; top: -12%; height: 124%; max-width: none; width: calc(100vw - 2 * clamp(18px, 3vw, 44px)); left: calc(var(--i) * -100% - var(--i) * 5px); object-fit: cover; object-position: 50% 60%; transform: translate3d(0, calc(var(--y, 0px) * -0.35), 0); }
-/* The headline is set in one variable font. Letters near the pointer swell wide and heavy; the rest stay narrow. */
-.e__h1 { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; justify-content: space-between; padding: 92px clamp(18px, 3vw, 44px) 104px; font: 300 clamp(54px, 11.6vw, 220px)/0.8 "Archivo", sans-serif; text-transform: uppercase; letter-spacing: -0.02em; color: var(--cream); pointer-events: none; }
-/* Two copies of the headline: one behind every board, one in front of all but two of them. The words weave through. */
-.e__h1--back { z-index: 0; }
-.e__h1--front { z-index: 3; -webkit-mask-image: var(--weave); mask-image: var(--weave); text-shadow: 0 2px 30px rgba(18, 38, 30, 0.45); }
-.e__h1 span.l { display: flex; white-space: nowrap; }
-.e__h1 span.l:last-child { justify-content: flex-end; }
-.e__h1 i { font-style: normal; font-stretch: var(--w, 70%); font-weight: var(--b, 300); display: inline-block; min-width: 0.16em; }
-.e__foot { position: absolute; inset: auto 0 0; z-index: 4; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 28px; padding: 22px clamp(18px, 3vw, 44px); background: linear-gradient(0deg, var(--green) 30%, transparent); }
-.e__foot p { max-width: 52ch; font-size: 16px; color: #d9e0d8; }
+.e__nav { display: flex; gap: 24px; font-size: 14.5px; font-weight: 500; color: #d9e0d8; }
 .e .btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; background: var(--cream); color: var(--ink); font: 600 12.5px "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.1em; text-transform: uppercase; transition: background-color 300ms; }
 .e .btn:hover { background: #fff; }
+.e__copy { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: flex-end; width: min(50%, 760px); min-height: 100vh; padding: 120px clamp(18px, 4vw, 56px) clamp(40px, 6vh, 72px); }
+.e__h1 { font: 500 clamp(40px, 5.2vw, 92px)/0.96 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.035em; text-transform: uppercase; }
+.e__h1 span { display: block; font-weight: 200; }
+.e__lede { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; margin-top: clamp(22px, 3vw, 40px); padding-top: 22px; border-top: 1px solid rgba(243, 238, 227, 0.28); }
+.e__lede p { max-width: 34ch; color: #d9e0d8; }
+.e__stage { position: absolute; inset: 0; z-index: 2; }
+.e__b { position: absolute; left: 0; top: 0; overflow: hidden; display: block; color: var(--cream); will-change: transform, width, height; }
+.e__b img { position: absolute; max-width: none; }
+.e__b .gr { inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+.e__b::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(18, 28, 22, 0.7)); opacity: var(--lab, 0); }
+.e__b span { position: absolute; z-index: 1; left: 16px; right: 12px; bottom: 16px; opacity: var(--lab, 0); }
+.e__b span b { display: block; overflow-wrap: anywhere; font: 600 clamp(13px, 1.15vw, 19px)/1.1 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.02em; text-transform: uppercase; }
+.e__b span i { display: block; margin-bottom: 8px; font: 600 11px "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.14em; font-style: normal; opacity: 0.8; }
+.e__rackhead { position: absolute; z-index: 3; left: clamp(18px, 4vw, 56px); right: clamp(18px, 4vw, 56px); top: 104px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 32px; opacity: 0; pointer-events: none; }
+.e__rackhead h2 { font: 500 clamp(30px, 3.6vw, 62px)/0.98 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.035em; text-transform: uppercase; }
+.e__rackhead h2 span { font-weight: 200; }
+.e__rackhead a { font-weight: 600; border-bottom: 1px solid currentColor; padding-bottom: 3px; pointer-events: auto; }
+.e__hint { position: absolute; z-index: 3; right: clamp(18px, 4vw, 56px); bottom: 22px; color: #9fb3a6; }
+/* Wide screens with motion: the scene is tall and its contents hold still while it plays. */
+.e__scene.is-live { height: 300vh; }
+.e__scene.is-live .e__pin { position: sticky; top: 0; height: 100vh; }
+/* Otherwise: a plain hero, then the same boards as a row you can swipe. */
+.e__scene:not(.is-live) .e__stage { position: relative; inset: auto; display: flex; gap: 5px; height: 62vh; padding: 0 clamp(18px, 4vw, 56px) 32px; overflow-x: auto; }
+.e__scene:not(.is-live) .e__b { position: relative; flex: 0 0 38vw; height: 100% !important; width: auto !important; transform: none !important; --lab: 1; }
+.e__scene:not(.is-live) .e__b .ph { display: none; }
+.e__scene:not(.is-live) .e__b .gr { opacity: 1 !important; }
+.e__scene:not(.is-live) .e__copy { width: 100%; min-height: 78vh; }
+.e__scene:not(.is-live) .e__rackhead, .e__scene:not(.is-live) .e__hint { display: none; }
 /* The index: every name narrow and light, packed like a poster. The one you touch stretches wide and opens onto its timber. */
 .e__index { background: var(--cream); color: var(--ink); padding-block: clamp(56px, 7vw, 112px); }
 .e__indexhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px 32px; margin-bottom: clamp(20px, 3vw, 40px); }
@@ -145,20 +162,17 @@ button { font: inherit; color: inherit; }
 .e__row .cap { flex: none; width: 34px; opacity: 0.65; }
 .e__row b { flex: 1; min-width: 0; font: 300 clamp(34px, 5.6vw, 96px)/1 "Archivo", sans-serif; transition-property: font-stretch, font-weight, letter-spacing, font-size; font-stretch: 62%; letter-spacing: -0.01em; text-transform: uppercase; white-space: nowrap; transition: font-stretch 800ms cubic-bezier(0.16, 1, 0.3, 1), font-weight 800ms cubic-bezier(0.16, 1, 0.3, 1), letter-spacing 800ms; }
 .e__row em { flex: none; font-style: normal; font-size: 14.5px; font-weight: 600; opacity: 0; transition: opacity 400ms; }
-.e__row:nth-child(even) b { text-align: right; }
 .e__row[aria-pressed="true"] { height: clamp(140px, 17vw, 260px); color: #fff8ec; }
 .e__row[aria-pressed="true"]::before { clip-path: inset(0); }
 .e__row[aria-pressed="true"] b { font-stretch: 125%; font-weight: 700; letter-spacing: -0.04em; text-align: left; font-size: clamp(24px, 4.3vw, 74px); }
 .e__row[aria-pressed="true"] em { opacity: 1; transition-delay: 350ms; }
 @media (max-width: 860px) {
   .e__nav { display: none; }
-  .e__hero { height: 88vh; }
-  .e__h1 { font-size: 15.5vw; padding-bottom: 200px; }
+  .e__h1 { font-size: 10.4vw; }
   .e__row em { display: none; }
   .e__row b { font-size: 9.4vw; }
   .e__row[aria-pressed="true"] b { font-size: 6vw; }
 }
-@media (prefers-reduced-motion: reduce) { .e__board, .e__board img { transform: none !important; } }
 
 /* ================= D: the material library (professional) ================= */
 .d { --paper: #f6f3ee; --ink: #1d1a17; --soft: #6f675e; --line: rgba(29, 26, 23, 0.16); --sp: #923c2d; background: var(--paper); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif; }
@@ -306,24 +320,31 @@ button { font: inherit; color: inherit; }
 </nav>
 
 <!-- ============ E ============ -->
-<p class="tag" id="e"><b>E · Experimental.</b> Move the pointer across the headline and the boards. One photograph on seven boards that slide on their own; letters that swell as you pass; an index that stretches open onto the timber.</p>
+<p class="tag" id="e"><b>E · Professional, with one experiment.</b> Scroll slowly. The hero photograph comes apart into boards, and each board becomes a timber. Everything else is calm.</p>
 <section class="e" data-e>
-  <div class="e__hero" data-e-hero>
-    <div class="e__bar">
-      <a class="e__logo" href="#e">Liemex</a>
-      <div class="e__nav"><a href="#e">Products</a><a href="#e">Species</a><a href="#e">Gallery</a><a href="#e">(08) 8444 1800</a></div>
-    </div>
-    <div class="e__boards" aria-hidden="true">
-      <div class="e__board" style="--i:0"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:1"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:2"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:3"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:4"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:5"><img src="/images/hero-wide.webp" alt=""></div><div class="e__board" style="--i:6"><img src="/images/hero-wide.webp" alt=""></div>
-    </div>
-    <h1 class="e__h1 e__h1--back" aria-label="Solid timber, machined here."><span class="l" aria-hidden="true"><i>S</i><i>o</i><i>l</i><i>i</i><i>d</i><i style="min-width:.22em"></i><i>t</i><i>i</i><i>m</i><i>b</i><i>e</i><i>r</i></span><span class="l" aria-hidden="true"><i>m</i><i>a</i><i>c</i><i>h</i><i>i</i><i>n</i><i>e</i><i>d</i><i style="min-width:.22em"></i><i>h</i><i>e</i><i>r</i><i>e</i></span></h1>
-    <div class="e__h1 e__h1--front" aria-hidden="true"><span class="l" aria-hidden="true"><i>S</i><i>o</i><i>l</i><i>i</i><i>d</i><i style="min-width:.22em"></i><i>t</i><i>i</i><i>m</i><i>b</i><i>e</i><i>r</i></span><span class="l" aria-hidden="true"><i>m</i><i>a</i><i>c</i><i>h</i><i>i</i><i>n</i><i>e</i><i>d</i><i style="min-width:.22em"></i><i>h</i><i>e</i><i>r</i><i>e</i></span></div>
-    <div class="e__foot">
-      <p>Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Over 30 years in Port Adelaide.</p>
-      <a class="btn" href="#e">Get a quote</a>
+  <div class="e__scene" data-e-scene>
+    <div class="e__pin">
+      <div class="e__bar">
+        <a class="e__logo" href="#e">Liemex</a>
+        <div class="e__nav"><a href="#e">Products</a><a href="#e">Species</a><a href="#e">Gallery</a><a href="#e">(08) 8444 1800</a></div>
+        <a class="btn" href="#e">Get a quote</a>
+      </div>
+      <div class="e__copy" data-e-copy>
+        <h1 class="e__h1">Solid timber, <span>machined here.</span></h1>
+        <div class="e__lede">
+          <p>Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Over 30 years in Port Adelaide.</p>
+          <a class="btn" href="#e">Get a quote</a>
+        </div>
+      </div>
+      <div class="e__rackhead" data-e-head>
+        <h2>In the rack, <span>seven of seventeen.</span></h2>
+        <a href="#e-index">See every timber</a>
+      </div>
+      <div class="e__stage" data-e-stage></div>
+      <p class="cap e__hint" data-e-hint>Scroll</p>
     </div>
   </div>
-  <div class="e__index">
+  <div class="e__index" id="e-index">
     <div class="wrap">
       <div class="e__indexhead"><p class="cap">Seventeen timbers · one yard</p><p>Run down the index. The line you touch opens onto the board itself.</p></div>
       <div class="e__list" data-e-list></div>
@@ -612,7 +633,7 @@ document.querySelectorAll("[data-dir]").forEach((dir) => {
   pick(3, true);
 })();
 
-// E: an index of timbers, a headline that swells under the pointer, and seven boards that move on their own.
+// E: an index of timbers, and one scroll-driven scene.
 (() => {
   const list = document.querySelector("[data-e-list]");
   list.innerHTML = species.map(([slug, nm], i) => `<button class="e__row" type="button" aria-pressed="false" data-i="${i}"><span class="cap">${String(i + 1).padStart(2, "0")}</span><b>${nm}</b><em>See it in a room →</em></button>`).join("");
@@ -627,45 +648,54 @@ document.querySelectorAll("[data-dir]").forEach((dir) => {
   list.addEventListener("pointerover", (e) => { const r = e.target.closest("button"); if (r && matchMedia("(hover: hover)").matches) pick(+r.dataset.i); });
   pick(3);
 
-  const hero = document.querySelector("[data-e-hero]");
-  const boards = [...hero.querySelectorAll(".e__board")], letters = [...hero.querySelectorAll(".e__h1 i")];
-  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // The mask that lets the front copy of the headline show over the even boards only.
-  const weave = () => {
-    const w = hero.clientWidth, pad = parseFloat(getComputedStyle(hero.querySelector(".e__boards")).paddingLeft), gap = 5, bw = (w - 2 * pad - 6 * gap) / 7;
-    const stops = ["#000 0"];                                   // in front everywhere, except behind two boards
-    for (const i of [1, 4]) { const x0 = pad + i * (bw + gap), x1 = x0 + bw; stops.push(`#000 ${x0}px`, `transparent ${x0}px`, `transparent ${x1}px`, `#000 ${x1}px`); }
-    hero.style.setProperty("--weave", `linear-gradient(90deg, ${stops.join(", ")})`);
-  };
-  weave(); addEventListener("resize", weave);
-  const base = [38, -54, 22, -30, 60, -18, 44];                 // the resting stagger, like board ends
-  let mx = -1, my = 0.5, tx = -1, seen = false, t0 = performance.now();
-  hero.addEventListener("pointermove", (e) => { const r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; my = (e.clientY - r.top) / r.height; seen = true; });
-  hero.addEventListener("pointerleave", () => { seen = false; });
-  new IntersectionObserver(([en]) => { hero.dataset.on = en.isIntersecting ? "1" : ""; }).observe(hero);
-  const frame = (now) => {
-    requestAnimationFrame(frame);
-    if (!hero.dataset.on) return;
-    const t = (now - t0) / 1000;
-    if (!seen) tx = 0.5 + Math.sin(t * 0.45) * 0.42;            // with no pointer, a slow pass back and forth
-    mx += ((mx < 0 ? tx : tx) - mx) * (mx < 0 ? 1 : 0.07);
-    const r = hero.getBoundingClientRect(), sc = Math.max(0, -r.top) / r.height;
-    const arrive = Math.min(1, t / 1.6), ea = 1 - Math.pow(1 - arrive, 4);
-    boards.forEach((b, i) => {
-      const d = (i + 0.5) / boards.length - mx;
-      const lean = Math.exp(-d * d * 18) * -70 * (seen ? 1 : 0.6);          // the board under the pointer lifts
-      const y = (base[i] + lean) * ea + (1 - ea) * (i % 2 ? 900 : -900) + base[i] * sc * 2.2;
-      b.style.setProperty("--y", `${still ? base[i] : y.toFixed(1)}px`);
+  // The scene. p runs 0 to 1 as the tall section scrolls past.
+  const scene = document.querySelector("[data-e-scene]"), stage = scene.querySelector("[data-e-stage]");
+  const copy = scene.querySelector("[data-e-copy]"), head = scene.querySelector("[data-e-head]"), hint = scene.querySelector("[data-e-hint]");
+  const chosen = [0, 3, 2, 6, 7, 1, 16], N = chosen.length, GAP = 5;
+  const stagger = [0.07, -0.05, 0.03, -0.08, 0.05, -0.03, 0.08];            // board ends, as a share of the height
+  stage.innerHTML = chosen.map((k) => `<a class="e__b" href="/"><img class="ph" src="/images/hero-wide.webp" alt=""><img class="gr" src="/images/species/${species[k][0]}-v.webp" alt=""><span><i>${String(k + 1).padStart(2, "0")}</i><b>${species[k][1]}</b></span></a>`).join("");
+  const bs = [...stage.children];
+  const live = matchMedia("(min-width: 900px) and (prefers-reduced-motion: no-preference)");
+  const sm = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  const lerp = (a, b, t) => a + (b - a) * t;
+  let geo = null;
+  const measure = () => {
+    scene.classList.toggle("is-live", live.matches);
+    if (!live.matches) { geo = null; bs.forEach((b) => { b.style.cssText = ""; b.querySelector(".ph").style.cssText = ""; }); return; }
+    const W = innerWidth, H = innerHeight, P = Math.max(18, Math.min(56, W * 0.04));
+    const ax = W * 0.54, aw = W - P - ax, ay = H * 0.16, ah = H * 0.7;              // where the photograph sits at the start
+    const w0 = (aw - (N - 1) * GAP) / N, w1 = (W - 2 * P - (N - 1) * GAP) / N;
+    geo = bs.map((b, i) => {
+      const g = { x0: ax + i * (w0 + GAP), y0: ay + stagger[i] * H, w0, h0: ah, x1: P + i * (w1 + GAP), y1: H * 0.3, w1, h1: H * 0.62 };
+      const ph = b.querySelector(".ph");                                              // one picture across all the boards
+      ph.style.cssText = `width:${aw}px;height:${ah + H * 0.2}px;object-fit:cover;object-position:50% 60%;left:${-(g.x0 - ax)}px;top:${-(g.y0 - ay) - H * 0.1}px`;
+      return g;
     });
-    if (still) return;
-    letters.forEach((el) => {
-      const q = el.getBoundingClientRect(), d = ((q.left + q.width / 2 - r.left) / r.width - mx) * 3.2;
-      const k = Math.exp(-d * d);
-      el.style.setProperty("--w", `${(64 + k * 61).toFixed(1)}%`);
-      el.style.setProperty("--b", Math.round(250 + k * 600));
-    });
+    draw();
   };
-  requestAnimationFrame(frame);
+  const draw = () => {
+    if (!geo) return;
+    const r = scene.getBoundingClientRect(), p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+    const move = sm(0.12, 0.62, p), turn = sm(0.42, 0.74, p), lab = sm(0.76, 0.92, p), out = sm(0.04, 0.3, p);
+    bs.forEach((b, i) => {
+      const g = geo[i], t = sm(i * 0.03, 0.82 + i * 0.03, move);                     // each board a beat after the last
+      b.style.transform = `translate3d(${lerp(g.x0, g.x1, t).toFixed(1)}px, ${lerp(g.y0, g.y1, t).toFixed(1)}px, 0)`;
+      b.style.width = `${lerp(g.w0, g.w1, t).toFixed(1)}px`;
+      b.style.height = `${lerp(g.h0, g.h1, t).toFixed(1)}px`;
+      b.querySelector(".gr").style.opacity = sm(i * 0.05, 0.7 + i * 0.05, turn).toFixed(3);
+      b.style.setProperty("--lab", lab.toFixed(3));
+    });
+    copy.style.opacity = (1 - out).toFixed(3);
+    copy.style.transform = `translate3d(0, ${(-out * 40).toFixed(1)}px, 0)`;
+    copy.style.pointerEvents = out > 0.5 ? "none" : "";
+    head.style.opacity = lab.toFixed(3);
+    hint.style.opacity = (1 - sm(0, 0.08, p)).toFixed(3);
+  };
+  let tick = false;
+  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(() => { tick = false; draw(); }); } }, { passive: true });
+  addEventListener("resize", measure);
+  live.addEventListener("change", measure);
+  measure();
 })();
 </script>
 </body>
