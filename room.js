@@ -172,15 +172,16 @@ box(0.03, 0.2, 0.03, frameMat, GX + 0.07, 1.05, BACK + 3.62, false);         // 
 const glass = new THREE.Mesh(new THREE.PlaneGeometry(12, HEAD).rotateY(Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.03, metalness: 0, transparent: true, opacity: 0.1, envMapIntensity: 1.6, depthWrite: false }));
 glass.position.set(GX, HEAD / 2, 1.6);
 scene.add(glass);
-// Outside: a photograph of the outlook on a wide curved backdrop, a terrace floor and a glass balustrade.
+// Outside: a bright, hazy outlook from high up, on a wide curved backdrop, with a terrace and a glass balustrade.
+// It is pale on purpose: from inside a sunlit room the view is always washed out.
 const outside = (() => {
   const t = new THREE.TextureLoader().load("/images/room-outlook.jpg");
   t.colorSpace = THREE.SRGBColorSpace;
   t.anisotropy = maxAniso;
-  const g = new THREE.CylinderGeometry(20, 20, 15.8, 48, 1, true, Math.PI * 1.5 - 0.92, 1.84);   // an arc facing the room
-  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ map: t, side: THREE.BackSide, color: new THREE.Color(1.5, 1.5, 1.5), fog: false }));
+  const g = new THREE.CylinderGeometry(15, 15, 11.8, 48, 1, true, Math.PI * 1.5 - 0.92, 1.84);   // an arc facing the room
+  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ map: t, side: THREE.BackSide, toneMapped: false, fog: false }));
   t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; t.offset.x = 1;   // seen from inside the arc, so un-mirror the picture
-  m.position.set(LEFT + 9, 0.5, 0.6);   // the horizon sits low, so the windows hold sky as well as rooftops
+  m.position.set(-3, 2.9, 0.6);   // the horizon sits low: mostly sky, a far suburb below it
   scene.add(m);
   const deck = box(2.4, 0.06, 13, new THREE.MeshStandardMaterial({ color: 0xb9b2a6, roughness: 0.9 }), LEFT - 1.35, -0.03, 1.6, false);
   const rail = new THREE.Mesh(new THREE.PlaneGeometry(13, 1.05).rotateY(Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: 0xdfeee9, roughness: 0.05, transparent: true, opacity: 0.16, depthWrite: false }));
