@@ -467,13 +467,15 @@ const pace = (now) => {
 /* ---------- State ---------- */
 let current = null, lay = "boards", open = false, raf = 0, job = 0, baked = false;
 let az = 0, pol = 0, azT = 0, polT = 0, t0 = 0, layT = null, pending = null;
+let narrow = false;   // a phone held upright: the picture sits above the panel, and the camera stands further back
 const fit = () => {
-  const w = dlg.clientWidth, h = dlg.clientHeight;
+  const w = canvas.clientWidth || dlg.clientWidth, h = canvas.clientHeight || dlg.clientHeight;
+  narrow = w < h * 1.3;
   renderer.setSize(w, h, false);
   composer?.setPixelRatio(renderer.getPixelRatio());
   composer?.setSize(w, h);
   camera.aspect = w / h;
-  camera.fov = w < h ? 60 : 38;
+  camera.fov = narrow ? 50 : 38;
   if (w > 900) camera.setViewOffset(w, h, -w * 0.07, 0, w, h); else camera.clearViewOffset();   // leave room for the panel
   camera.updateProjectionMatrix();
 };
@@ -522,9 +524,10 @@ const tick = (now) => {
   const moved = Math.abs(azT - az) + Math.abs(polT - pol);
   az += (azT - az) * 0.2;                        // follows the hand closely
   pol += (polT - pol) * 0.2;
-  const a = 0.74 + az, p = 0.24 + pol, d = 7.4 * (1.36 - 0.36 * arrive);
-  camera.position.set(target.x + Math.sin(a) * Math.cos(p) * d, target.y + Math.sin(p) * d + 0.3, target.z + Math.cos(a) * Math.cos(p) * d);
-  camera.lookAt(target);
+  const a = 0.74 + az, p = (narrow ? 0.25 : 0.24) + pol, d = (narrow ? 8.0 : 7.4) * (1.36 - 0.36 * arrive);   // any higher and the camera is above the ceiling
+  const ty = narrow ? 0.45 : target.y;
+  camera.position.set(target.x + Math.sin(a) * Math.cos(p) * d, ty + Math.sin(p) * d + 0.3, target.z + Math.cos(a) * Math.cos(p) * d);
+  camera.lookAt(target.x, ty, target.z);
   if (layT !== null) {
     const t = clamp((now - layT) / 1600);
     edge.constant = BACK + easeIO(t) * 11;
