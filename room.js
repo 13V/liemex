@@ -155,49 +155,84 @@ const add = (geo, mat, x, y, z, cast = true) => {
 };
 const box = (w, h, d, mat, x, y, z, cast = true) => add(new THREE.BoxGeometry(w, h, d), mat, x, y, z, cast);
 
-const H = 2.9, BACK = -3.4, LEFT = -4.1, HEAD = 2.62;          // ceiling, back wall, glass wall, window head
+const H = 2.9, BACK = -3.4, LEFT = -4.1, HEAD = 2.78;          // ceiling, back wall, glass wall, window head
 box(13, H, 0.2, wallMat, 0.6, H / 2, BACK - 0.1);
 box(13, 0.2, 12, wallMat, 0.6, H + 0.1, 1.6);
 box(0.2, H - HEAD, 12, wallMat, LEFT - 0.1, (H + HEAD) / 2, 1.6);   // bulkhead over the glass
 box(0.2, H, 0.5, wallMat, LEFT - 0.1, H / 2, BACK + 0.15);          // corner
-for (let z = BACK + 0.4; z < 6; z += 1.55) box(0.05, HEAD, 0.06, darkMat, LEFT - 0.05, HEAD / 2, z);   // mullions
-box(0.05, 0.05, 12, darkMat, LEFT - 0.05, 0.03, 1.6, false);
-// Outside: a hazy sky over a soft horizon.
+// The glass wall: black aluminium frames, a head and a sill, a sliding door pair in the middle, and real glass.
+const frameMat = new THREE.MeshStandardMaterial({ color: 0x17140f, roughness: 0.35, metalness: 0.7 });
+const GX = LEFT - 0.04, SILL = 0.08;
+box(0.12, 0.09, 12, frameMat, GX, HEAD - 0.045, 1.6, false);                 // head
+box(0.14, SILL, 12, frameMat, GX, SILL / 2, 1.6, false);                     // sill
+const posts = [BACK + 0.42, BACK + 1.95, BACK + 3.5, BACK + 5.05, BACK + 6.6, BACK + 8.15];
+posts.forEach((z, i) => box(0.1, HEAD, i === 2 || i === 3 ? 0.11 : 0.075, frameMat, GX, HEAD / 2, z));
+box(0.1, 0.06, 1.53, frameMat, GX, 2.06, BACK + 1.185, false);               // a transom over the first light
+box(0.03, 0.2, 0.03, frameMat, GX + 0.07, 1.05, BACK + 3.62, false);         // door pull
+const glass = new THREE.Mesh(new THREE.PlaneGeometry(12, HEAD).rotateY(Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.03, metalness: 0, transparent: true, opacity: 0.1, envMapIntensity: 1.6, depthWrite: false }));
+glass.position.set(GX, HEAD / 2, 1.6);
+scene.add(glass);
+// Outside: a photograph of the outlook on a wide curved backdrop, a terrace floor and a glass balustrade.
 const outside = (() => {
-  const [c, ctx] = cv(64, 256);
-  const g = ctx.createLinearGradient(0, 0, 0, 256);
-  g.addColorStop(0, "#f7fbff"); g.addColorStop(0.55, "#ffffff"); g.addColorStop(0.68, "#dfe6dc"); g.addColorStop(0.8, "#b9c6ad"); g.addColorStop(1, "#a9b79c");
-  ctx.fillStyle = g; ctx.fillRect(0, 0, 64, 256);
-  const t = new THREE.CanvasTexture(c);
+  const t = new THREE.TextureLoader().load("/images/room-outlook.jpg");
   t.colorSpace = THREE.SRGBColorSpace;
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(30, 9), new THREE.MeshBasicMaterial({ map: t, color: new THREE.Color(3.2, 3.2, 3.2) }));
-  m.position.set(LEFT - 5, 2.4, 1);
-  m.rotation.y = Math.PI / 2;
+  t.anisotropy = maxAniso;
+  const g = new THREE.CylinderGeometry(20, 20, 15.8, 48, 1, true, Math.PI * 1.5 - 0.92, 1.84);   // an arc facing the room
+  const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ map: t, side: THREE.BackSide, color: new THREE.Color(1.5, 1.5, 1.5), fog: false }));
+  t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; t.offset.x = 1;   // seen from inside the arc, so un-mirror the picture
+  m.position.set(LEFT + 9, 0.5, 0.6);   // the horizon sits low, so the windows hold sky as well as rooftops
   scene.add(m);
+  const deck = box(2.4, 0.06, 13, new THREE.MeshStandardMaterial({ color: 0xb9b2a6, roughness: 0.9 }), LEFT - 1.35, -0.03, 1.6, false);
+  const rail = new THREE.Mesh(new THREE.PlaneGeometry(13, 1.05).rotateY(Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: 0xdfeee9, roughness: 0.05, transparent: true, opacity: 0.16, depthWrite: false }));
+  rail.position.set(LEFT - 2.5, 0.55, 1.6);
+  scene.add(rail);
+  box(0.04, 0.04, 13, frameMat, LEFT - 2.5, 1.09, 1.6, false);
   return m;
 })();
 // Recessed downlights.
 const spot = new THREE.MeshBasicMaterial({ color: new THREE.Color(2.2, 2.0, 1.7) });
 [[-2.2, -2.2], [0.2, -2.2], [-2.2, 0.4], [0.2, 0.4], [2.4, -1]].forEach(([x, z]) => { const d = new THREE.Mesh(new THREE.CircleGeometry(0.05, 20).rotateX(Math.PI / 2), spot); d.position.set(x, H - 0.002, z); scene.add(d); });
 
-// Sheer curtains: folded cloth that glows where daylight is behind it.
-const sheer = (glow) => new THREE.MeshStandardMaterial({ color: 0xf4eee2, emissive: 0xfff0d8, emissiveIntensity: glow, roughness: 1, transparent: true, opacity: 0.8, side: THREE.DoubleSide, depthWrite: false });
-const curtain = (len, mat, x, z, alongZ) => {
-  const g = new THREE.PlaneGeometry(len, HEAD - 0.04, Math.round(len * 46), 1);
-  const p = g.attributes.position;
-  for (let i = 0; i < p.count; i++) { const u = p.getX(i); p.setZ(i, Math.sin(u * 15.5) * 0.045 + Math.sin(u * 41) * 0.008); }
+// Sheers: floor-to-ceiling linen in an S-fold, hung from a recessed track. Thin enough to see the outlook
+// through, brighter where the folds overlap less, and gathered a little tighter at each end.
+const weave = (() => {
+  const [c, ctx] = cv(256);
+  const r = rand(5);
+  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 256; i += 2) { ctx.fillStyle = `rgba(120,110,95,${0.05 + r() * 0.12})`; ctx.fillRect(i, 0, 1, 256); }
+  for (let i = 0; i < 256; i += 3) { ctx.fillStyle = `rgba(120,110,95,${0.03 + r() * 0.08})`; ctx.fillRect(0, i, 256, 1); }
+  return c;
+})();
+const sheer = (glow, opacity) => new THREE.MeshStandardMaterial({ color: 0xf3ece0, emissive: 0xfff3e0, emissiveIntensity: glow, roughness: 1, transparent: true, opacity, side: THREE.DoubleSide, depthWrite: false, map: tex(weave, 1, 1), alphaMap: tex(weave, 1, 1, false) });
+const curtain = (len, mat, x, z, alongZ, seed) => {
+  const DROP = HEAD - 0.02, COLS = Math.round(len * 90), ROWS = 10;
+  const g = new THREE.PlaneGeometry(len, DROP, COLS, ROWS);
+  const p = g.attributes.position, r = rand(seed);
+  const ph = r() * 6, wob = r() * 6;
+  for (let i = 0; i < p.count; i++) {
+    const u = p.getX(i), v = p.getY(i) / DROP + 0.5;                       // v: 0 at the hem, 1 at the track
+    const fold = Math.sin(u * 26 + ph);                                    // one S-fold every 24 cm
+    const loose = 1 + (1 - v) * 0.35;                                      // folds open a little towards the hem
+    p.setZ(i, (fold * 0.055 + Math.sin(u * 7.3 + wob) * 0.012 * (1 - v)) * loose);
+    p.setX(i, u + Math.sin(u * 26 + ph + 1.57) * 0.012 * (1 - v));
+  }
   g.computeVertexNormals();
+  g.attributes.uv.array.forEach((_, i, a) => { if (i % 2 === 0) a[i] *= len * 3; else a[i] *= 6; });
   const m = new THREE.Mesh(g, mat);
-  m.position.set(x, (HEAD - 0.04) / 2 + 0.02, z);
+  m.position.set(x, DROP / 2 + 0.012, z);
   if (alongZ) m.rotation.y = Math.PI / 2;
-  m.renderOrder = 1;
+  m.renderOrder = 2;
   scene.add(m);
 };
-const day = sheer(0.62), dim = sheer(0.42);
-curtain(3.0, day, LEFT + 0.2, BACK + 1.6, true);      // glass wall, back section
-curtain(4.6, day, LEFT + 0.2, 4.0, true);             // glass wall, towards you; the gap between is the view
-curtain(2.9, dim, LEFT + 1.55, BACK + 0.2, false);    // wrapping the corner along the back wall
-box(0.03, 0.03, 12, darkMat, LEFT + 0.2, HEAD - 0.01, 1.6, false);   // track
+const day = sheer(0.34, 0.62), dim = sheer(0.4, 0.9);
+const CX = LEFT + 0.24;
+curtain(2.9, day, CX, BACK + 1.6, true, 3);            // over the glass at the back
+curtain(4.4, day, CX, BACK + 7.9, true, 9);            // over the glass towards you; between them the doors are clear
+curtain(2.7, dim, LEFT + 1.6, BACK + 0.22, false, 14); // returning along the back wall
+// A shadow-gap track recessed into the ceiling, running the length of the glass and round the corner.
+const gap = new THREE.MeshBasicMaterial({ color: 0x0f0d0a });
+box(0.16, 0.012, 12.2, gap, CX, H - 0.004, 1.5, false);
+box(3.2, 0.012, 0.16, gap, LEFT + 1.6, H - 0.004, BACK + 0.22, false);
 
 /* ---------- Timber: one material for the door, skirting and stools ---------- */
 const timber = new THREE.MeshPhysicalMaterial({ roughness: 0.42, clearcoat: 0.25, clearcoatRoughness: 0.3 });
