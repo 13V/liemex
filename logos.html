@@ -33,12 +33,12 @@ h2 { font-size: clamp(30px, 3.6vw, 54px); font-weight: 500; letter-spacing: -0.0
 .now li { padding-left: 18px; position: relative; color: #333; } .now li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--ink); }
 .read { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 28px; }
 .read div { border-top: 1px solid var(--ink); padding-top: 12px; font-size: 15.5px; color: #333; } .read b { display: block; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
-.dir { padding-block: clamp(56px, 7vw, 104px); border-top: 1px solid var(--line); }
+.dir { padding-block: clamp(44px, 5vw, 76px); border-top: 1px solid var(--line); }
 .dir__head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 20px 56px; align-items: end; margin-bottom: clamp(24px, 3vw, 40px); }
 .dir__head .label { grid-column: 1 / -1; }
 .hero2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.tile { display: grid; place-items: center; min-height: clamp(200px, 26vw, 360px); border-radius: 16px; padding: clamp(20px, 4vw, 56px); }
-.tile svg { width: min(100%, 460px); }
+.tile { display: grid; place-items: center; min-height: clamp(200px, 24vw, 340px); border-radius: 16px; padding: clamp(20px, 4vw, 56px); }
+.tile svg { width: min(100%, 400px); height: auto; flex: none; }
 .uses { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
 .use { border-radius: 16px; overflow: hidden; background: var(--tint); display: flex; flex-direction: column; }
 .use > div { flex: 1; display: grid; place-items: center; min-height: 190px; padding: 22px; }
@@ -63,12 +63,12 @@ h2 { font-size: clamp(30px, 3.6vw, 54px); font-weight: 500; letter-spacing: -0.0
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><b>Lumen adl <span>for Liemex · logo directions</span></b><a href="#d1">The Board</a><a href="#d2">End Grain</a><a href="#d3">The Stamp</a><a href="#d4">The Profile</a><a href="/proposal">Back to the proposal</a></div></header>
+<header class="top"><div class="wrap"><b>Lumen adl <span>for Liemex · logo directions</span></b><a href="#d1">Start</a><a href="#pick">Our shortlist</a><a href="/proposal">Back to the proposal</a></div></header>
 
 <main>
   <div class="wrap cover">
     <p class="label">Logo directions · November 2026</p>
-    <h1>Four ways to redraw the Liemex logo</h1>
+    <h1>Ten ways to redraw the Liemex logo</h1>
     <p class="lede">Drawn from what your own website says about the business. Each is one colour, so it can be cut in vinyl, embroidered, or branded onto a board. These are concepts to react to, not finished artwork.</p>
   </div>
   <div class="wrap" style="padding-bottom:clamp(40px,5vw,72px)">
@@ -97,9 +97,10 @@ h2 { font-size: clamp(30px, 3.6vw, 54px); font-weight: 500; letter-spacing: -0.0
     </div>
   </section>
   <div data-dirs></div>
-  <section class="end"><div class="wrap">
-    <p class="label" style="color:#9a9a9a">Next</p>
-    <h2 style="margin-top:14px;max-width:16ch">Pick one, or the parts of each you like.</h2>
+  <section class="end" id="pick"><div class="wrap">
+    <p class="label" style="color:#9a9a9a">Our shortlist</p>
+    <h2 style="margin-top:14px;max-width:18ch">The Profile, The Stamp and The Tenon.</h2>
+    <p class="lede">The Profile and The Tenon come from things only you can claim: your L-coded mouldings and the way your doors are built. The Stamp is the gentlest change for customers who know the badge. Pick one, or the parts of each you like.</p>
     <p class="lede">We then draw it properly: final lettering, exact spacing, and a set of files for print, signage, embroidery and the website.</p>
   </div></section>
 </main>
@@ -131,16 +132,43 @@ h2 { font-size: clamp(30px, 3.6vw, 54px); font-weight: 500; letter-spacing: -0.0
   const profMark = (c) => `<path fill="${c}" d="M8 68V11C8 7 11 4 15 4H23C27 4 30 7 30 11V32C30 43 36 48 47 48H59C63 48 66 51 66 55V68Z"/>`;
   const profile = (c) => `<svg viewBox="0 0 360 72" role="img" aria-label="Liemex">${profMark(c)}<text x="90" y="46" font-family="Archivo, sans-serif" font-weight="600" font-stretch="125%" font-size="42" letter-spacing="3" fill="${c}">LIEMEX</text>${tag(c, 92, 65, "start", 7.8)}</svg>`;
 
+  // Six more marks, each from something on the Liemex site.
+  const name = (c, x, o = {}) => `<text x="${x}" y="${o.y || 48}" font-family="${o.f || "Archivo, sans-serif"}" font-weight="${o.w || 900}" font-stretch="${o.st || "62%"}" font-size="${o.s || 60}" letter-spacing="${o.ls ?? -0.5}" fill="${c}">${o.t || "LIEMEX"}</text>`;
+  const sectMark = (c) => `<g fill="none" stroke="${c}" stroke-linejoin="round" stroke-linecap="round"><path stroke-width="4.4" d="M20 66V16C20 9 24 5 29 5C34 5 36 9 36 14C36 20 39 23 44 24C50 26 52 31 52 38V66Z"/><path stroke-width="2" d="M8 66H64M60 5V60M56 5H64" opacity=".6"/></g>`;
+  const sect = (c) => `<svg viewBox="0 0 290 72" role="img" aria-label="Liemex">${sectMark(c)}${name(c, 78, { y: 50, s: 62 })}${tag(c, 79.5, 67, "start", 7.4)}</svg>`;
+  const tenonMark = (c) => `<path fill="${c}" d="M4 12H28V27H43V45H28V60H4Z"/><path fill="${c}" d="M33 12H68V60H33V50H48V22H33Z"/>`;
+  const tenon = (c) => `<svg viewBox="0 0 330 72" role="img" aria-label="Liemex">${tenonMark(c)}${name(c, 86, { f: "Besley, Georgia, serif", s: 50, ls: -1.5, y: 46, t: "Liemex" })}${tag(c, 88, 65, "start", 7.6)}</svg>`;
+  const stackMark = (c, a) => [0, 1, 2].map((r) => [0, 1, 2].map((k) => `<rect x="${4 + k * 23 + (r === 1 ? 0 : 0)}" y="${8 + r * 21}" width="19" height="13" fill="${r === 1 && k === 2 ? a : c}"/>`).join("") + (r < 2 ? `<rect x="10" y="${22.5 + r * 21}" width="4" height="5" fill="${c}" opacity=".55"/><rect x="56" y="${22.5 + r * 21}" width="4" height="5" fill="${c}" opacity=".55"/>` : "")).join("");
+  const stack = (c) => `<svg viewBox="0 0 300 72" role="img" aria-label="Liemex">${stackMark(c, RED)}${name(c, 84, { y: 49, s: 60, w: 800, st: "75%", ls: 0 })}${tag(c, 85.5, 66, "start", 7.4)}</svg>`;
+  const doorMark = (c) => `<g fill="none" stroke="${c}" stroke-linejoin="round"><path stroke-width="4.4" d="M18 68V4H54V68"/><path stroke-width="2.4" d="M25 11H33.500V33H25ZM38.500 11H47V33H38.500ZM25 40H33.500V61H25ZM38.500 40H47V61H38.500Z"/><path stroke-width="4.4" stroke-linecap="round" d="M8 68H64"/></g>`;
+  const door = (c) => `<svg viewBox="0 0 330 72" role="img" aria-label="Liemex">${doorMark(c)}${name(c, 82, { f: "Besley, Georgia, serif", s: 50, ls: -1.5, y: 46, w: 800, t: "Liemex" })}${tag(c, 84, 65, "start", 7.6)}</svg>`;
+  const gradeMark = (c) => `<rect x="4" y="12" width="64" height="48" rx="5" fill="none" stroke="${c}" stroke-width="4"/><text x="36" y="47" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-stretch="70%" font-size="34" fill="${c}">LX</text><path d="M12 53H60" stroke="${c}" stroke-width="2"/>`;
+  const grade = (c) => `<svg viewBox="0 0 330 72" role="img" aria-label="Liemex">${gradeMark(c)}${name(c, 84, { y: 47, s: 46, w: 800, st: "100%", ls: 1 })}${tag(c, 86, 65, "start", 7.6)}</svg>`;
+  const word = (c) => `<svg viewBox="0 0 252 82" role="img" aria-label="Liemex">${name(c, 1, { y: 50, s: 66, ls: 0.5 })}<path fill="${c}" d="M2 58H236V60.500H246V66.500H236V69H2Z"/>${tag(c, 3, 80, "start", 7.4)}</svg>`;
+  const wordMark = (c) => `<text x="36" y="56" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-stretch="62%" font-size="62" fill="${c}">L</text><path fill="${c}" d="M14 62H52V64H58V68H52V70H14Z"/>`;
+
   const icon = (inner) => `<svg viewBox="-4 -4 80 80">${inner}</svg>`;
   const dirs = [
-    { id: "d1", name: "The Board", sum: "A tongue and groove floorboard, end on: the traditional 152 × 22 Baltic pine board the business is named for. The red dot is the end-seal paint on a stack of timber.", light: PAPER, dark: INK, on: PAPER, ink: INK, lock: (c) => board(c), mark: (c) => icon(boardMark(c, RED)),
-      notes: [["From the site", "Baltic pine is called \"our specialty\", it is in your trading name, and flooring is your largest range at 135 products."], ["Speaks to", "Builders and floor layers first. It is plain and trade."], ["Watch for", "It says flooring. Doors and mouldings are a big part of what you sell."]] },
-    { id: "d2", name: "End Grain", sum: "The end of a log, with its growth rings and a single check, beside a warm slab-serif name.", light: CREAM, dark: WALNUT, on: CREAM, ink: WALNUT, lock: rings, mark: (c) => icon(ringsMark(c)),
-      notes: [["From the site", "\"Solid timber\" is the promise on every page, set against engineered and laminate floors."], ["Speaks to", "Homeowners renovating period homes: your doors, fireplaces and vanities pages are written for them."], ["Watch for", "Growth rings are the most common timber logo there is. It would be hard to own."]] },
-    { id: "d3", name: "The Stamp", sum: "Your round badge, redrawn in one colour. The name still crosses the circle the way it does now, so it is recognisably the same business.", light: "#efece6", dark: "#16233a", on: "#efece6", ink: "#16233a", lock: stamp, mark: (c, bg) => icon(stampMark(c, bg)), needsBg: true,
-      notes: [["From the site", "30 years supplying \"the reseller market\". Those customers know the round badge."], ["Speaks to", "Resellers and long-standing trade accounts. It reads like a grade stamp or a merchant's mark."], ["Watch for", "It needs a simpler mark for small sizes."]] },
-    { id: "d4", name: "The Profile", sum: "An L that is also a moulding seen end on. Every Liemex profile code starts with L, from L201 up, and your machinists run them on your own moulders. No other timber yard can use this mark.", light: "#f3eee3", dark: GREEN, on: "#f3eee3", ink: GREEN, lock: profile, mark: (c) => icon(profMark(c)),
-      notes: [["From the site", "79 moulding profiles, every one coded L, from L201 to L289. \"Mouldings have always been an important part\" of the business."], ["Speaks to", "Architects, designers and joiners, who specify by profile. \"Architectural Timber Products\" is already your product brand."], ["Watch for", "The public may read it as just an L. That is fine: it is your initial."]] },
+    { id: "d1", name: "The Profile", sum: "An L that is also a moulding seen end on. All 79 of your profile codes start with L, from L201 to L289.", light: "#f3eee3", dark: GREEN, on: "#f3eee3", ink: GREEN, lock: profile, mark: (c) => icon(profMark(c)),
+      notes: [["From the site", "\"Mouldings have always been an important part\" of the business."], ["Speaks to", "Architects, designers and joiners, who specify by profile."], ["Watch for", "The public may read it as just an L. That is fine: it is your initial."]] },
+    { id: "d2", name: "The Section", sum: "A skirting profile drawn the way it appears in your moulding catalogue, with its dimension line.", light: PAPER, dark: INK, on: PAPER, ink: INK, lock: sect, mark: (c) => icon(sectMark(c)),
+      notes: [["From the site", "Your moulding catalogue shows every profile as a section drawing."], ["Speaks to", "Trade and joiners. It looks like a working drawing."], ["Watch for", "The fine dimension line drops out at small sizes."]] },
+    { id: "d3", name: "The Board", sum: "A tongue and groove floorboard, end on: the traditional 152 × 22 Baltic pine board. The red dot is end-seal paint.", light: PAPER, dark: INK, on: PAPER, ink: INK, lock: (c) => board(c), mark: (c) => icon(boardMark(c, RED)),
+      notes: [["From the site", "Baltic pine is \"our specialty\" and flooring is your largest range, at 135 products."], ["Speaks to", "Builders and floor layers."], ["Watch for", "It says flooring. Doors and mouldings are a big part of what you sell."]] },
+    { id: "d4", name: "The Stack", sum: "Boards stacked on stickers, the way they sit in the yard, with one end sealed red.", light: "#efe9dc", dark: "#221a14", on: "#efe9dc", ink: "#221a14", lock: stack, mark: (c) => icon(stackMark(c, RED)),
+      notes: [["From the site", "You import, saw and kiln-dry: \"sawn Baltic and Nordic pine\", \"sawn kiln-dried Australian hardwood\"."], ["Speaks to", "Resellers and builders buying in volume."], ["Watch for", "It says supplier more than maker."]] },
+    { id: "d5", name: "The Tenon", sum: "A mortise and tenon, the joint your doors are built with, beside a warm slab-serif name.", light: CREAM, dark: WALNUT, on: CREAM, ink: WALNUT, lock: tenon, mark: (c) => icon(tenonMark(c)),
+      notes: [["From the site", "\"We use classic techniques like mortise and tenon joints\" on the doors page."], ["Speaks to", "Homeowners restoring period homes, and anyone who values how a thing is made."], ["Watch for", "Not everyone will know what the shape is."]] },
+    { id: "d6", name: "The Door", sum: "A four-panel door in its frame: the classic Victorian door from your catalogue.", light: "#f1ece2", dark: "#2c2a3a", on: "#f1ece2", ink: "#2c2a3a", lock: door, mark: (c) => icon(doorMark(c)),
+      notes: [["From the site", "44 door designs, \"a range unique to Liemex\"."], ["Speaks to", "Renovators and heritage builders."], ["Watch for", "It narrows you to doors, which are one range of eight."]] },
+    { id: "d7", name: "End Grain", sum: "The end of a log, with its growth rings and a single check.", light: CREAM, dark: WALNUT, on: CREAM, ink: WALNUT, lock: rings, mark: (c) => icon(ringsMark(c)),
+      notes: [["From the site", "\"Solid timber\" is the promise on every page."], ["Speaks to", "Homeowners choosing real timber over engineered floors."], ["Watch for", "Growth rings are the most common timber logo there is."]] },
+    { id: "d8", name: "The Stamp", sum: "Your round badge, redrawn in one colour. The name still crosses the circle, so it is recognisably the same business.", light: "#efece6", dark: "#16233a", on: "#efece6", ink: "#16233a", lock: stamp, mark: (c, bg) => icon(stampMark(c, bg)), needsBg: true,
+      notes: [["From the site", "30 years supplying \"the reseller market\". Those customers know the round badge."], ["Speaks to", "Long-standing trade accounts."], ["Watch for", "It needs a simpler mark for small sizes."]] },
+    { id: "d9", name: "The Grade Stamp", sum: "LX in a box, like the grade mark inked onto the end of a board.", light: "#eeeae2", dark: "#7a2418", on: "#f6efe4", ink: "#7a2418", lock: grade, mark: (c) => icon(gradeMark(c)),
+      notes: [["From the site", "You sell by grade: select, feature, structural."], ["Speaks to", "Trade. It can be stamped or branded onto every board that leaves."], ["Watch for", "\"LX\" is new. Nobody calls you that yet."]] },
+    { id: "d10", name: "The Wordmark", sum: "No symbol at all. The name in heavy capitals, sitting on a single tongue and groove board.", light: PAPER, dark: INK, on: PAPER, ink: INK, lock: word, mark: (c) => icon(wordMark(c)),
+      notes: [["From the site", "The name is the one thing all three of your brand names share."], ["Speaks to", "Everyone. It is the simplest and the hardest to get wrong."], ["Watch for", "The least distinctive on its own. It relies on the type."]] },
   ];
   document.querySelector("[data-dirs]").innerHTML = dirs.map((d, i) => {
     const L = (c, bg) => (d.needsBg ? d.lock(c, bg) : d.lock(c));
