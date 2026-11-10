@@ -82,6 +82,39 @@ section { padding-block: clamp(64px, 8vw, 128px); }
 .stylenote li span:first-child { color: var(--soft); }
 .hint { margin-top: 14px; font-size: 14.5px; color: var(--soft); }
 
+/* ---------- The tour: the real site, driven for you, with a note on each part ---------- */
+.tour__stage { position: relative; }
+.tour .frame__view { background: #14100c; }
+.tour iframe { pointer-events: none; }
+.tour__over { position: absolute; inset: 0; pointer-events: none; }
+.tour__over svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.tour__over path { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.6)); stroke-dasharray: 1; stroke-dashoffset: 1; }
+.tour__over path.is-on { stroke-dashoffset: 0; transition: stroke-dashoffset 700ms var(--ease) 250ms; }
+.tour__dot { position: absolute; left: 0; top: 0; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.28), 0 2px 12px rgba(0, 0, 0, 0.5); opacity: 0; transition: opacity 400ms; }
+.tour__dot.is-on { opacity: 1; }
+.tour__dot::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid #fff; animation: ping 1800ms var(--ease) infinite; }
+@keyframes ping { from { transform: scale(0.7); opacity: 0.9; } to { transform: scale(2.4); opacity: 0; } }
+.tour__card { position: absolute; z-index: 3; width: 330px; padding: 20px 22px 22px; background: var(--ink); color: var(--paper); border-radius: 14px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); opacity: 0; transform: translateY(14px); transition: opacity 450ms, transform 700ms var(--ease), left 700ms var(--ease), top 700ms var(--ease); }
+.tour__card.is-on { opacity: 1; transform: none; }
+.tour__card .n { font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #9a9a9a; }
+.tour__card h3 { margin: 6px 0 10px; font-size: 23px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+.tour__card p { font-size: 15.5px; line-height: 1.45; color: #cfcfcf; }
+.tour__card p + p { margin-top: 10px; color: #fff; }
+.tour__card p b { display: block; font-size: 11.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #9a9a9a; margin-bottom: 2px; }
+.tour__bar { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+.tour__bar button { min-height: 46px; padding: 0 18px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-weight: 500; font-size: 15px; cursor: pointer; transition: border-color 200ms, background-color 200ms, color 200ms; }
+.tour__bar button:hover { border-color: var(--ink); }
+.tour__bar .play { background: var(--ink); color: var(--paper); border-color: var(--ink); min-width: 96px; }
+.tour__prog { flex: 1; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.tour__prog i { display: block; height: 100%; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
+.tour__count { font-size: 14px; color: var(--soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tour__steps { display: flex; gap: 8px; margin-top: 14px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+.tour__steps::-webkit-scrollbar { display: none; }
+.tour__steps button { flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: none; font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer; color: var(--soft); transition: color 200ms, border-color 200ms, background-color 200ms; }
+.tour__steps button span { font-variant-numeric: tabular-nums; opacity: 0.6; }
+.tour__steps button[aria-current="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.full { display: inline-flex; gap: 8px; margin-top: 14px; font-weight: 500; font-size: 15px; text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 3px; }
+
 /* ---------- Features ---------- */
 .feats { border-top: 1px solid var(--ink); }
 .feat { display: grid; grid-template-columns: 56px minmax(0, 4fr) minmax(0, 6fr) auto; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
@@ -133,6 +166,29 @@ section { padding-block: clamp(64px, 8vw, 128px); }
   .stylenote li { grid-template-columns: 104px 1fr; }
   .steps li::before { margin-bottom: 14px; }
 }
+@media (max-width: 900px) {
+  /* On a phone the tour and the looks both show the phone version of the site, edge to edge, with notes underneath. */
+  .tour__card { position: static; width: auto; margin-top: 14px; opacity: 1; transform: none; box-shadow: none; }
+  .tour__over svg { display: none; }
+  .tour .frame__chrome { display: none; }
+  .tour__card { padding: 16px 18px 18px; }
+  .tour__card h3 { font-size: 20px; }
+  .tour__card p { font-size: 14.5px; }
+  .tour__bar { flex-wrap: wrap; }
+  .tour__prog { order: 5; flex: 1 1 100%; }
+  .device { display: none; }
+  .tabs { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: none; min-height: 44px; padding: 0 16px; }
+  .frame { border-radius: 12px; }
+  .frame.is-phone .frame__view iframe { border-radius: 0; box-shadow: none; pointer-events: none; }
+  .top__in .btn { display: none; }
+  .cover__acts .btn { flex: 1 1 100%; justify-content: space-between; }
+  .feat { padding: 22px 0; }
+  .card { padding: 20px; }
+  .end .btn { width: 100%; justify-content: space-between; }
+}
+
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } [data-rise] { opacity: 1; transform: none; transition: none; } }
 </style>
 </head>
@@ -141,7 +197,7 @@ section { padding-block: clamp(64px, 8vw, 128px); }
 <header class="top">
   <div class="wrap top__in">
     <a class="top__brand" href="#top">Lumen adl <span>for Liemex</span></a>
-    <nav aria-label="Proposal"><a href="#styles">The looks</a><a href="#features">What it does</a><a href="#found">What we found</a><a href="#needs">What we need</a><a href="#next">Next steps</a></nav>
+    <nav aria-label="Proposal"><a href="#tour">The tour</a><a href="#styles">The looks</a><a href="#features">What it does</a><a href="#found">What we found</a><a href="#needs">What we need</a><a href="#next">Next steps</a></nav>
     <a class="btn" style="min-height:40px;padding:0 16px;font-size:14.5px" href="/">Open the working site</a>
   </div>
 </header>
@@ -153,7 +209,7 @@ section { padding-block: clamp(64px, 8vw, 128px); }
     <div class="cover__row">
       <p class="lede">This isn't a mock-up. The site is already built and running, with your products, timbers and photos in it. What's left is to choose how it looks and to get a few details from you.</p>
       <div class="cover__acts">
-        <a class="btn" href="#styles">See the four looks <span class="arrow">↓</span></a>
+        <a class="btn" href="#tour">Watch the tour <span class="arrow">↓</span></a>
         <a class="btn btn--line" href="/">Open the working site <span class="arrow">→</span></a>
       </div>
     </div>
@@ -165,12 +221,44 @@ section { padding-block: clamp(64px, 8vw, 128px); }
     </dl>
   </div>
 
+  <section id="tour" class="tour">
+    <div class="wrap">
+      <div class="head" data-rise>
+        <p class="label">01 · The tour</p>
+        <h2 class="h2">Two minutes through the site, and why each part is there</h2>
+        <p class="lede">This is the real site, playing by itself. Each stop points at one thing and says what it's for.</p>
+      </div>
+      <div class="tour__stage" data-rise>
+        <div class="frame" data-t-frame>
+          <div class="frame__chrome"><i></i><i></i><i></i><span>liemex.com.au</span></div>
+          <div class="frame__view" data-t-view>
+            <div class="tour__over"><svg aria-hidden="true"><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" style="stroke-dasharray:none;stroke-dashoffset:0;stroke-width:1.6"/></marker></defs><path data-t-arrow pathLength="1" marker-end="url(#ah)"/></svg><div class="tour__dot" data-t-dot></div></div>
+          </div>
+        </div>
+        <div class="tour__card" data-t-card aria-live="polite">
+          <p class="n" data-t-n></p>
+          <h3 data-t-title></h3>
+          <p><b>What it does</b><span data-t-what></span></p>
+          <p><b>Why it's built this way</b><span data-t-why></span></p>
+        </div>
+      </div>
+      <div class="tour__bar">
+        <button class="play" type="button" data-t-play>Pause</button>
+        <button type="button" data-t-prev aria-label="Previous stop">←</button>
+        <button type="button" data-t-next aria-label="Next stop">→</button>
+        <div class="tour__prog"><i data-t-prog></i></div>
+        <span class="tour__count" data-t-count></span>
+      </div>
+      <div class="tour__steps" data-t-steps></div>
+    </div>
+  </section>
+
   <section class="band" id="styles">
     <div class="wrap">
       <div class="head" data-rise>
-        <p class="label">01 · Four looks</p>
+        <p class="label">02 · Four looks</p>
         <h2 class="h2">Same site, four ways it could look</h2>
-        <p class="lede">The content and the features are identical in each. Switch between them, and flip to the phone view. These are the live pages, so you can scroll inside the frame.</p>
+        <p class="lede">The content and the features are identical in each. Switch between them to compare the opening screen.</p>
       </div>
       <div class="stylebar" data-rise>
         <div class="tabs" role="tablist" aria-label="Looks" data-tabs></div>
@@ -181,6 +269,7 @@ section { padding-block: clamp(64px, 8vw, 128px); }
         <div class="frame__view" data-view></div>
       </div>
       <p class="hint" data-hint></p>
+      <a class="full" data-full href="/" target="_blank" rel="noopener">Open this look full screen <span class="arrow">→</span></a>
       <div class="stylenote" data-rise>
         <div><h3 data-s-name></h3><p class="sum" data-s-sum></p></div>
         <ul data-s-list></ul>
@@ -191,7 +280,7 @@ section { padding-block: clamp(64px, 8vw, 128px); }
   <section id="features">
     <div class="wrap">
       <div class="head" data-rise>
-        <p class="label">02 · What it does</p>
+        <p class="label">03 · What it does</p>
         <h2 class="h2">Built to turn a browser into an enquiry</h2>
         <p class="lede">Everything here already works. Each link opens that part of the site.</p>
       </div>
@@ -212,7 +301,7 @@ section { padding-block: clamp(64px, 8vw, 128px); }
   <section class="band" id="found">
     <div class="wrap">
       <div class="head" data-rise>
-        <p class="label">03 · What we found</p>
+        <p class="label">04 · What we found</p>
         <h2 class="h2">Why the current site is costing you</h2>
         <p class="lede">We went through liemex.com.au as a customer would. Three things stood out.</p>
       </div>
@@ -227,7 +316,7 @@ section { padding-block: clamp(64px, 8vw, 128px); }
   <section id="needs">
     <div class="wrap">
       <div class="head" data-rise>
-        <p class="label">04 · What we need from you</p>
+        <p class="label">05 · What we need from you</p>
         <h2 class="h2">Six things to finish it</h2>
         <p class="lede">None of them take long. The photos would make the biggest difference.</p>
       </div>
@@ -245,7 +334,7 @@ section { padding-block: clamp(64px, 8vw, 128px); }
   <section class="band" id="next">
     <div class="wrap">
       <div class="head" data-rise>
-        <p class="label">05 · Next steps</p>
+        <p class="label">06 · Next steps</p>
         <h2 class="h2">From here to live</h2>
       </div>
       <ol class="steps">
@@ -292,11 +381,12 @@ section { padding-block: clamp(64px, 8vw, 128px); }
   let current = looks[0], device = "desktop";
   tabs.innerHTML = looks.map((l, i) => `<button class="tab" role="tab" type="button" aria-selected="${i === 0}" data-look="${l.id}">${l.name}${l.tag ? `<small>${l.tag}</small>` : ""}</button>`).join("");
 
-  const size = () => (device === "phone" ? [390, 780] : [1440, 860]);
+  const small = matchMedia("(max-width: 900px)");
+  const size = () => (device === "phone" ? [390, small.matches ? 700 : 780] : [1440, 860]);
   const layout = () => {
     const [w, h] = size(), cw = view.clientWidth;
-    const scale = device === "phone" ? Math.min(1, (innerHeight * 0.74) / h) : cw / w;
-    const pad = device === "phone" ? 28 : 0;
+    const scale = device === "phone" ? (small.matches ? cw / w : Math.min(1, (innerHeight * 0.74) / h)) : cw / w;
+    const pad = device === "phone" && !small.matches ? 28 : 0;
     view.style.height = `${h * scale + pad * 2}px`;
     frames.forEach((f) => { f.style.width = `${w}px`; f.style.height = `${h}px`; f.style.top = `${pad}px`; f.style.transform = `translateX(${(-w * scale) / 2}px) scale(${scale})`; });
     frame.classList.toggle("is-phone", device === "phone");
@@ -316,7 +406,8 @@ section { padding-block: clamp(64px, 8vw, 128px); }
     $("[data-s-name]").textContent = look.name;
     $("[data-s-sum]").textContent = look.sum;
     $("[data-s-list]").innerHTML = look.rows.map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`).join("");
-    $("[data-hint]").textContent = look.hint;
+    $("[data-hint]").textContent = small.matches ? look.sum : look.hint;
+    $("[data-full]").href = look.src.replace("?only=", "#");
   };
   tabs.addEventListener("click", (e) => { const t = e.target.closest("[data-look]"); if (t) show(looks.find((l) => l.id === t.dataset.look)); });
   document.querySelectorAll("[data-device]").forEach((b) => b.addEventListener("click", () => {
@@ -325,11 +416,190 @@ section { padding-block: clamp(64px, 8vw, 128px); }
     layout();
   }));
   addEventListener("resize", layout);
-  if (matchMedia("(max-width: 700px)").matches) { device = "phone"; document.querySelectorAll("[data-device]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.device === "phone"))); }
-  show(looks[0]);
+  if (small.matches) { device = "phone"; document.querySelectorAll("[data-device]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.device === "phone"))); }
+  // The looks load when you reach them, not before.
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); show(looks[0]); } }, { rootMargin: "400px" }).observe(frame);
 
   const io = new IntersectionObserver((es) => es.forEach((e, i) => { if (e.isIntersecting) { e.target.style.transitionDelay = `${Math.min(i, 4) * 70}ms`; e.target.classList.add("is-in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
   document.querySelectorAll("[data-rise]").forEach((el) => io.observe(el));
+})();
+</script>
+<script>// The tour. The working site sits in a frame on the same address, so this page can scroll it, open things in it
+// and measure where they are. Each stop moves the site, lands a dot on one thing, and says why it's there.
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const view = $("[data-t-view]"), frame = $("[data-t-frame]"), card = $("[data-t-card]"), dot = $("[data-t-dot]"), arrow = $("[data-t-arrow]");
+  const stage = card.parentElement, prog = $("[data-t-prog]"), stepsEl = $("[data-t-steps]"), playBtn = $("[data-t-play]");
+  const small = matchMedia("(max-width: 900px)"), still = matchMedia("(prefers-reduced-motion: reduce)");
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  let f = null, win = null, doc = null, scale = 1, W = 1440, H = 820, at = -1, run = 0, playing = true, timer = 0, t0 = 0, dur = 0, target = null, corner = "br", seen = false;
+
+  const top = (el) => el.getBoundingClientRect().top + win.scrollY;
+  const scrollTo = (to, ms, token) => new Promise((res) => {
+    const from = win.scrollY, start = performance.now();
+    if (still.matches || ms < 30) { win.scrollTo(0, to); return res(); }
+    const step = (now) => {
+      if (token !== run) return res();
+      const t = Math.min(1, (now - start) / ms);
+      win.scrollTo(0, from + (to - from) * ease(t));
+      t < 1 ? requestAnimationFrame(step) : res();
+    };
+    requestAnimationFrame(step);
+  });
+  const q = (s) => doc.querySelector(s);
+
+  // Each stop: where to go, what to point at, what to do there, and the two lines that explain it.
+  const stops = [
+    { title: "The opening", sel: ".hero h1", pt: [0.3, 0.5], corner: "tr", hold: 6500,
+      what: "Nine planks lift off your best photo, then the headline rises word by word.",
+      why: "Three seconds in, a visitor knows two things: this is solid timber, and you machine it yourselves.",
+      go: async () => 0 },
+    { title: "Ring or quote, always in reach", sel: () => (small.matches ? ".hero__cta" : ".hdr .btn"), pt: [0.5, 0.5], corner: "bl", hold: 5500,
+      what: "The phone number and the quote button sit in the header on every page. On a phone, a call bar follows your thumb.",
+      why: "Most of your customers would rather ring. The site never makes them hunt for the number.",
+      go: async () => 0 },
+    { title: "What makes you different", sel: ".statement__text", pt: [0.35, 0.5], corner: "br", hold: 6500,
+      what: "One paragraph, and the words darken as you read down it.",
+      why: "It slows people down on the one thing a big-box store can't say: you match, machine and make to size.",
+      go: async () => top(q(".statement")) - H * 0.12, to: () => top(q(".statement")) + H * 0.12 },
+    { title: "The timber rack", sel: ".board.is-open", pt: [0.5, 0.72], corner: "tr", hold: 9000,
+      what: "All seventeen timbers stand side by side as boards. Each one opens to say what it is and what it suits.",
+      why: "It's how you'd see them at the yard. A customer compares colour and grain in one glance, without clicking through pages.",
+      go: async () => (small.matches ? top(q(".rack__boards")) - H * 0.22 : top(q("#species")) - H * 0.02),
+      act: async (token) => { for (const i of [3, 6, 9, 1]) { if (token !== run) return; const b = doc.querySelectorAll("[data-board]")[i]; doc.querySelectorAll("[data-board]").forEach((x) => x.classList.toggle("is-open", x === b)); await wait(1700); } } },
+    { title: "See it laid in a room", sel: null, corner: "tr", hold: 15000, wide: true,
+      what: "Pick a timber and a 3D room opens with it on the floor, the door and the skirting. Change timber and the floor is relaid.",
+      why: "Nobody can picture a floor from a sample the size of a hand. This lets them, and it's the part they'll show someone else.",
+      go: async () => top(q("#species")) - H * 0.02,
+      act: async (token) => { const b = q('[data-board][data-room="jarrah"]'); if (!b) return; b.click(); await wait(8000); if (token !== run) return; q('dialog.room [data-pick="tasmanian-oak"]')?.click(); await wait(5500); },
+      leave: () => { try { q("dialog.room")?.close(); } catch {} } },
+    { title: "The range, drawn", sel: ".rrow", pt: [0.12, 0.5], corner: "br", hold: 6500,
+      what: "Seven product ranges, each with a line drawing of its profile and a count of what's in it.",
+      why: "A builder knows a tongue and groove from a shiplap at a glance. The drawings get them to the right range faster than words.",
+      go: async () => top(q("#range")) - H * 0.06, to: () => top(q("#range")) + H * 0.3 },
+    { title: "One board, start to floor", sel: ".bench__svg", pt: [0.5, 0.5], corner: "tr", hold: 11000,
+      what: "As the page scrolls, a board goes from rough sawn to dressed, gets its tongue and groove, takes a finish and locks into a floor.",
+      why: "You saw, dress and profile your own timber. Showing it takes ten seconds and is more convincing than a paragraph saying so.",
+      go: async () => top(q("#bench")), to: () => top(q("#bench")) + Math.max(0, q("#bench").offsetHeight - H), slow: 8500 },
+    { title: "Your work, moving past", sel: ".work__view", pt: [0.5, 0.45], corner: "br", hold: 10000,
+      what: "The page holds still while your floors, doors and decks run across the screen.",
+      why: "Nothing sells a floor like a floor. Every photo is one of your own jobs.",
+      go: async () => top(q("#work")) - (q("#work").classList.contains("is-pinned") ? 0 : H * 0.05), to: () => (q("#work").classList.contains("is-pinned") ? top(q("#work")) + q("#work").offsetHeight - H : null), slow: 7500,
+      act: async (token) => { const v = q(".work__view"); if (q("#work").classList.contains("is-pinned") || !v) return; const end = v.scrollWidth - v.clientWidth, s = performance.now(); await new Promise((res) => { const step = (now) => { if (token !== run) return res(); const t = Math.min(1, (now - s) / 7000); v.scrollLeft = end * ease(t); t < 1 ? requestAnimationFrame(step) : res(); }; requestAnimationFrame(step); }); } },
+    { title: "How many metres is that?", sel: ".calc__num", pt: [0.3, 0.5], corner: "tr", hold: 8500,
+      what: "Enter an area and a board, and it works out the lineal metres with a tenth added for cuts.",
+      why: "It turns “roughly this big” into a number you can price, and hands that number straight to the quote form.",
+      go: async () => (small.matches ? top(q(".calc__fields")) - H * 0.1 : top(q("#calculator")) - H * 0.08),
+      act: async (token) => { const a = q("[data-calc-area]"); if (!a) return; const s = performance.now(); await new Promise((res) => { const step = (now) => { if (token !== run) return res(); const t = Math.min(1, (now - s) / 3600); a.value = Math.round(40 + 85 * ease(t)); a.dispatchEvent(new win.Event("input", { bubbles: true })); t < 1 ? requestAnimationFrame(step) : res(); }; requestAnimationFrame(step); }); } },
+    { title: "Every path ends here", sel: ".quote .docket", pt: [0.5, 0.3], corner: "bl", hold: 7500,
+      what: "A short quote form, with the timber they chose and any metres they worked out already filled in.",
+      why: "It reaches you by email, and the page only says “thanks” once the enquiry has actually been delivered. No lost leads, no false promises.",
+      go: async () => top(q("#quote")) - H * 0.04 },
+  ];
+  const active = () => stops.filter((s) => !(s.wide && small.matches));
+
+  const layout = () => {
+    [W, H] = small.matches ? [390, 480] : [1440, 820];
+    const cw = view.clientWidth;
+    scale = cw / W;
+    view.style.height = `${H * scale}px`;
+    if (f) { f.style.width = `${W}px`; f.style.height = `${H}px`; f.style.transform = `translateX(${(-W * scale) / 2}px) scale(${scale})`; }
+  };
+
+  // Keep the dot on its target and the arrow between the card and the dot, every frame.
+  const place = () => {
+    requestAnimationFrame(place);
+    if (!seen || !doc) return;
+    if (dur) prog.style.transform = `scaleX(${Math.min(1, (performance.now() - t0) / dur)})`;
+    const el = target && (typeof target === "string" ? q(target) : null);
+    const vw = view.clientWidth, vh = view.clientHeight;
+    if (!el) { dot.classList.remove("is-on"); arrow.classList.remove("is-on"); }
+    let x = vw / 2, y = vh / 2;
+    if (el) {
+      const r = el.getBoundingClientRect(), s = active()[at];
+      x = Math.max(16, Math.min(vw - 16, (r.left + r.width * s.pt[0]) * scale));
+      y = Math.max(16, Math.min(vh - 16, (r.top + r.height * s.pt[1]) * scale));
+      dot.style.transform = `translate(${x}px, ${y}px)`;
+      dot.classList.add("is-on");
+    }
+    if (small.matches) return;
+    const cwid = card.offsetWidth, chei = card.offsetHeight, m = 22, chrome = 41;
+    const cx = corner.includes("l") ? m : vw - cwid - m, cy = corner.includes("t") ? m : vh - chei - m;
+    card.style.left = `${cx}px`;
+    card.style.top = `${cy + chrome}px`;
+    if (!el) return;
+    const sx = corner.includes("l") ? cx + cwid : cx, sy = cy + chei / 2;
+    const mx = (sx + x) / 2, my = (sy + y) / 2, nx = -(y - sy), ny = x - sx, k = 0.18 * (corner.includes("l") ? -1 : 1);
+    const d = Math.hypot(x - sx, y - sy) || 1, ex = x - ((x - sx) / d) * 20, ey = y - ((y - sy) / d) * 20;
+    arrow.setAttribute("d", `M${sx.toFixed(1)} ${sy.toFixed(1)}Q${(mx + nx * k).toFixed(1)} ${(my + ny * k).toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`);
+  };
+
+  const go = async (i) => {
+    const list = active();
+    i = (i + list.length) % list.length;
+    list[at]?.leave?.();
+    const token = ++run, s = list[i];
+    at = i;
+    clearTimeout(timer);
+    dot.classList.remove("is-on"); arrow.classList.remove("is-on"); card.classList.remove("is-on");
+    stepsEl.querySelectorAll("button").forEach((b, k) => b.setAttribute("aria-current", String(k === i)));
+    const chip = stepsEl.querySelector('[aria-current="true"]');     // slide the strip sideways only; never move the page
+    if (chip) stepsEl.scrollTo({ left: chip.offsetLeft - stepsEl.offsetLeft - (stepsEl.clientWidth - chip.offsetWidth) / 2, behavior: "smooth" });
+    $("[data-t-count]").textContent = `${i + 1} / ${list.length}`;
+    target = null; dur = 0; prog.style.transform = "scaleX(0)";
+    await scrollTo(Math.max(0, await s.go()), 1100, token);
+    if (token !== run) return;
+    $("[data-t-n]").textContent = `Stop ${String(i + 1).padStart(2, "0")}`;
+    $("[data-t-title]").textContent = s.title;
+    $("[data-t-what]").textContent = s.what;
+    $("[data-t-why]").textContent = s.why;
+    corner = s.corner;
+    target = typeof s.sel === "function" ? s.sel() : s.sel;
+    card.classList.add("is-on");
+    requestAnimationFrame(() => arrow.classList.add("is-on"));
+    t0 = performance.now(); dur = s.hold;
+    const moves = [];
+    const to = s.to?.();
+    if (to != null) moves.push(wait(500).then(() => scrollTo(to, s.slow || s.hold - 1500, token)));
+    if (s.act) moves.push(wait(700).then(() => token === run && s.act(token)));
+    await Promise.all([wait(s.hold), ...moves]);
+    if (token === run && playing) go(i + 1);
+  };
+
+  const build = () => {
+    stepsEl.innerHTML = active().map((s, i) => `<button type="button" data-i="${i}"><span>${String(i + 1).padStart(2, "0")}</span>${s.title}</button>`).join("");
+  };
+  const start = () => {
+    seen = true;
+    f = document.createElement("iframe");
+    f.title = "The Liemex site, playing";
+    f.src = "/";
+    f.setAttribute("tabindex", "-1");
+    view.prepend(f);
+    layout();
+    f.addEventListener("load", () => {
+      win = f.contentWindow; doc = f.contentDocument;
+      doc.documentElement.style.scrollbarWidth = "none";
+      const st = doc.createElement("style"); st.textContent = "::-webkit-scrollbar{display:none}.callbar{display:none!important}"; doc.head.append(st);
+      f.classList.add("is-on");
+      go(0);
+    }, { once: true });
+  };
+  build();
+  layout();
+  requestAnimationFrame(place);
+  addEventListener("resize", layout);
+  small.addEventListener("change", () => { build(); layout(); if (doc) go(0); });
+  stepsEl.addEventListener("click", (e) => { const b = e.target.closest("[data-i]"); if (b && doc) go(+b.dataset.i); });
+  $("[data-t-prev]").addEventListener("click", () => doc && go(at - 1));
+  $("[data-t-next]").addEventListener("click", () => doc && go(at + 1));
+  playBtn.addEventListener("click", () => { playing = !playing; playBtn.textContent = playing ? "Pause" : "Play"; if (playing && doc) go(at); else { run++; dur = 0; } });
+  // Start when it scrolls into view; hold when it leaves.
+  new IntersectionObserver(([en]) => {
+    if (en.isIntersecting && !seen) start();
+    else if (seen && doc) { if (!en.isIntersecting) { run++; dur = 0; } else if (playing) go(Math.max(0, at)); }
+  }, { threshold: 0.25 }).observe(frame);
 })();
 </script>
 </body>
