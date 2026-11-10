@@ -110,6 +110,56 @@ button { font: inherit; color: inherit; }
 .b__row svg { width: 100%; color: var(--soft); stroke-width: 1; }
 .b__row .caps { color: var(--soft); }
 
+/* ================= E: green and wide ================= */
+@font-face { font-family: "Archivo"; src: url("/fonts/archivo.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+.e { --green: #1d3a2f; --green-2: #162d24; --cream: #f3eee3; --ink: #14201a; --soft: #9fb3a6; background: var(--cream); color: var(--ink); }
+.e .wide { font-family: "Archivo", sans-serif; font-stretch: 125%; text-transform: uppercase; }
+.e .cap { font: 600 11.5px/1.3 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.14em; text-transform: uppercase; }
+.e__hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(94vh, 920px); background: var(--green); color: var(--cream); }
+.e__left { display: flex; flex-direction: column; padding: 0 clamp(18px, 4vw, 56px) clamp(32px, 4vw, 56px); }
+.e__bar { display: flex; align-items: center; gap: 26px; height: 84px; }
+.e__logo { margin-right: auto; font: 800 24px/1 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.02em; text-transform: uppercase; }
+.e__nav { display: flex; gap: 22px; font-size: 14.5px; font-weight: 500; color: #d5ddd4; }
+.e__h1 { margin-top: auto; font: 500 clamp(40px, 5.3vw, 96px)/0.96 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.035em; text-transform: uppercase; }
+.e__h1 span { display: block; font-weight: 200; }
+.e__lede { display: grid; grid-template-columns: minmax(0, 34ch) auto; gap: 24px; align-items: end; justify-content: space-between; margin-top: clamp(24px, 3vw, 44px); padding-top: 22px; border-top: 1px solid rgba(243, 238, 227, 0.28); }
+.e__lede p { color: #d5ddd4; }
+.e .btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; background: var(--cream); color: var(--ink); font: 600 12.5px "Archivo", sans-serif; font-stretch: 125%; letter-spacing: 0.1em; text-transform: uppercase; transition: background-color 300ms, color 300ms; }
+.e .btn:hover { background: #fff; }
+.e .btn--green { background: var(--green); color: var(--cream); }
+.e .btn--green:hover { background: var(--green-2); }
+/* The photo is laid like a floor: five boards with staggered ends. They square up when you hover. */
+.e__right { position: relative; display: grid; place-items: stretch; padding: clamp(18px, 3vw, 44px); background: var(--green-2); }
+.e__boards { position: relative; clip-path: polygon(0 9%, 20% 9%, 20% 0, 40% 0, 40% 15%, 60% 15%, 60% 4%, 80% 4%, 80% 11%, 100% 11%, 100% 93%, 80% 93%, 80% 100%, 60% 100%, 60% 87%, 40% 87%, 40% 96%, 20% 96%, 20% 89%, 0 89%); transition: clip-path 1100ms cubic-bezier(0.7, 0, 0.2, 1); }
+.e__right:hover .e__boards { clip-path: polygon(0 0, 20% 0, 20% 0, 40% 0, 40% 0, 60% 0, 60% 0, 80% 0, 80% 0, 100% 0, 100% 100%, 80% 100%, 80% 100%, 60% 100%, 60% 100%, 40% 100%, 40% 100%, 20% 100%, 20% 100%, 0 100%); }
+.e__boards img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.e__boards::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(20% - 3px), var(--green-2) calc(20% - 3px) 20%); }
+.e__note { position: absolute; left: clamp(18px, 3vw, 44px); bottom: 14px; color: var(--soft); }
+.e__index { padding-block: clamp(64px, 8vw, 128px); }
+.e__indexhead { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 32px; align-items: end; margin-bottom: clamp(28px, 4vw, 56px); }
+.e__indexhead h2 { font: 500 clamp(32px, 4.4vw, 76px)/0.98 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.035em; text-transform: uppercase; }
+.e__indexhead h2 span { font-weight: 200; }
+.e__indexhead p { color: #4c5a52; }
+.e__list { border-top: 1.5px solid var(--ink); }
+.e__row { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1fr) 150px 180px; gap: 20px; align-items: center; width: 100%; padding: 0 16px; height: 68px; border: 0; border-bottom: 1px solid rgba(20, 32, 26, 0.2); background: none; text-align: left; cursor: pointer; overflow: hidden; isolation: isolate; transition: height 700ms cubic-bezier(0.16, 1, 0.3, 1), color 400ms; }
+.e__row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(20, 16, 12, 0.62), rgba(20, 16, 12, 0.12) 70%), var(--g, none) 50% 50% / cover; clip-path: inset(0 100% 0 0); transition: clip-path 800ms cubic-bezier(0.7, 0, 0.2, 1); }
+.e__row[aria-pressed="true"] { height: 190px; color: #fff8ec; }
+.e__row[aria-pressed="true"]::before { clip-path: inset(0); }
+.e__row .cap { opacity: 0.7; }
+.e__row b { font: 500 clamp(20px, 2.3vw, 38px)/1 "Archivo", sans-serif; font-stretch: 125%; letter-spacing: -0.03em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: font-size 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+.e__row[aria-pressed="true"] b { font-size: clamp(26px, 3.6vw, 62px); }
+.e__row em { font-style: normal; font-size: 14.5px; opacity: 0; transition: opacity 400ms; justify-self: end; font-weight: 600; }
+.e__row[aria-pressed="true"] em { opacity: 1; transition-delay: 300ms; }
+@media (max-width: 860px) {
+  .e__hero { grid-template-columns: 1fr; }
+  .e__nav { display: none; }
+  .e__right { min-height: 62vh; order: -1; }
+  .e__lede, .e__indexhead { grid-template-columns: 1fr; }
+  .e__row { grid-template-columns: 34px minmax(0, 1fr); height: 56px; padding: 0 10px; }
+  .e__row > .cap:nth-of-type(2), .e__row em { display: none; }
+  .e__row[aria-pressed="true"] { height: 132px; }
+}
+
 /* ================= D: the material library (professional) ================= */
 .d { --paper: #f6f3ee; --ink: #1d1a17; --soft: #6f675e; --line: rgba(29, 26, 23, 0.16); --sp: #923c2d; background: var(--paper); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif; }
 .d .cap { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
@@ -246,13 +296,43 @@ button { font: inherit; color: inherit; }
 <body>
 
 <nav class="switch" aria-label="Directions">
-  <span>Liemex: four looks. D is the new one.</span>
+  <span>Liemex: five looks. E is the new one.</span>
+  <a href="#e">E · Green and wide</a>
   <a href="#d">D · Material library</a>
   <a href="#c">C · Cut from timber</a>
   <a href="#a">A · Wood type</a>
   <a href="#b">B · Gallery</a>
   <a href="/">Current site</a>
 </nav>
+
+<!-- ============ E ============ -->
+<p class="tag" id="e"><b>E · Green and wide.</b> Colour-led and confident: deep eucalypt green, wide capitals, a photo laid like floorboards, and the species as an index that opens onto the timber.</p>
+<section class="e" data-e>
+  <div class="e__hero">
+    <div class="e__left">
+      <div class="e__bar">
+        <a class="e__logo" href="#e">Liemex</a>
+        <div class="e__nav"><a href="#e">Products</a><a href="#e">Species</a><a href="#e">Gallery</a><a href="#e">(08) 8444 1800</a></div>
+      </div>
+      <h1 class="e__h1">Solid timber, <span>machined here.</span></h1>
+      <div class="e__lede">
+        <p>Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Over 30 years in Port Adelaide.</p>
+        <a class="btn" href="#e">Get a quote</a>
+      </div>
+    </div>
+    <div class="e__right">
+      <div class="e__boards"><img src="/images/hero-tall.webp" alt="Herringbone oak parquetry in a double-height living room"></div>
+      <p class="cap e__note">Herringbone oak parquetry</p>
+    </div>
+  </div>
+  <div class="wrap e__index">
+    <div class="e__indexhead">
+      <h2>Seventeen timbers, <span>one yard.</span></h2>
+      <p>Run down the index. Each line opens onto the board itself.</p>
+    </div>
+    <div class="e__list" data-e-list></div>
+  </div>
+</section>
 
 <!-- ============ D ============ -->
 <p class="tag" id="d"><b>D · Material library.</b> The same idea as C, delivered the way an architectural materials brand would: quiet type, a strict grid, one precise interaction.</p>
@@ -533,6 +613,23 @@ document.querySelectorAll("[data-dir]").forEach((dir) => {
   };
   grid.addEventListener("click", (e) => { const x = e.target.closest("button"); if (x) pick(+x.dataset.i); });
   pick(3, true);
+})();
+
+// E: an index of timbers. The selected line opens onto a slab of that timber.
+(() => {
+  const list = document.querySelector("[data-e-list]");
+  const soft = new Set(["baltic-pine", "cypress-pine", "radiata-pine"]);
+  list.innerHTML = species.map(([slug, nm], i) => `<button class="e__row" type="button" aria-pressed="false" data-i="${i}"><span class="cap">${String(i + 1).padStart(2, "0")}</span><b>${nm}</b><span class="cap">${soft.has(slug) ? "Softwood" : "Hardwood"}</span><em>See it in a room →</em></button>`).join("");
+  const rows = [...list.children];
+  const pick = async (i) => {
+    const row = rows[i];
+    if (row.getAttribute("aria-pressed") === "true") return;
+    if (!row.style.getPropertyValue("--g")) row.style.setProperty("--g", await window.slabOf(species[i][0], i));
+    rows.forEach((r) => r.setAttribute("aria-pressed", String(r === row)));
+  };
+  list.addEventListener("click", (e) => { const r = e.target.closest("button"); if (r) pick(+r.dataset.i); });
+  list.addEventListener("pointerover", (e) => { const r = e.target.closest("button"); if (r && matchMedia("(hover: hover)").matches) pick(+r.dataset.i); });
+  pick(3);
 })();
 </script>
 </body>
