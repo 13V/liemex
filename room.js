@@ -53,10 +53,12 @@ const canvas = $(".room__canvas");
 
 /* ---------- Renderer ---------- */
 const lite = !!window.__roomLite;   // set by film/film.html: skip the occlusion pass, which software rendering can't afford
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: !big || lite, powerPreference: "high-performance" });
-renderer.setPixelRatio(Math.min(devicePixelRatio, big ? 1.5 : 2));
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+renderer.setPixelRatio(Math.min(devicePixelRatio, big ? 1.5 : 1.35));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.autoUpdate = false;   // nothing in the room moves, so shadows are drawn once and reused
+const reshadow = () => { renderer.shadowMap.needsUpdate = true; };
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.08;
 renderer.localClippingEnabled = true;
@@ -183,7 +185,7 @@ const outside = (() => {
   t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; t.offset.x = 1;   // seen from inside the arc, so un-mirror the picture
   m.position.set(-3, 2.9, 0.6);   // the horizon sits low: mostly sky, a far suburb below it
   scene.add(m);
-  const deck = box(2.4, 0.06, 13, new THREE.MeshStandardMaterial({ color: 0xb9b2a6, roughness: 0.9 }), LEFT - 1.35, -0.03, 1.6, false);
+  const deck = box(2.7, 0.06, 13, new THREE.MeshStandardMaterial({ color: 0xb9b2a6, roughness: 0.9 }), LEFT - 1.42, -0.014, 1.6, false);   // its top sits just above the timber, which would otherwise show outside
   const rail = new THREE.Mesh(new THREE.PlaneGeometry(13, 1.05).rotateY(Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: 0xdfeee9, roughness: 0.05, transparent: true, opacity: 0.16, depthWrite: false }));
   rail.position.set(LEFT - 2.5, 0.55, 1.6);
   scene.add(rail);
@@ -270,6 +272,7 @@ const model = (id, x, y, z, ry = 0, s = 1, tweak) => loader.loadAsync(`/models/t
   g.scene.scale.setScalar(s);
   g.scene.traverse((m) => { if (!m.isMesh) return; m.castShadow = m.receiveShadow = true; if (m.material.map) m.material.map.anisotropy = maxAniso; tweak?.(m); });
   scene.add(g.scene);
+  reshadow();
 }).catch(() => {});
 const SX = -2.72, SZ = -0.75;                                  // sofa, its back to the glass
 const TX = -0.95, TZ = -0.75, TOP = 0.3 * 1.36;                // coffee table and the height of its top
@@ -301,7 +304,7 @@ const sun = new THREE.DirectionalLight(0xfff0dc, 4.4);
 sun.position.set(-12, 6.2, 4.4);
 sun.target.position.set(-0.6, 0, -0.9);
 sun.castShadow = true;
-sun.shadow.mapSize.set(big ? 4096 : 2048, big ? 4096 : 2048);
+sun.shadow.mapSize.set(big ? 2048 : 1024, big ? 2048 : 1024);
 Object.assign(sun.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 30 });
 sun.shadow.bias = -0.0003;
 sun.shadow.normalBias = 0.02;
@@ -340,7 +343,7 @@ const bakeEnv = () => {
    Real colour comes from our sample of the timber (a strip of it under every board). Real sharpness comes from
    grain drawn over the top, in tones taken from that sample, so it holds up close on a big screen. A second,
    grey canvas gives each board its own sheen and a hairline shadow at every joint. */
-const SIZE = big ? 4096 : 2048, K = SIZE / 2048, FLOOR = 13;
+const SIZE = 2048, K = 1, FLOOR = 13;   // 4096 looked no better at room distance and took four times as long to paint
 const images = new Map();
 const loadImage = (slug) => images.get(slug) || images.set(slug, new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = `/images/species/${slug}-v.webp`; })).get(slug);
 const tones = new Map();
@@ -436,7 +439,7 @@ const dress = (m, t) => { m.material.map = t.map; m.material.roughnessMap = t.gr
 
 /* ---------- Fine detail on a desktop: soft occlusion where things meet ---------- */
 let composer = null, gtao = null;
-if (big && !lite) {
+if (false) {   // the occlusion pass cost more than half of every frame; the soft blobs under the furniture do its job
   composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(4, 4, { type: THREE.HalfFloatType, samples: 4 }));
   composer.addPass(new RenderPass(scene, camera));
   gtao = new GTAOPass(scene, camera, 4, 4);
@@ -450,10 +453,10 @@ let fine = !!composer, frames = 0, spent = 0, last = 0;
 const draw = () => (fine ? composer.render() : renderer.render(scene, camera));
 // If the first second of frames is slow, this machine can't afford the fine detail: drop to the plain renderer.
 const pace = (now) => {
-  if (!fine || frames < 0) return;
+  if (frames < 0) return;
   if (last) { spent += now - last; frames++; }
   last = now;
-  if (frames === 40) { if (spent / 40 > 42) { fine = false; renderer.setPixelRatio(1.25); fit(); } frames = -1; }
+  if (frames === 40) { if (spent / 40 > 28) { renderer.setPixelRatio(1); fit(); } frames = -1; }   // a slow machine: drop to one pixel per pixel
 };
 
 /* ---------- State ---------- */
@@ -482,7 +485,9 @@ const show = async (slug, instant) => {
   const im = await loadImage(s.slug);
   if (mine !== job) return;
   const tn = tonesOf(s.slug, im), seed = species.indexOf(s) * 97 + (lay === "boards" ? 1 : 5);
+  const t0 = performance.now();
   const next = paint(im, tn, lay, seed), wood = paintTimber(im, tn, seed + 3);
+  window.__roomPaintMs = Math.round(performance.now() - t0);
   const done = () => {
     floor.material.map?.dispose(); floor.material.roughnessMap?.dispose();
     dress(floor, next);
@@ -563,8 +568,9 @@ export async function openRoom(slug) {
   dlg.showModal();
   fit();
   // Wait for the timber and (briefly) the furniture, so the planks lift on a finished room.
-  await Promise.all([show(slug, true), Promise.race([furniture, new Promise((r) => setTimeout(r, 3500))])]);
-  if (!baked) { baked = true; bakeEnv(); furniture.then(bakeEnv); }
+  await Promise.all([show(slug, true), Promise.race([furniture, new Promise((r) => setTimeout(r, 1200))])]);
+  reshadow();
+  if (!baked) { baked = true; furniture.then(() => { bakeEnv(); reshadow(); }); }
   t0 = performance.now();
   last = 0;
   raf = requestAnimationFrame(tick);

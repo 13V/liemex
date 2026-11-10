@@ -254,6 +254,15 @@
   if (canGL && $("#species-data")) {
     document.documentElement.classList.add("has-room");
     let loading = null;
+    // Fetch the room and its furniture ahead of time, once the timbers are on screen and the page is idle,
+    // so a click opens it straight away. Skipped on Save-Data and slow connections.
+    const conn = navigator.connection || {};
+    const warm = () => { loading = loading || import("/room.js"); };
+    if (!conn.saveData && !/2g/.test(conn.effectiveType || "")) {
+      const first = $("[data-room]");
+      if (first && "IntersectionObserver" in window) new IntersectionObserver((es, o) => { if (es.some((e) => e.isIntersecting)) { o.disconnect(); (window.requestIdleCallback || setTimeout)(warm, { timeout: 2500 }); } }, { rootMargin: "300px" }).observe(first);
+      document.addEventListener("pointerover", (e) => e.target.closest?.("[data-room]") && warm(), { passive: true });
+    }
     document.addEventListener("click", (e) => {
       const el = e.target.closest("[data-room]");
       if (!el || e.metaKey || e.ctrlKey || e.shiftKey) return;
