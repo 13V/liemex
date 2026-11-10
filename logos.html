@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liemex logo directions | Lumen adl</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+/* Four logo directions for Liemex, each shown in use. Concepts, not final artwork: the lettering is live type. */
+@font-face { font-family: "Inter"; src: url("/fonts/inter-latin-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("/fonts/inter-latin-500.woff2") format("woff2"); font-weight: 500 600; font-display: swap; }
+@font-face { font-family: "Archivo"; src: url("/fonts/archivo.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+@font-face { font-family: "Besley"; src: url("/fonts/besley.woff2") format("woff2"); font-weight: 400 900; font-display: swap; }
+:root { --ink: #0c0c0c; --soft: #6b6b6b; --line: rgba(12, 12, 12, 0.14); --tint: #f4f3f0; --g: clamp(18px, 4vw, 56px); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font: 400 17px/1.55 "Inter", system-ui, sans-serif; color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+svg { display: block; max-width: 100%; }
+.wrap { max-width: 1320px; margin-inline: auto; padding-inline: var(--g); }
+.label { font-size: 12.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+h1 { font-size: clamp(40px, 6.4vw, 104px); font-weight: 500; line-height: 0.98; letter-spacing: -0.045em; margin: 20px 0 26px; max-width: 13ch; }
+h2 { font-size: clamp(30px, 3.6vw, 54px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
+.lede { font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: var(--soft); max-width: 50ch; }
+.top { position: sticky; top: 0; z-index: 5; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 22px; height: 58px; font-size: 14.5px; }
+.top b { font-weight: 500; margin-right: auto; } .top b span { color: var(--soft); }
+.top a { text-decoration: none; color: var(--soft); white-space: nowrap; } .top a:hover { color: var(--ink); }
+.cover { padding-block: clamp(56px, 8vw, 120px) clamp(40px, 5vw, 72px); }
+.now { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(24px, 4vw, 64px); align-items: center; padding: clamp(22px, 3vw, 40px); background: var(--tint); border-radius: 16px; }
+.now img { width: 100%; max-width: 300px; background: #14100c; border-radius: 12px; padding: 18px; }
+.now ul { list-style: none; margin-top: 14px; display: grid; gap: 8px; }
+.now li { padding-left: 18px; position: relative; color: #333; } .now li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--ink); }
+.dir { padding-block: clamp(56px, 7vw, 104px); border-top: 1px solid var(--line); }
+.dir__head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 20px 56px; align-items: end; margin-bottom: clamp(24px, 3vw, 40px); }
+.dir__head .label { grid-column: 1 / -1; }
+.hero2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tile { display: grid; place-items: center; min-height: clamp(200px, 26vw, 360px); border-radius: 16px; padding: clamp(20px, 4vw, 56px); }
+.tile svg { width: min(100%, 460px); }
+.uses { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+.use { border-radius: 16px; overflow: hidden; background: var(--tint); display: flex; flex-direction: column; }
+.use > div { flex: 1; display: grid; place-items: center; min-height: 190px; padding: 22px; }
+.use p { padding: 10px 14px 12px; font-size: 13px; color: var(--soft); background: #fff; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 16px 16px; }
+.use--site > div { place-items: stretch; padding: 0; }
+.bar { display: flex; align-items: center; gap: 14px; padding: 12px 14px; font-size: 10px; font-weight: 600; }
+.bar svg { width: 46%; margin-right: auto; } .bar i { font-style: normal; opacity: 0.8; } .bar em { font-style: normal; padding: 6px 8px; border-radius: 2px; }
+.pic { flex: 1; min-height: 110px; background: url("/images/hero-wide.webp") 50% 62% / cover; }
+.use--board > div { background: url("/images/species/tasmanian-oak.webp") center / cover; }
+.use--board svg { width: 78%; mix-blend-mode: multiply; opacity: 0.86; filter: blur(0.25px); }
+.use--paper > div { background: #e9e7e2; place-items: start center; padding-bottom: 0; }
+.sheet { width: 82%; background: #fff; padding: 16px 16px 60px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12); }
+.sheet svg { width: 58%; } .sheet hr { border: 0; border-top: 1px solid #ddd; margin: 14px 0 10px; } .sheet span { display: block; height: 5px; background: #e6e6e6; margin-bottom: 7px; border-radius: 2px; }
+.use--small > div { gap: 14px; grid-auto-flow: column; background: #fff; border: 1px solid var(--line); border-bottom: 0; border-radius: 16px 16px 0 0; }
+.fav { display: grid; place-items: center; border-radius: 22%; } .fav svg { width: 64%; }
+.note { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 32px; margin-top: 26px; }
+.note div { border-top: 1px solid var(--ink); padding-top: 12px; font-size: 15.5px; color: #333; } .note b { display: block; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.end { background: var(--ink); color: #fff; padding-block: clamp(56px, 7vw, 104px); } .end .lede { color: #b5b5b5; margin-top: 18px; }
+@media (max-width: 900px) { .now, .dir__head, .hero2, .note { grid-template-columns: 1fr; } .uses { grid-template-columns: 1fr 1fr; } .top a { display: none; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><b>Lumen adl <span>for Liemex · logo directions</span></b><a href="#d1">The Board</a><a href="#d2">End Grain</a><a href="#d3">The Stamp</a><a href="#d4">The Joint</a><a href="/proposal">Back to the proposal</a></div></header>
+
+<main>
+  <div class="wrap cover">
+    <p class="label">Logo directions · November 2026</p>
+    <h1>Four ways to redraw the Liemex logo</h1>
+    <p class="lede">Each keeps the name and "The Solid Timber Specialists". Each is one colour, so it can be cut in vinyl, embroidered, or branded onto a board. These are concepts to react to, not finished artwork.</p>
+  </div>
+  <div class="wrap" style="padding-bottom:clamp(40px,5vw,72px)">
+    <div class="now">
+      <img src="/images/liemex-logo.png" alt="The current Liemex logo" width="512" height="476">
+      <div>
+        <p class="label">Where it is now</p>
+        <h2 style="margin-top:10px">A badge that's hard to use</h2>
+        <ul>
+          <li>The globe is a photograph, so it can't be cut, stitched or stamped, and blurs when small.</li>
+          <li>Three lines of text and an outlined name compete for attention.</li>
+          <li>The letters are see-through, so it changes with whatever is behind it.</li>
+          <li>A globe says "import and export". It doesn't say timber.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div data-dirs></div>
+  <section class="end"><div class="wrap">
+    <p class="label" style="color:#9a9a9a">Next</p>
+    <h2 style="margin-top:14px;max-width:16ch">Pick one, or the parts of each you like.</h2>
+    <p class="lede">We then draw it properly: final lettering, exact spacing, and a set of files for print, signage, embroidery and the website.</p>
+  </div></section>
+</main>
+
+<script>
+(() => {
+  const INK = "#14100c", PAPER = "#f0e9dc", RED = "#c4432a", GREEN = "#1d3a2f", WALNUT = "#3a2416", CREAM = "#f4eee2";
+  const tag = (c, x, y, anchor = "start", size = 8.6) => `<text x="${x}" y="${y}" text-anchor="${anchor}" font-family="Inter, sans-serif" font-weight="600" font-size="${size}" letter-spacing="2.1" fill="${c}">THE SOLID TIMBER SPECIALISTS</text>`;
+
+  // 1. The Board: a tongue and groove board, end on, beside a heavy condensed name.
+  const boardMark = (c, a) => `<g fill="none" stroke="${c}" stroke-width="4.6" stroke-linejoin="round"><path d="M4 16H56V28H66V44H56V56H4V44H14V28H4Z"/></g><g fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" opacity=".55"><path d="M14 56C20 40 34 32 50 31M26 56C30 47 40 41 52 40"/></g><circle cx="66" cy="12" r="5.5" fill="${a}"/>`;
+  const board = (c, a = RED) => `<svg viewBox="0 0 300 72" role="img" aria-label="Liemex">${boardMark(c, a)}<text x="84" y="50" font-family="Archivo, sans-serif" font-weight="900" font-stretch="62%" font-size="62" letter-spacing="-0.6" fill="${c}">LIEMEX</text>${tag(c, 85.5, 67, "start", 7.4)}</svg>`;
+
+  // 2. End Grain: growth rings in a log end, with a warm slab name.
+  const ringsMark = (c) => `<g fill="none" stroke="${c}"><circle cx="36" cy="36" r="32" stroke-width="4.4"/><circle cx="37" cy="37" r="24.5" stroke-width="2.4"/><circle cx="38" cy="38" r="17.5" stroke-width="2.4"/><circle cx="39" cy="39" r="10.5" stroke-width="2.4"/><circle cx="40" cy="40" r="3.6" stroke-width="2.4"/><path d="M40 40L62 20" stroke-width="2.4" stroke-linecap="round"/></g>`;
+  const rings = (c) => `<svg viewBox="0 0 330 72" role="img" aria-label="Liemex">${ringsMark(c)}<text x="86" y="47" font-family="Besley, Georgia, serif" font-weight="900" font-size="54" letter-spacing="-2" fill="${c}">Liemex</text>${tag(c, 88, 66, "start", 7.6)}</svg>`;
+
+  // 3. The Stamp: the round badge, redrawn in one colour. The name crosses the circle, as it does today.
+  const stamp = (c, bg) => `<svg viewBox="0 0 260 190" role="img" aria-label="Liemex"><defs><path id="st-a" d="M58 95a72 72 0 0 1 144 0"/><path id="st-b" d="M51 95a79 79 0 0 0 158 0"/></defs>
+    <circle cx="130" cy="95" r="90" fill="none" stroke="${c}" stroke-width="3.6"/><circle cx="130" cy="95" r="84" fill="none" stroke="${c}" stroke-width="1.2"/>
+    <text font-family="Inter, sans-serif" font-weight="600" font-size="7.4" letter-spacing="1.5" fill="${c}"><textPath href="#st-a" startOffset="50%" text-anchor="middle">THE SOLID TIMBER SPECIALISTS</textPath></text>
+    <text font-family="Inter, sans-serif" font-weight="600" font-size="7.4" letter-spacing="2.6" fill="${c}"><textPath href="#st-b" startOffset="50%" text-anchor="middle">PORT ADELAIDE</textPath></text>
+    <rect x="6" y="69" width="248" height="52" fill="${bg}"/><path d="M6 69H254M6 121H254" stroke="${c}" stroke-width="3.6"/>
+    <text x="130" y="114" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-stretch="70%" font-size="53" letter-spacing="1" fill="${c}">LIEMEX</text></svg>`;
+  const stampMark = (c, bg) => `<circle cx="36" cy="36" r="32" fill="none" stroke="${c}" stroke-width="4"/><rect x="0" y="22" width="72" height="28" fill="${bg}"/><path d="M0 22H72M0 50H72" stroke="${c}" stroke-width="3.4"/><text x="36" y="46" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-stretch="62%" font-size="27" fill="${c}">LX</text>`;
+
+  // 4. The Joint: an L made of two boards meeting in a joint, with a wide, calm name.
+  const jointMark = (c) => `<path fill="${c}" d="M8 4H30V40H22V48H30V46H8Z"/><path fill="${c}" d="M34 46H68V68H8V50H26V44H34Z" opacity=".001"/><path fill="${c}" d="M8 50H18V44H34V46H68V68H8Z"/>`;
+  const joint = (c) => `<svg viewBox="0 0 360 72" role="img" aria-label="Liemex">${jointMark(c)}<text x="92" y="46" font-family="Archivo, sans-serif" font-weight="600" font-stretch="125%" font-size="42" letter-spacing="3" fill="${c}">LIEMEX</text>${tag(c, 94, 65, "start", 7.8)}</svg>`;
+
+  const icon = (inner) => `<svg viewBox="-4 -4 80 80">${inner}</svg>`;
+  const dirs = [
+    { id: "d1", name: "The Board", sum: "A tongue and groove board, end on, beside a heavy condensed name. The red dot is the end-seal paint on a stack of timber.", light: PAPER, dark: INK, on: PAPER, ink: INK, lock: (c) => board(c), mark: (c) => icon(boardMark(c, RED)),
+      notes: [["Says", "We machine timber. The profile is the thing you make."], ["Feels", "Direct, hard-working, trade."], ["Suits", "The current demo site as it stands. This is the mark it already hints at."]] },
+    { id: "d2", name: "End Grain", sum: "The end of a log, with its growth rings and a single check. The name is set in a warm slab face, like letters once cut from timber.", light: CREAM, dark: WALNUT, on: CREAM, ink: WALNUT, lock: rings, mark: (c) => icon(ringsMark(c)),
+      notes: [["Says", "Real timber, with age behind it."], ["Feels", "Warm, established, crafted."], ["Suits", "Heritage and restoration work, and the Wood Type look."]] },
+    { id: "d3", name: "The Stamp", sum: "Your round badge, redrawn in one colour. The name still crosses the circle the way it does now, so it is recognisably the same business.", light: "#efece6", dark: "#16233a", on: "#efece6", ink: "#16233a", lock: stamp, mark: (c, bg) => icon(stampMark(c, bg)), needsBg: true,
+      notes: [["Says", "The same Liemex, tidied up."], ["Feels", "Trusted, familiar, like a grade stamp on a board."], ["Suits", "Keeping long-standing customers comfortable. The smallest change of the four."]] },
+    { id: "d4", name: "The Joint", sum: "An L made of two boards meeting in a joint, with a wide, calm name. The most modern of the four.", light: "#f3eee3", dark: GREEN, on: "#f3eee3", ink: GREEN, lock: joint, mark: (c) => icon(jointMark(c)),
+      notes: [["Says", "Precision and fit."], ["Feels", "Contemporary, architectural, confident."], ["Suits", "Architects and designers, and The Rack or The Library look."]] },
+  ];
+  document.querySelector("[data-dirs]").innerHTML = dirs.map((d, i) => {
+    const L = (c, bg) => (d.needsBg ? d.lock(c, bg) : d.lock(c));
+    const M = (c, bg) => (d.needsBg ? d.mark(c, bg) : d.mark(c));
+    return `<section class="dir" id="${d.id}"><div class="wrap">
+      <div class="dir__head"><p class="label">Direction ${i + 1} of ${dirs.length}</p><h2>${d.name}</h2><p class="lede">${d.sum}</p></div>
+      <div class="hero2"><div class="tile" style="background:${d.light}">${L(d.ink, d.light)}</div><div class="tile" style="background:${d.dark}">${L(d.on, d.dark)}</div></div>
+      <div class="uses">
+        <div class="use use--site"><div style="display:flex;flex-direction:column"><div class="bar" style="background:${d.dark};color:${d.on}">${L(d.on, d.dark)}<i>Products</i><i>Timbers</i><em style="background:${d.on};color:${d.dark}">Get a quote</em></div><div class="pic"></div></div><p>On the website</p></div>
+        <div class="use use--board"><div>${L("#2a1608", "transparent").replace(/fill="transparent"/g, 'fill="none"')}</div><p>Branded on a board</p></div>
+        <div class="use use--paper"><div><div class="sheet">${L(d.ink, "#fff")}<hr><span style="width:70%"></span><span style="width:92%"></span><span style="width:55%"></span></div></div><p>On a quote or invoice</p></div>
+        <div class="use use--small"><div><span class="fav" style="width:84px;height:84px;background:${d.dark}">${M(d.on, d.dark)}</span><span class="fav" style="width:48px;height:48px;background:${d.light}">${M(d.ink, d.light)}</span><span class="fav" style="width:26px;height:26px;background:${d.dark}">${M(d.on, d.dark)}</span></div><p>Small: phone icon, browser tab</p></div>
+      </div>
+      <div class="note">${d.notes.map(([k, v]) => `<div><b>${k}</b>${v}</div>`).join("")}</div>
+    </div></section>`;
+  }).join("");
+})();
+</script>
+</body>
+</html>
