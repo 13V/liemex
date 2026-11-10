@@ -119,8 +119,8 @@
     boards.forEach((b) => {
       b.addEventListener("pointerenter", () => hover.matches && open(b));
       b.addEventListener("focus", () => open(b));
-      // On touch the first tap opens a board; a tap on the open board follows its link.
-      b.addEventListener("click", (e) => { if (!hover.matches && !b.classList.contains("is-open")) { e.preventDefault(); open(b); b.scrollIntoView({ behavior: motionOK() ? "smooth" : "auto", inline: "center", block: "nearest" }); } });
+      // On touch the first tap opens a board; a tap on the open board lays it in the room.
+      b.addEventListener("click", (e) => { if (!hover.matches && !b.classList.contains("is-open")) { e.preventDefault(); e.stopImmediatePropagation(); open(b); b.scrollIntoView({ behavior: motionOK() ? "smooth" : "auto", inline: "center", block: "nearest" }); } });
     });
   }
 
@@ -248,6 +248,34 @@
       if (msg && !msg.value) msg.value = `${name}: about ${metres()} lineal metres for ${area.value} m² (from the website calculator).`;
     });
   }
+
+  /* ---------- The room: three.js loads on the first click, never before ---------- */
+  const canGL = (() => { try { return !!document.createElement("canvas").getContext("webgl2"); } catch { return false; } })();
+  if (canGL && $("#species-data")) {
+    document.documentElement.classList.add("has-room");
+    let loading = null;
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-room]");
+      if (!el || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      el.classList.add("is-loading");
+      loading = loading || import("/room.js");
+      loading.then((m) => m.openRoom(el.dataset.room)).catch(() => { location.href = el.href; }).finally(() => el.classList.remove("is-loading"));
+    });
+  }
+  // A timber chosen in the room is carried into the quote form.
+  const carry = () => {
+    let ask = "";
+    try { ask = sessionStorage.getItem("liemex-ask") || ""; sessionStorage.removeItem("liemex-ask"); } catch {}
+    const msg = $('[data-enquiry] textarea[name="message"]');
+    const sel = $('[data-enquiry] select[name="interest"]');
+    if (!ask || !msg) return;
+    if (!msg.value) msg.value = `${ask}: `;
+    if (sel && !sel.value) sel.value = "Flooring";
+    msg.focus({ preventScroll: true });
+  };
+  document.addEventListener("liemex:ask", carry);
+  carry();
 
   /* ---------- Filters, lightbox, enquiry type ---------- */
   $$("[data-filter]").forEach((group) => {

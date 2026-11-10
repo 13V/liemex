@@ -1,5 +1,5 @@
 // Shared pieces the pages are built from.
-import { site, categories } from "./data.mjs";
+import { site, categories, species } from "./data.mjs";
 
 export const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -67,3 +67,6 @@ export const quoteSection = (source) => `
     </div>
   </div>
 </section>`;
+
+// What room.js needs to know about each timber. Put it once on any page with [data-room] buttons.
+export const roomData = `<script type="application/json" id="species-data">${JSON.stringify(species.map(({ slug, name, type, text }) => ({ slug, name, type, text })))}</script>`;

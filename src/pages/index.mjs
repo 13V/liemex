@@ -1,5 +1,5 @@
 import { site, categories, species, reviews, catalogues } from "../data.mjs";
-import { esc, arrow, btn, img, quoteSection } from "../ui.mjs";
+import { esc, arrow, btn, img, quoteSection, roomData } from "../ui.mjs";
 import { drawings, bench, ruler } from "../draw.mjs";
 
 const work = [
@@ -64,11 +64,11 @@ export default {
 <section class="band band--ink rack" id="species">
   <div class="wrap rack__head">
     <h2 class="h-xl" data-split>In the rack</h2>
-    <p class="lede">Hardwoods and softwoods we keep or bring in. Run along them, then come and see the boards in daylight, because no screen gets jarrah right.</p>
+    <p class="lede">Hardwoods and softwoods we keep or bring in. Pick a board and we'll lay it in a room for you: floor, door, skirting and all.</p>
   </div>
   <div class="rack__boards" data-rack role="list">
     ${species.map((s, i) => `
-    <a class="board${i === 0 ? " is-open" : ""}" role="listitem" href="/timber-species#${s.slug}" style="--i:${i}" data-board>
+    <a class="board${i === 0 ? " is-open" : ""}" role="listitem" href="/timber-species#${s.slug}" style="--i:${i}" data-board data-room="${s.slug}">
       <img src="/images/species/${s.slug}-v.webp" alt="" width="360" height="900" loading="lazy" decoding="async">
       <span class="board__tag"><i class="dot"></i>${s.name}</span>
       <span class="board__info">
@@ -76,9 +76,11 @@ export default {
         <strong>${s.name}</strong>
         <span>${s.text}</span>
         <span class="board__uses">${s.uses.join(" · ")}</span>
+        <span class="board__go">See it in a room ${arrow}</span>
       </span>
     </a>`).join("")}
   </div>
+  ${roomData}
   <div class="wrap rack__foot">
     <p class="mono" data-rack-count>01 / ${species.length}</p>
     <a class="tlink tlink--light" href="/timber-species">Compare all species ${arrow}</a>
