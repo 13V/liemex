@@ -1,2 +1,2 @@
-Furniture in the room scene: models from Poly Haven (polyhaven.com), licensed CC0.
-mid_century_lounge_chair, potted_plant_02, ceramic_vase_03.
+Furniture in the room scene (models/tripo): generated for this project with Tripo, textures cut to 1024 px, geometry
+simplified and meshopt-compressed with gltf-transform. Each is about one unit across and faces +z; room.js sets the size.

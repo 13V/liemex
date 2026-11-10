@@ -17,7 +17,7 @@ Built by Lumen adl. Static HTML, CSS and JS; one small build script, no dependen
   read (`data-words`). On the homepage a board is machined as you scroll (`#bench`) and the work photos run
   sideways (`#work`). With reduced motion or no JavaScript everything rests in its finished state and nothing pins.
 - The room (`room.js`): pick a timber and see it laid in a living room. three.js and its add-ons are self-hosted
-  in `vendor/`, the scanned chair, plant and vase in `models/` (Poly Haven, CC0). It loads on the first click only.
+  in `vendor/`, the furniture in `models/tripo/` (made with Tripo; see `models/README.md`). It loads on the first click only.
 - Enquiry form: posts to `api/enquiry.js` (Vercel function, emails through Resend). It needs
   `RESEND_API_KEY` and `ENQUIRY_EMAIL_FROM` set in Vercel; until then the form tells people to call.
 

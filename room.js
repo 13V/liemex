@@ -1,11 +1,12 @@
 // The room. Pick a timber and see it laid in a bright living room: the floor, the door, the skirting and two
-// turned stools are in that species; everything else stays cream so the timber is the colour.
+// turned stools are in that species; the furniture stays cream and pale so the timber is the colour.
 // Loaded only when someone opens it (site.js imports this file on the first click).
 // An illustration: sharp grain is drawn over the real colours of our sample of each timber.
 import * as THREE from "/vendor/three.module.min.js";
 import { RoomEnvironment } from "/vendor/RoomEnvironment.js";
 import { RoundedBoxGeometry } from "/vendor/jsm/geometries/RoundedBoxGeometry.js";
 import { GLTFLoader } from "/vendor/jsm/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "/vendor/jsm/meshopt_decoder.module.js";
 import { EffectComposer } from "/vendor/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "/vendor/jsm/postprocessing/RenderPass.js";
 import { GTAOPass } from "/vendor/jsm/postprocessing/GTAOPass.js";
@@ -214,97 +215,53 @@ box(1.04, 0.09, 0.03, timber, DX, 2.145, BACK + 0.02);
 add(new THREE.CylinderGeometry(0.012, 0.012, 0.16, 12), darkMat, DX + 0.33, 1.02, BACK + 0.085);
 // Turned stools.
 const stoolGeo = new THREE.LatheGeometry([[0, 0], [0.17, 0], [0.185, 0.03], [0.17, 0.1], [0.11, 0.17], [0.1, 0.22], [0.13, 0.27], [0.19, 0.33], [0.2, 0.4], [0.19, 0.46], [0.165, 0.48], [0, 0.48]].map(([x, y]) => new THREE.Vector2(x, y)), 48);
-add(stoolGeo, timber, C.x + 1.55, 0, C.z + 1.5);
-add(stoolGeo, timber, LEFT + 0.95, 0, C.z + 0.25);
-shadowBlob(0.8, 0.8, C.x + 1.55, C.z + 1.5);
-shadowBlob(0.8, 0.8, LEFT + 0.95, C.z + 0.25);
+add(stoolGeo, timber, -0.35, 0, 0.95);
+add(stoolGeo, timber, 1.75, 0, -1.0);
+shadowBlob(0.8, 0.8, -0.35, 0.95);
+shadowBlob(0.8, 0.8, 1.75, -1.0);
 
-/* ---------- Furniture ---------- */
-// The sofa: one curved sweep of bouclé. A seat-and-back profile turned through 130 degrees.
-const deg = Math.PI / 180;
-const profile = (() => {
-  const s = new THREE.Shape();
-  const R0 = 1.12, R1 = 1.72, R2 = 2.12;                       // seat front, back cushion front, outer back
-  s.moveTo(R0 + 0.04, 0.09);
-  s.quadraticCurveTo(R0 - 0.04, 0.24, R0 + 0.03, 0.4);         // rounded seat front
-  s.quadraticCurveTo(R0 + 0.07, 0.45, R0 + 0.16, 0.45);
-  s.lineTo(R1 - 0.1, 0.44);
-  s.quadraticCurveTo(R1 - 0.01, 0.46, R1 + 0.02, 0.56);        // up the back cushion
-  s.quadraticCurveTo(R1 + 0.04, 0.8, R1 + 0.2, 0.81);
-  s.quadraticCurveTo(R2 + 0.02, 0.8, R2, 0.56);                // over the top and down the outside
-  s.lineTo(R2 - 0.02, 0.09);
-  s.closePath();
-  return s;
-})();
-const SOFA0 = -112 * deg, SOFA = 134 * deg;
-const sofa = new THREE.Group();
-sofa.position.copy(C);
-const boucle2 = boucle.clone(); boucle2.side = THREE.DoubleSide;   // the sweep is seen from both faces at its ends
-const sweep = new THREE.Mesh(new THREE.LatheGeometry(profile.getPoints(10).reverse(), 72, SOFA0, SOFA), boucle2);
-sofa.add(sweep);
-[SOFA0, SOFA0 + SOFA].forEach((phi, i) => {                    // closed, softly rounded ends
-  const cap = new THREE.Mesh(new THREE.ShapeGeometry(profile, 10), boucle2);
-  cap.rotation.y = phi - Math.PI / 2;
-  sofa.add(cap);
-  const pod = new THREE.Mesh(new THREE.SphereGeometry(0.5, 40, 24), boucle);
-  pod.scale.set(1.02, 0.44, 0.5);
-  pod.position.set(Math.sin(phi) * 1.6, 0.27, Math.cos(phi) * 1.6);
-  pod.rotation.y = phi + (i ? -0.25 : 0.25);
-  sofa.add(pod);
-});
-const cushion = (phi, r, s, tilt, mat = boucle) => {
-  const m = new THREE.Mesh(new RoundedBoxGeometry(0.5 * s, 0.46 * s, 0.17, 6, 0.08), mat);
-  m.position.set(Math.sin(phi) * r, 0.66, Math.cos(phi) * r);
-  m.rotation.set(0, phi + Math.PI, 0);
-  m.rotateX(tilt);
-  sofa.add(m);
-};
-const linen = new THREE.MeshStandardMaterial({ color: 0xe6dccb, roughness: 1, bumpMap: boucleBump, bumpScale: 0.6 });
-cushion(-84 * deg, 1.58, 1, 0.3);
-cushion(-62 * deg, 1.56, 0.94, 0.36, linen);
-cushion(-6 * deg, 1.58, 1, 0.3, linen);
-const bolster = new THREE.Mesh(new THREE.SphereGeometry(0.17, 32, 20), boucle);
-bolster.scale.set(1.25, 1, 1);
-bolster.position.set(Math.sin(8 * deg) * 1.5, 0.6, Math.cos(8 * deg) * 1.5);
-sofa.add(bolster);
-sofa.traverse((m) => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } });
-scene.add(sofa);
+/* ---------- Furniture ----------
+   Nine models made for this room (models/tripo, each about one unit across, facing +z), set to real sizes here.
+   The rug is drawn in code. */
+const rug = add(new RoundedBoxGeometry(3.9, 0.02, 3.3, 2, 0.01), new THREE.MeshStandardMaterial({ map: rugMaps.map, bumpMap: rugMaps.bump, bumpScale: 2.2, roughness: 1 }), -0.75, 0.01, -0.75, false);
+shadowBlob(4.4, 3.8, -0.75, -0.75, 0.004, 0.5);               // under the rug's edge
 
-// Rug, marble block table, a stack of books and a bowl.
-const rug = add(new RoundedBoxGeometry(3.5, 0.02, 2.7, 2, 0.01), new THREE.MeshStandardMaterial({ map: rugMaps.map, bumpMap: rugMaps.bump, bumpScale: 2.2, roughness: 1 }), C.x + 0.25, 0.01, C.z - 0.3, false);
-const TX = C.x + 0.3, TZ = C.z - 0.25;
-add(new RoundedBoxGeometry(1.25, 0.06, 0.72, 2, 0.008), marble, TX, 0.36, TZ);
-add(new RoundedBoxGeometry(0.2, 0.31, 0.6, 2, 0.008), marble, TX - 0.36, 0.175, TZ);
-add(new RoundedBoxGeometry(0.2, 0.31, 0.6, 2, 0.008), marble, TX + 0.36, 0.175, TZ);
-box(0.3, 0.025, 0.22, new THREE.MeshStandardMaterial({ color: 0xd9d2c5, roughness: 0.8 }), TX + 0.22, 0.403, TZ + 0.06).rotation.y = 0.2;
-box(0.26, 0.02, 0.19, new THREE.MeshStandardMaterial({ color: 0x8c9486, roughness: 0.8 }), TX + 0.22, 0.426, TZ + 0.06).rotation.y = 0.05;
-add(new THREE.LatheGeometry([[0, 0], [0.05, 0], [0.085, 0.04], [0.09, 0.07], [0.082, 0.072], [0.076, 0.045], [0, 0.012]].map(([x, y]) => new THREE.Vector2(x, y)), 32), new THREE.MeshStandardMaterial({ color: 0xe9e2d6, roughness: 0.55 }), TX + 0.22, 0.436, TZ + 0.06);
-shadowBlob(4.0, 3.2, C.x + 0.25, C.z - 0.3, 0.004, 0.5);     // under the rug's edge
-shadowBlob(1.7, 1.2, TX, TZ, 0.022, 0.9);
-shadowBlob(5.2, 5.2, C.x - 0.55, C.z + 0.35, 0.021, 0.5);     // under the sofa
-
-// Scanned models (Poly Haven, CC0): the lounge chair, a plant and a vase.
 const loader = new GLTFLoader();
-const model = (id, x, y, z, ry = 0, s = 1, tweak) => loader.loadAsync(`/models/${id}/${id}.gltf`).then((g) => {
+loader.setMeshoptDecoder(MeshoptDecoder);
+const model = (id, x, y, z, ry = 0, s = 1, tweak) => loader.loadAsync(`/models/tripo/${id}.glb`).then((g) => {
   g.scene.position.set(x, y, z);
   g.scene.rotation.y = ry;
   g.scene.scale.setScalar(s);
   g.scene.traverse((m) => { if (!m.isMesh) return; m.castShadow = m.receiveShadow = true; if (m.material.map) m.material.map.anisotropy = maxAniso; tweak?.(m); });
   scene.add(g.scene);
 }).catch(() => {});
-const CHX = C.x + 1.95, CHZ = C.z - 1.5;
+const SX = -2.72, SZ = -0.75;                                  // sofa, its back to the glass
+const TX = -0.95, TZ = -0.75, TOP = 0.3 * 1.36;                // coffee table and the height of its top
+const CHX = 0.95, CHZ = -1.85;                                 // lounge chair
+const LAMP = new THREE.Vector3(TX, 1.62, TZ);                  // foot of the paper lantern
+const cool = (m) => m.material.color.setRGB(0.93, 0.97, 1.08);   // the low sun is warm; keep the cream upholstery from going yellow
 const furniture = Promise.all([
-  model("mid_century_lounge_chair", CHX, 0, CHZ, Math.atan2(TX - CHX, TZ - CHZ) - 0.25, 1),
-  model("potted_plant_02", LEFT + 0.95, 0.48, C.z + 0.25, 0.6, 0.9),
-  model("ceramic_vase_03", TX - 0.3, 0.39, TZ - 0.08, 0, 0.62),
-  model("potted_plant_02", 3.1, 0, BACK + 0.6, 2.2, 1.45),
+  model("sofa", SX, 0, SZ, Math.PI / 2, 3.1, cool),
+  model("coffee-table", TX, 0, TZ, Math.PI / 2, 1.36),
+  model("books", TX + 0.02, TOP, TZ + 0.3, 0.25, 0.36),
+  model("vase", TX - 0.05, TOP, TZ - 0.36, 0.6, 0.44),
+  model("chair", CHX, 0, CHZ, Math.atan2(TX - CHX, TZ - CHZ), 1.08, cool),
+  model("olive-tree", -3.2, 0, 1.45, 0.8, 1.95, (m) => m.material.color.setRGB(1.35, 1.35, 1.3)),
+  model("sideboard", 0.1, 0, BACK + 0.34, 0, 2.05),
+  model("floor-lamp", -3.0, 0, -2.75, 0, 1.6, (m) => { m.castShadow = false; }),
+  model("pendant", LAMP.x, LAMP.y, LAMP.z, 0, 0.74, (m) => { m.castShadow = false; m.material.emissive = new THREE.Color(0xfff0d6); m.material.emissiveMap = m.material.map; m.material.emissiveIntensity = 0.75; }),
 ]);
-shadowBlob(1.5, 1.5, CHX, CHZ);
-shadowBlob(1.3, 1.3, 3.1, BACK + 0.6);
+box(0.006, H - LAMP.y - 0.7, 0.006, darkMat, LAMP.x, (H + LAMP.y + 0.7) / 2, LAMP.z, false);   // the lantern's cord, up to the ceiling
+shadowBlob(2.4, 4.0, SX + 0.1, SZ, 0.021, 0.75);
+shadowBlob(1.5, 2.1, TX, TZ, 0.022, 0.9);
+shadowBlob(1.5, 1.5, CHX, CHZ, 0.022);
+shadowBlob(1.0, 1.0, -3.2, 1.45);
+shadowBlob(2.5, 1.0, 0.1, BACK + 0.4);
+shadowBlob(0.6, 0.6, -3.0, -2.75);
 
 /* ---------- Light ---------- */
 scene.add(new THREE.HemisphereLight(0xffffff, 0xd8c4a8, 1.25));
-const sun = new THREE.DirectionalLight(0xffe9c8, 4.6);
+const sun = new THREE.DirectionalLight(0xfff0dc, 4.4);
 sun.position.set(-12, 6.2, 4.4);
 sun.target.position.set(-0.6, 0, -0.9);
 sun.castShadow = true;
@@ -317,6 +274,9 @@ scene.add(sun, sun.target);
 const fill = new THREE.DirectionalLight(0xfff4e6, 0.55);      // bounce back from the room behind you
 fill.position.set(5, 3, 6);
 scene.add(fill);
+const glow = new THREE.PointLight(0xffd9a8, 1.6, 6, 2);       // the paper lantern
+glow.position.set(LAMP.x, LAMP.y + 0.35, LAMP.z);
+scene.add(glow);
 
 // Reflections: what the room itself looks like from its middle, so the glass wall glints across the floor.
 const pmrem = new THREE.PMREMGenerator(renderer);
