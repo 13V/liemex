@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en-AU"><head><meta charset="utf-8"><title>Liemex website proposal · Lumen adl</title>
+<style>
+/* Lumen adl document style: Inter, black and white, soft grey page, white rounded cards, the asterisk mark. A4 portrait. */
+@font-face { font-family: "Inter"; src: url("../fonts/inter-latin-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Inter"; src: url("../fonts/inter-latin-500.woff2") format("woff2"); font-weight: 500 700; }
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font: 400 10.4pt/1.45 "Inter", system-ui, sans-serif; color: #121212; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { position: relative; width: 210mm; height: 297mm; padding: 13mm 14mm 12mm; background: #f3f3ef; overflow: hidden; page-break-after: always; display: flex; flex-direction: column; }
+.page--dark { background: #121212; color: #f5f5f3; }
+.ast { display: inline-block; width: 0.72em; height: 0.72em; vertical-align: -0.02em; }
+.top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 5mm; border-bottom: 1px solid #d6d6d0; margin-bottom: 7mm; font-size: 9pt; color: #6d6d68; }
+.top b { font-size: 12.5pt; font-weight: 500; color: #121212; letter-spacing: -0.02em; }
+.page--dark .top { border: 0; margin-bottom: 4mm; color: #a9a9a4; } .page--dark .top b { color: #f5f5f3; font-size: 15pt; }
+.foot { margin-top: auto; display: flex; justify-content: space-between; padding-top: 4mm; border-top: 1px solid #d6d6d0; font-size: 8.6pt; color: #6d6d68; }
+.foot b { font-weight: 500; color: #121212; }
+h1 { font-size: 31pt; font-weight: 400; letter-spacing: -0.045em; line-height: 1.02; }
+.lede { font-size: 12.4pt; line-height: 1.38; max-width: 150mm; margin-top: 4mm; color: #2a2a28; }
+h2 { font-size: 12.4pt; font-weight: 600; letter-spacing: -0.01em; margin: 6mm 0 3mm; }
+.cap { font-size: 7.6pt; letter-spacing: 0.16em; text-transform: uppercase; color: #6d6d68; }
+.card { background: #fff; border-radius: 6mm; padding: 5.5mm 6mm; }
+.dark { background: #121212; color: #f5f5f3; border-radius: 6mm; padding: 6mm 7mm; }
+.small { font-size: 8.4pt; color: #6d6d68; }
+/* cover */
+.cover { flex: 1; display: grid; grid-template-columns: 1fr 0.9fr; background: #f5f5f3; color: #121212; border-radius: 8mm; overflow: hidden; }
+.cover__l { padding: 14mm 12mm 13mm; display: flex; flex-direction: column; }
+.cover__l h1 { font-size: 47pt; margin-top: 9mm; }
+.disc { width: 15mm; height: 15mm; border-radius: 50%; background: #121212; color: #f5f5f3; display: grid; place-items: center; margin-top: 8mm; }
+.disc .ast { width: 7.5mm; height: 7.5mm; }
+.cover__l p.sum { margin-top: auto; font-size: 13.4pt; line-height: 1.36; }
+.cover__r { background: url("img/cover.jpg") center / cover; position: relative; }
+.cover__r span { position: absolute; right: 5mm; bottom: 9mm; writing-mode: vertical-rl; transform: rotate(180deg); background: rgba(245, 245, 243, 0.85); color: #121212; border-radius: 99px; padding: 5mm 1.6mm; font-size: 6.8pt; letter-spacing: 0.22em; }
+.under { display: grid; grid-template-columns: 1fr 1fr 1.25fr; gap: 5mm; margin-top: 7mm; }
+.box { border: 1px solid #3a3a38; border-radius: 6mm; padding: 6mm; min-height: 42mm; }
+.box b { display: block; font-size: 21pt; font-weight: 400; letter-spacing: -0.04em; line-height: 1.05; margin: 3mm 0 2mm; }
+.box span { font-size: 9.6pt; color: #c9c9c4; }
+.who { font-size: 9.4pt; color: #c9c9c4; } .who b { display: block; color: #f5f5f3; font-weight: 500; margin-top: 3mm; } .who b:first-child { margin-top: 0; }
+/* before and after */
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-bottom: 4.2mm; }
+.shot { background: #fff; border-radius: 4.5mm; padding: 2.4mm 2.4mm 3mm; }
+.shot img { display: block; width: 100%; border-radius: 3mm; }
+.pair .shot img { aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 0; }
+.shot p { display: flex; gap: 2.4mm; align-items: baseline; margin: 2.6mm 1.5mm 0; font-size: 8.8pt; line-height: 1.35; }
+.tag { flex: none; font-size: 6.8pt; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.9mm 2.2mm; border-radius: 99px; border: 1px solid #121212; }
+.tag--new { background: #121212; color: #f5f5f3; }
+.shot--new { outline: 1.5px solid #121212; }
+/* grids */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; }
+.feat { display: grid; grid-template-columns: 7.5mm 1fr; gap: 3.2mm; }
+.feat i { width: 7.5mm; height: 7.5mm; border-radius: 50%; background: #121212; color: #fff; display: grid; place-items: center; }
+.feat i .ast { width: 3.8mm; height: 3.8mm; }
+.feat b { display: block; font-weight: 600; font-size: 10.6pt; }
+.feat span { display: block; font-size: 9.1pt; color: #3c3c39; margin-top: 0.6mm; }
+.feat em { display: block; font-style: normal; font-weight: 500; font-size: 9.1pt; margin-top: 1.4mm; }
+.cols3 > div { border-top: 1px solid #4a4a47; padding-top: 3mm; } .cols3 b { display: block; font-weight: 500; margin-bottom: 1.2mm; } .cols3 span { font-size: 9.2pt; color: #c9c9c4; }
+.phones { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 5mm; align-items: start; }
+.phones img { width: 100%; border-radius: 4mm; display: block; }
+ul.tick { list-style: none; } ul.tick li { display: grid; grid-template-columns: 5mm 1fr; gap: 2mm; margin-bottom: 2.2mm; font-size: 9.6pt; }
+ul.tick .ast { width: 3mm; height: 3mm; margin-top: 1.2mm; }
+ul.check li { grid-template-columns: 5.5mm 1fr; } ul.check li::before { content: ""; width: 3.4mm; height: 3.4mm; border: 1.2px solid #121212; border-radius: 0.9mm; margin-top: 0.9mm; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; } .steps div { border-top: 1.5px solid #121212; padding-top: 3mm; } .steps .cap { display: block; margin-bottom: 5mm; } .steps b { display: block; font-size: 11.4pt; font-weight: 600; } .steps span { font-size: 9.1pt; color: #3c3c39; }
+.room { border-radius: 6mm; overflow: hidden; position: relative; } .room img { display: block; width: 100%; }
+.big { font-size: 19pt; font-weight: 400; letter-spacing: -0.04em; line-height: 1.1; }
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><symbol id="a" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M12 2.5v19M2.5 12h19M5.3 5.3l13.4 13.4M18.7 5.3L5.3 18.7"/></g></symbol></svg>
+
+<!-- 1 -->
+<section class="page page--dark">
+  <div class="top"><b>Lumen <svg class="ast"><use href="#a"/></svg></b><span>Proposal · 10 November 2026</span></div>
+  <div class="cover">
+    <div class="cover__l">
+      <p class="cap">Website proposal for Liemex</p>
+      <h1>A website<br>that sells<br>timber</h1>
+      <div class="disc"><svg class="ast"><use href="#a"/></svg></div>
+      <p class="sum">Your site gets visitors now. This one is built to turn more of them into phone calls and quote requests, by showing your timber the way you'd show it at the yard.</p>
+    </div>
+    <div class="cover__r"><span>INDEPENDENT STUDIO · ADELAIDE, AU</span></div>
+  </div>
+  <div class="under">
+    <div class="box"><p class="cap" style="color:#a9a9a4">Already built</p><b>A working demo</b><span>With your products, timbers and photos in it.</span></div>
+    <div class="box"><p class="cap" style="color:#a9a9a4">See it</p><b style="font-size:15pt;letter-spacing:-0.03em">liemex.vercel.app<br>/proposal</b><span>A short film, then the site itself.</span></div>
+    <div class="who"><b>Prepared for</b>Dave<br>Liemex, trading as Baltic Pine &amp; European Timber<br>1 Bedford Street, Port Adelaide<b>Prepared by</b>Troy Watson, Lumen adl</div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="page">
+  <div class="top"><b>Lumen <svg class="ast"><use href="#a"/></svg></b><span>Proposal for Liemex · 10 November 2026</span></div>
+  <h1>Before and after</h1>
+  <p class="lede">The same business, the same timber and the same photos. Left is liemex.com.au today. Right is the demo.</p>
+  <div style="margin-top:6mm">
+    <div class="pair">
+      <div class="shot"><img src="img/old-home.jpg"><p><span class="tag">Now</span>A list of words over a dark photo. Nothing to click, and no reason given to choose you.</p></div>
+      <div class="shot shot--new"><img src="img/new-home.jpg"><p><span class="tag tag--new">New</span>One line that says what you do and that you machine it yourselves. Quote and phone in reach.</p></div>
+    </div>
+    <div class="pair">
+      <div class="shot"><img src="img/old-species.jpg"><p><span class="tag">Now</span>Timbers as boxes of text. A customer can't see what any of them look like.</p></div>
+      <div class="shot shot--new"><img src="img/new-rack.jpg"><p><span class="tag tag--new">New</span>All 17 timbers side by side as boards, the way they'd see them in your rack.</p></div>
+    </div>
+    <div class="pair">
+      <div class="shot"><img src="img/old-products.jpg" style="object-position:50% 100%"><p><span class="tag">Now</span>Flooring shows placeholder pictures stamped "SAMPLE" and a missing image.</p></div>
+      <div class="shot shot--new"><img src="img/new-products.jpg"><p><span class="tag tag--new">New</span>Each range on one clear page with what's in it and a button to ask about it.</p></div>
+    </div>
+  </div>
+  <div class="foot"><b>Lumen adl <svg class="ast"><use href="#a"/></svg></b><span>lumenadl.com · hello@lumenadl.com · 0421 276 482</span><span>2 / 5</span></div>
+</section>
+
+<!-- 3 -->
+<section class="page">
+  <div class="top"><b>Lumen <svg class="ast"><use href="#a"/></svg></b><span>Proposal for Liemex · 10 November 2026</span></div>
+  <h1>Where enquiries are being lost</h1>
+  <p class="lede">We went through your current site as a customer would. Each of these gives someone a reason to ring a competitor instead.</p>
+  <div class="g2" style="margin-top:6mm">
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>It looks unfinished</b><span>Product pages show stock pictures stamped "SAMPLE", a blank placeholder image, and the homepage has a spelling slip ("Second Fix Timbe").</span></div></div>
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>It disagrees with itself</b><span>The homepage says 40+ years and the About page says over 30. Two different email addresses appear.</span></div></div>
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>Your edge is buried</b><span>You saw, dress and profile your own timber and can match a heritage moulding. The site barely says so.</span></div></div>
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>Nothing asks for the job</b><span>There are 356 products and no prices, so every sale depends on an enquiry. The site doesn't make that enquiry easy.</span></div></div>
+  </div>
+  <h2>On a phone, where most people will find you</h2>
+  <div class="phones">
+    <div class="shot"><img src="img/old-m.jpg"><p><span class="tag">Now</span></p></div>
+    <div class="shot shot--new"><img src="img/new-m.jpg"><p><span class="tag tag--new">New</span></p></div>
+    <div>
+      <ul class="tick">
+        <li><svg class="ast"><use href="#a"/></svg><span><b>Now:</b> the header is cut off, the address wraps over three lines and a chat bubble covers the list.</span></li>
+        <li><svg class="ast"><use href="#a"/></svg><span><b>New:</b> one clear line, then two buttons: get a quote, or see timber in a room.</span></li>
+        <li><svg class="ast"><use href="#a"/></svg><span>A bar with <b>Ring</b> and <b>Get a quote</b> stays within thumb reach on every page.</span></li>
+        <li><svg class="ast"><use href="#a"/></svg><span>It shows whether the yard is open right now.</span></li>
+      </ul>
+      <div class="dark" style="margin-top:5mm"><p class="big">A customer who can't tell what you sell in five seconds leaves.</p></div>
+    </div>
+  </div>
+  <div class="foot"><b>Lumen adl <svg class="ast"><use href="#a"/></svg></b><span>lumenadl.com · hello@lumenadl.com · 0421 276 482</span><span>3 / 5</span></div>
+</section>
+
+<!-- 4 -->
+<section class="page">
+  <div class="top"><b>Lumen <svg class="ast"><use href="#a"/></svg></b><span>Proposal for Liemex · 10 November 2026</span></div>
+  <h1>How it brings in more work</h1>
+  <p class="lede">Every part of the new site has one job: move a visitor a step closer to ringing you or asking for a quote.</p>
+  <div class="room" style="margin-top:6mm"><img src="img/room.jpg"></div>
+  <div class="dark" style="margin-top:-9mm;position:relative;margin-inline:6mm">
+    <p class="cap" style="color:#a9a9a4">The 3D room</p>
+    <p class="big" style="margin:2mm 0 2mm">They see the floor before they buy it.</p>
+    <p style="font-size:9.6pt;color:#c9c9c4">A customer picks any of your 17 timbers and sees it laid in a room: floor, door and skirting, in boards or herringbone. Nobody can picture a floor from a sample the size of a hand. This lets them, and none of your competitors' sites do it.</p>
+  </div>
+  <div class="g2" style="margin-top:5mm">
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>The timber rack</b><span>All 17 species side by side, each one click from the room or a quote.</span><em>Pays by: keeping people comparing your timbers, not searching elsewhere.</em></div></div>
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>The metres calculator</b><span>An area and a board width become lineal metres, sent straight to the quote form.</span><em>Pays by: turning "roughly this big" into a job you can price.</em></div></div>
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>One board, start to floor</b><span>An animation of a board being sawn, dressed, profiled and laid.</span><em>Pays by: proving you machine your own, which a big-box store can't say.</em></div></div>
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>A quote form that reaches you</b><span>Short, with the timber and metres already filled in. It only says "thanks" once delivered.</span><em>Pays by: no enquiry lost between the website and your inbox.</em></div></div>
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>Your work, up front</b><span>Your own floors, doors and decks run across the homepage and fill the gallery.</span><em>Pays by: showing finished jobs, which is what sells a floor.</em></div></div>
+    <div class="card feat"><i><svg class="ast"><use href="#a"/></svg></i><div><b>Found on Google, kept on Google</b><span>Old page addresses point to the new ones, so existing search results keep working.</span><em>Pays by: not losing the traffic you already have.</em></div></div>
+  </div>
+  <div class="foot"><b>Lumen adl <svg class="ast"><use href="#a"/></svg></b><span>lumenadl.com · hello@lumenadl.com · 0421 276 482</span><span>4 / 5</span></div>
+</section>
+
+<!-- 5 -->
+<section class="page">
+  <div class="top"><b>Lumen <svg class="ast"><use href="#a"/></svg></b><span>Proposal for Liemex · 10 November 2026</span></div>
+  <h1>What happens next</h1>
+  <p class="lede">The demo is running now. Have a look, pick the look you like, and we finish it with your details and photos.</p>
+  <div class="dark" style="margin-top:6mm;display:grid;grid-template-columns:1.1fr 1fr;gap:8mm;align-items:center">
+    <div><p class="cap" style="color:#a9a9a4">See the demo</p><p class="big" style="margin-top:2mm">liemex.vercel.app/proposal</p></div>
+    <p style="font-size:9.6pt;color:#c9c9c4">A minute-and-a-half film, the four looks to choose from, and links into the working site. It's private and hidden from Google, so it can't affect your current site.</p>
+  </div>
+  <h2>From here to live</h2>
+  <div class="steps">
+    <div><span class="cap">01</span><b>You choose</b><span>Tell us which look, and send the details below.</span></div>
+    <div><span class="cap">02</span><b>We finish</b><span>The whole site goes into that look with your photos and logo.</span></div>
+    <div><span class="cap">03</span><b>You check</b><span>On your phone and computer. Tell us what to change.</span></div>
+    <div><span class="cap">04</span><b>We launch</b><span>It replaces the old site at liemex.com.au.</span></div>
+  </div>
+  <div class="g2" style="margin-top:6mm">
+    <div>
+      <h2 style="margin-top:0">What we need from you</h2>
+      <ul class="tick check">
+        <li><span>Which of the four looks you prefer</span></li>
+        <li><span>Years trading, the email for enquiries, and Saturday hours confirmed</span></li>
+        <li><span>A morning at the yard for photos of the boards, the machines and a few jobs</span></li>
+        <li><span>Your logo file and the three catalogue PDFs</span></li>
+        <li><span>Whether every product needs its own page, or one page per range is enough</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2 style="margin-top:0">Good to know</h2>
+      <ul class="tick">
+        <li><svg class="ast"><use href="#a"/></svg><span>The demo uses your current photos. A shoot would lift it more than anything else.</span></li>
+        <li><svg class="ast"><use href="#a"/></svg><span>The close-up timber images and the room are illustrations matched to your samples. Real photos replace them.</span></li>
+        <li><svg class="ast"><use href="#a"/></svg><span>A better website can't promise sales. What it does is stop losing the enquiries your visitors were ready to make.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top:6mm;display:grid;grid-template-columns:1fr auto;gap:8mm;align-items:center">
+    <div><b style="font-size:12pt;font-weight:600">Talk it through</b><br><span style="color:#3c3c39">Ring Troy and he'll walk you through the demo, or he can drop in to the yard.</span></div>
+    <div style="text-align:right;font-size:11pt;font-weight:500">Troy Watson, Lumen adl<br>0421 276 482<br>hello@lumenadl.com</div>
+  </div>
+  <div class="foot"><b>Lumen adl <svg class="ast"><use href="#a"/></svg></b><span>lumenadl.com · hello@lumenadl.com · 0421 276 482</span><span>5 / 5</span></div>
+</section>
+</body></html>
