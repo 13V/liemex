@@ -1,5 +1,5 @@
 import { species } from "../data.mjs";
-import { arrow, photo, pageHead, quoteSection, roomData } from "../ui.mjs";
+import { arrow, photo, pageHead, quoteSection, roomData, roomPromo } from "../ui.mjs";
 
 const n = (t) => species.filter((s) => s.type === t).length;
 
@@ -8,6 +8,8 @@ export default {
   description: "Compare the hardwoods and softwoods Liemex supplies in Adelaide: Tasmanian oak, Baltic pine, spotted gum, jarrah, Victorian ash and more.",
   body: `
 ${pageHead({ kicker: "Timber species", title: "In the rack", lede: "Pick a timber and see it laid in a room. Grain and colour change from board to board, so come and see the real thing in daylight too." })}
+
+${roomPromo("tasmanian-oak", "roompromo--top")}
 
 <div class="wrap">
   <div class="filter" role="group" aria-label="Filter species" data-filter="species">
@@ -24,7 +26,7 @@ ${pageHead({ kicker: "Timber species", title: "In the rack", lede: "Pick a timbe
         <h2>${s.name}</h2>
         <p>${s.text}</p>
         <p class="specie__uses">${s.uses.join(" · ")}</p>
-        <p><a class="tlink" href="/contact#quote" data-room="${s.slug}">See it in a room ${arrow}</a></p>
+        <p class="specie__acts"><a class="btn btn--primary btn--sm" href="/contact#quote" data-room="${s.slug}"><span>See it in a room</span><i class="btn__cell">${arrow}</i></a><a class="tlink" href="#quote" data-interest="Flooring" data-ask="${s.name}">Ask for a price</a></p>
       </div>
     </li>`).join("")}
   </ul>

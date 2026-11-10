@@ -313,7 +313,22 @@
     });
   }
 
+  // "Open now" beside the address, worked out in Adelaide time. Mon-Fri 9-5, Sat 10-11.
+  $$("[data-open-now]").forEach((el) => {
+    try {
+      const p = Object.fromEntries(new Intl.DateTimeFormat("en-AU", { timeZone: "Australia/Adelaide", weekday: "short", hour: "numeric", minute: "numeric", hour12: false }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+      const t = +p.hour % 24 + +p.minute / 60, d = p.weekday;
+      const span = d === "Sat" ? [10, 11] : d === "Sun" ? null : [9, 17];
+      const open = span && t >= span[0] && t < span[1];
+      el.textContent = open ? `Open now until ${span[1] === 17 ? "5pm" : "11am"}` : span && t < span[0] ? `Opens ${span[0] === 9 ? "9am" : "10am"} today` : "Closed now";
+      el.classList.toggle("is-open", !!open);
+    } catch {}
+  });
+
   document.addEventListener("click", (e) => {
+    const ask = e.target.closest("[data-ask]");
+    const msg = $('[data-enquiry] textarea[name="message"]');
+    if (ask && msg && !msg.value) msg.value = `${ask.dataset.ask}: `;
     const a = e.target.closest("[data-interest]");
     const select = $('[data-enquiry] select[name="interest"]');
     if (a && select) select.value = a.dataset.interest;

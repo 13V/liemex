@@ -68,5 +68,22 @@ export const quoteSection = (source) => `
   </div>
 </section>`;
 
+// The room, advertised: a picture of it, one line, one big button. `slug` is the timber it opens on.
+export const roomPromo = (slug = "spotted-gum", tone = "") => `
+<section class="roompromo ${tone}">
+  <div class="wrap roompromo__in">
+    <a class="roompromo__pic frame" href="/timber-species" data-room="${slug}" data-reveal="photo" aria-label="Open the 3D room">
+      ${img("room-promo", "A living room with a spotted gum floor, shown in the 3D room", { w: 1420, h: 940 })}
+      <span class="roompromo__play"><i></i>Open the room</span>
+    </a>
+    <div class="roompromo__copy">
+      <p class="kicker"><i class="dot"></i>New: the 3D room</p>
+      <h2 class="h-lg" data-split>See your timber laid before you buy</h2>
+      <p>Pick any of our ${species.length} timbers and see it on the floor, the door and the skirting of a real-sized room. Switch between boards and herringbone, and look around.</p>
+      <a class="btn btn--primary btn--xl" href="/timber-species" data-room="${slug}"><span>See it in a room</span><i class="btn__cell">${arrow}</i></a>
+    </div>
+  </div>
+</section>`;
+
 // What room.js needs to know about each timber. Put it once on any page with [data-room] buttons.
 export const roomData = `<script type="application/json" id="species-data">${JSON.stringify(species.map(({ slug, name, type, text }) => ({ slug, name, type, text })))}</script>`;

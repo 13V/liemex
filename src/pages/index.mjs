@@ -1,5 +1,5 @@
 import { site, categories, species, reviews, catalogues } from "../data.mjs";
-import { esc, arrow, btn, img, quoteSection, roomData } from "../ui.mjs";
+import { esc, arrow, btn, img, quoteSection, roomData, roomPromo } from "../ui.mjs";
 import { drawings, bench, ruler } from "../draw.mjs";
 
 const work = [
@@ -37,13 +37,13 @@ export default {
   </picture>
   <div class="hero__planks" aria-hidden="true">${"<i></i>".repeat(9)}</div>
   <div class="wrap hero__in">
-    <p class="kicker kicker--light"><i class="dot"></i>1 Bedford Street, Port Adelaide</p>
+    <p class="kicker kicker--light"><i class="dot"></i>1 Bedford Street, Port Adelaide <span class="open" data-open-now></span></p>
     <h1 class="h-mega" data-split>Solid timber, machined here</h1>
     <div class="hero__row">
       <p class="hero__lede">Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Supplying South Australian builders, joiners and homeowners for over 30 years.</p>
       <div class="hero__cta">
         ${btn("Get a quote", "/contact#quote", "light")}
-        ${btn(`Ring ${site.phone}`, site.phoneHref, "line-light")}
+        ${btn("See timber in a room", "/timber-species", "line-light", `data-room="tasmanian-oak"`)}
       </div>
     </div>
   </div>
@@ -82,10 +82,12 @@ export default {
   </div>
   ${roomData}
   <div class="wrap rack__foot">
-    <p class="mono" data-rack-count>01 / ${species.length}</p>
+    <p class="mono"><span data-rack-count>01 / ${species.length}</span><span class="rack__hint"> · swipe along the boards, tap one to open it</span></p>
     <a class="tlink tlink--light" href="/timber-species">Compare all species ${arrow}</a>
   </div>
 </section>
+
+${roomPromo("spotted-gum")}
 
 <section class="band range" id="range">
   <div class="wrap range__in">
@@ -155,6 +157,7 @@ export default {
 <section class="band band--sand said">
   <div class="wrap said__in">
     <figure class="said__main">
+      <p class="stars" role="img" aria-label="Five stars">★★★★★ <span>Google review</span></p>
       <blockquote><p data-words>${esc(reviews[0].quote)}</p></blockquote>
       <figcaption><strong>${esc(reviews[0].name)}</strong> on Google, after ordering a solid timber door</figcaption>
     </figure>

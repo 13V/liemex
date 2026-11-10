@@ -78,7 +78,7 @@ const footer = () => `
     </div>
   </div>
 </footer>
-<a class="callbar" href="${site.phoneHref}" data-callbar>Ring ${site.phone}</a>`;
+<div class="callbar" data-callbar><a href="${site.phoneHref}">Ring ${site.phone}</a><a class="callbar__q" href="/contact#quote">Get a quote</a></div>`;
 
 const jsonLd = () => JSON.stringify({
   "@context": "https://schema.org",

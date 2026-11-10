@@ -60,13 +60,13 @@
   </picture>
   <div class="hero__planks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="wrap hero__in">
-    <p class="kicker kicker--light"><i class="dot"></i>1 Bedford Street, Port Adelaide</p>
+    <p class="kicker kicker--light"><i class="dot"></i>1 Bedford Street, Port Adelaide <span class="open" data-open-now></span></p>
     <h1 class="h-mega" data-split>Solid timber, machined here</h1>
     <div class="hero__row">
       <p class="hero__lede">Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Supplying South Australian builders, joiners and homeowners for over 30 years.</p>
       <div class="hero__cta">
         <a class="btn btn--light" href="/contact#quote"><span>Get a quote</span><i class="btn__cell"><svg class="i-arrow" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></i></a>
-        <a class="btn btn--line-light" href="tel:+61884441800"><span>Ring (08) 8444 1800</span></a>
+        <a class="btn btn--line-light" href="/timber-species" data-room="tasmanian-oak"><span>See timber in a room</span></a>
       </div>
     </div>
   </div>
@@ -281,8 +281,24 @@
   </div>
   <script type="application/json" id="species-data">[{"slug":"tasmanian-oak","name":"Tasmanian oak","type":"Hardwood","text":"Elegant and durable, at home in both modern and classic interiors."},{"slug":"baltic-pine","name":"Baltic pine","type":"Softwood","text":"Light-coloured softwood with a smooth finish. The traditional Adelaide floorboard."},{"slug":"spotted-gum","name":"Spotted gum","type":"Hardwood","text":"High-strength timber with lively natural colour variation."},{"slug":"jarrah","name":"Jarrah","type":"Hardwood","text":"Dense West Australian hardwood in deep reds, supplied as flooring, decking and stair treads."},{"slug":"victorian-ash","name":"Victorian ash","type":"Hardwood","text":"Clean, consistent appearance and a fine grain. Machines and finishes well."},{"slug":"australian-chestnut","name":"Australian chestnut","type":"Hardwood","text":"Light to medium hardwood that is easy to work and finishes well."},{"slug":"redgum","name":"Red gum","type":"Hardwood","text":"Deep red hardwood, durable and suited to structural work."},{"slug":"tasmanian-blackwood","name":"Tasmanian blackwood","type":"Hardwood","text":"Dark hardwood with a striking grain for high-end joinery."},{"slug":"marri","name":"Marri","type":"Hardwood","text":"Medium hardwood with rich tones and plenty of feature."},{"slug":"karri","name":"Karri","type":"Hardwood","text":"Strong, durable hardwood with reddish hues."},{"slug":"kapur","name":"Kapur","type":"Hardwood","text":"Dense hardwood for decking and heavy-use applications."},{"slug":"silvertop-ash","name":"Silvertop ash","type":"Hardwood","text":"Light hardwood with a smooth finish, excellent for joinery."},{"slug":"flooded-gum","name":"Flooded gum","type":"Hardwood","text":"Also sold as rose gum. Light timber with natural character."},{"slug":"brush-box","name":"Brush box","type":"Hardwood","text":"Heavy hardwood with a fine grain."},{"slug":"maranti","name":"Meranti","type":"Hardwood","text":"Rich reddish-brown tones, from the mahogany family."},{"slug":"cypress-pine","name":"Cypress pine","type":"Softwood","text":"Durable softwood, resistant to termites and decay."},{"slug":"radiata-pine","name":"Radiata pine","type":"Softwood","text":"Plantation softwood, light and easy to work with."}]</script>
   <div class="wrap rack__foot">
-    <p class="mono" data-rack-count>01 / 17</p>
+    <p class="mono"><span data-rack-count>01 / 17</span><span class="rack__hint"> · swipe along the boards, tap one to open it</span></p>
     <a class="tlink tlink--light" href="/timber-species">Compare all species <svg class="i-arrow" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+  </div>
+</section>
+
+
+<section class="roompromo ">
+  <div class="wrap roompromo__in">
+    <a class="roompromo__pic frame" href="/timber-species" data-room="spotted-gum" data-reveal="photo" aria-label="Open the 3D room">
+      <img src="/images/room-promo.webp" alt="A living room with a spotted gum floor, shown in the 3D room" width="1420" height="940" loading="lazy" decoding="async">
+      <span class="roompromo__play"><i></i>Open the room</span>
+    </a>
+    <div class="roompromo__copy">
+      <p class="kicker"><i class="dot"></i>New: the 3D room</p>
+      <h2 class="h-lg" data-split>See your timber laid before you buy</h2>
+      <p>Pick any of our 17 timbers and see it on the floor, the door and the skirting of a real-sized room. Switch between boards and herringbone, and look around.</p>
+      <a class="btn btn--primary btn--xl" href="/timber-species" data-room="spotted-gum"><span>See it in a room</span><i class="btn__cell"><svg class="i-arrow" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></i></a>
+    </div>
   </div>
 </section>
 
@@ -468,6 +484,7 @@
 <section class="band band--sand said">
   <div class="wrap said__in">
     <figure class="said__main">
+      <p class="stars" role="img" aria-label="Five stars">★★★★★ <span>Google review</span></p>
       <blockquote><p data-words>I contacted Reni about a solid wooden door and within 2 hours after normal shops closed, he sent through the quote and all relevant information. The door was cut to size the next day. The entire process from beginning to end was brilliant.</p></blockquote>
       <figcaption><strong>Dave Kavanagh</strong> on Google, after ordering a solid timber door</figcaption>
     </figure>
@@ -609,7 +626,7 @@
     </div>
   </div>
 </footer>
-<a class="callbar" href="tel:+61884441800" data-callbar>Ring (08) 8444 1800</a>
+<div class="callbar" data-callbar><a href="tel:+61884441800">Ring (08) 8444 1800</a><a class="callbar__q" href="/contact#quote">Get a quote</a></div>
 <script src="/site.js" defer></script>
 </body>
 </html>
