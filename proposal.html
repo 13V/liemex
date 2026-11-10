@@ -391,7 +391,7 @@ section { padding-block: clamp(64px, 8vw, 128px); }
 // The film: a big play button, then native controls, with chapter buttons that jump to each part.
 (() => {
   const box = document.querySelector("[data-film]"), v = document.querySelector("[data-video]"), list = document.querySelector("[data-chapters]");
-  const chapters = [[0, "Intro"], [7.7, "The opening"], [15.9, "What sets you apart"], [22.0, "The timber rack"], [33.3, "The 3D room"], [46.2, "One board, start to floor"], [53.0, "Your work"], [59.4, "The calculator"], [65.7, "The quote form"], [74.4, "The four looks"]];
+  const chapters = [[0, "Intro"], [7.7, "The opening"], [15.9, "What sets you apart"], [22.0, "The timber rack"], [33.3, "The 3D room"], [46.2, "One board, start to floor"], [53.0, "Your work"], [59.4, "The calculator"], [65.7, "The quote form"], [74.3, "The four looks"]];
   const fmt = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
   list.innerHTML = chapters.map(([t, name]) => `<button type="button" data-t="${t}"><span>${fmt(t)}</span>${name}</button>`).join("");
   const start = () => { v.controls = true; v.play(); };
