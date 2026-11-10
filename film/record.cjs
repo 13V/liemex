@@ -25,7 +25,7 @@ const DEST = path.join(__dirname, "..", "media");
   const cdp = await ctx.newCDPSession(page);
   await cdp.send("Emulation.setVirtualTimePolicy", { policy: "pause" });
   const step = (ms) => new Promise((res) => { cdp.once("Emulation.virtualTimeBudgetExpired", res); cdp.send("Emulation.setVirtualTimePolicy", { policy: "advance", budget: ms }); });
-  const nav = page.goto("http://127.0.0.1:4318/film/film?rec=1", { waitUntil: "commit" });
+  const nav = page.goto(`http://127.0.0.1:4318/film/film?rec=1${process.env.FILM_PART ? `&part=${process.env.FILM_PART}` : ""}`, { waitUntil: "commit" });   // FILM_PART=end renders only the ending
   await step(300);
   await nav;
   for (let i = 0; i < 100 && !(await page.evaluate(() => window.__ready)); i++) await step(100);

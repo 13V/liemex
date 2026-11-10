@@ -24,6 +24,14 @@ body { font-family: "Archivo", sans-serif; color: var(--paper); -webkit-font-smo
 .win__bar span { margin-left: 16px; font: 500 15px "IBM Plex Mono", monospace; color: var(--muted); }
 .win iframe { display: block; width: 1440px; height: 810px; border: 0; background: var(--ink); }
 
+/* The four looks, at the end: each in its own window, then all four together */
+.lwin { position: absolute; left: 0; top: 0; width: 1440px; transform-origin: 0 0; transform: translate(2100px, 155px) scale(0.9); transition: transform 1100ms var(--io); box-shadow: 0 50px 120px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(240, 233, 220, 0.14); border-radius: 14px; overflow: hidden; }
+.lwin iframe { display: block; width: 1440px; height: 810px; border: 0; background: var(--ink); }
+.lname { position: absolute; left: 0; top: 0; display: flex; align-items: baseline; gap: 14px; opacity: 0; transition: opacity 600ms 700ms; }
+.lname.is-on { opacity: 1; }
+.lname b { font: 800 44px/1 "Archivo", sans-serif; font-stretch: 64%; text-transform: uppercase; }
+.lname span { color: var(--amber); }
+
 /* Captions */
 .cap { position: absolute; top: 250px; width: 520px; opacity: 0; transition: opacity 500ms; }
 .cap.is-on { opacity: 1; }
@@ -98,6 +106,7 @@ body { font-family: "Archivo", sans-serif; color: var(--paper); -webkit-font-smo
     <div class="win__bar"><i></i><i></i><i></i><span>liemex.com.au</span></div>
     <iframe data-site title="The Liemex site" src="about:blank"></iframe>
   </div>
+  <div data-looks></div>
   <div class="shade" data-shade></div>
   <div class="cap cap--l" data-cap>
     <i class="rule"></i>
@@ -191,10 +200,61 @@ body { font-family: "Archivo", sans-serif; color: var(--paper); -webkit-font-smo
     arrow.setAttribute("d", `M${sx} ${sy}Q${(sx + x) / 2 - (y - sy) * k} ${(sy + y) / 2 + (x - sx) * k} ${ex} ${ey}`);
   };
 
+  /* ---- the ending: four looks, one after another, then together ---- */
+  const LOOKS = [
+    { name: "The|Rack", src: "/preview?only=e", tag: "Our pick", line: "Deep green and wide capitals. The photo comes apart into boards, and each board becomes a timber." },
+    { name: "The|Library", src: "/preview?only=d", tag: "", line: "Quiet and architectural. The photography leads; the type stays out of the way." },
+    { name: "Wood|Type", src: "/preview?only=a", tag: "", line: "Warm and established, set in a slab face like the letters once cut from timber." },
+    { name: "The|Yard", src: "/", tag: "The demo", line: "Dark, bold and workshop-like. The look the demo is in today." },
+  ];
+  const ending = async (covered) => {
+    const host = $("[data-looks]");
+    point(null);
+    if (!covered) { planks.className = "planks is-in"; await wait(1000); }
+    win.style.display = "none"; cap.classList.remove("is-on"); hud.classList.remove("is-on"); shade.classList.remove("is-on");
+    host.innerHTML = LOOKS.map((l) => `<div class="lwin"><div class="win__bar"><i></i><i></i><i></i><span>liemex.com.au</span></div><iframe src="${l.src}" title=""></iframe></div><div class="lname"><b>${l.name.replace("|", " ")}</b><span class="mono">${l.tag}</span></div>`).join("");
+    const wins = [...host.querySelectorAll(".lwin")], names = [...host.querySelectorAll(".lname")];
+    await Promise.all(wins.map((w) => new Promise((res) => { const f = w.querySelector("iframe"); f.addEventListener("load", () => { try { oneClock(f.contentWindow); const st = f.contentDocument.createElement("style"); st.textContent = "html{scrollbar-width:none}::-webkit-scrollbar{display:none}.callbar{display:none!important}"; f.contentDocument.head.append(st); } catch {} res(); }, { once: true }); })));
+    await wait(1200);
+    planks.className = "planks is-out"; await wait(450); planks.className = "planks";
+    await card("Four looks.|One site.", "The same features in each. Here they are.", 1900);
+    mark.classList.add("is-on");
+    const X = 1920 - 76 - 1440 * 0.84;
+    for (let i = 0; i < LOOKS.length; i++) {
+      wins.forEach((w, k) => { w.style.transform = k === i ? `translate(${X}px, 180px) scale(0.84)` : k < i ? "translate(-1500px, 180px) scale(0.84)" : "translate(2100px, 180px) scale(0.84)"; });
+      caption(i + 1, LOOKS[i].tag || `Look ${i + 1} of 4`, LOOKS[i].name, LOOKS[i].line, "l");
+      $("[data-c-k]").textContent = LOOKS[i].tag || `Look ${i + 1} of 4`;
+      if (i === 0) {                                   // the Rack's own scene plays as its window scrolls
+        await wait(1500);
+        const lw = wins[0].querySelector("iframe").contentWindow;
+        await tween(3600, (t) => lw.scrollTo(0, 810 * 1.95 * t));
+        await wait(900);
+      } else await wait(3300);
+    }
+    // all four together
+    cap.classList.remove("is-on");
+    const gs = 0.46, gw = 1440 * gs, gh = 854 * gs, gx = (1920 - 2 * gw - 56) / 2, gy = 96;
+    wins.forEach((w, k) => { const x = gx + (k % 2) * (gw + 56), y = gy + Math.floor(k / 2) * (gh + 92); w.style.transform = `translate(${x}px, ${y}px) scale(${gs})`; names[k].style.transform = `translate(${x}px, ${y + gh + 18}px)`; names[k].classList.add("is-on"); });
+    await wait(4200);
+    planks.className = "planks is-in"; await wait(1000);
+    host.innerHTML = ""; mark.classList.remove("is-on");
+    planks.className = "planks is-out"; await wait(450); planks.className = "planks";
+    await card("Liemex\u2022", "A proposal from Lumen adl", 2800);
+  };
+
   /* ---- the film ---- */
   const film = async () => {
     window.__t0 = performance.now();
     requestAnimationFrame(place);
+    if (location.search.includes("part=end")) {        // render only the ending, starting behind the planks
+      mark.style.transition = "none"; mark.classList.add("is-on");
+      planks.style.transition = "none"; [...planks.children].forEach((p) => { p.style.transition = "none"; p.style.transform = "translateY(0)"; });
+      await wait(100);
+      [...planks.children].forEach((p) => { p.style.transition = ""; p.style.transform = ""; }); planks.className = "planks is-in";
+      await ending(true);
+      window.__done = true;
+      return;
+    }
     await wait(300);
     await card("A new website|for Liemex\u2022", "Port Adelaide's solid timber specialists", 2500);
     await card("A working|<em>demo</em>", "Here's what it does, and why.", 2100);
@@ -295,11 +355,8 @@ body { font-family: "Archivo", sans-serif; color: var(--paper); -webkit-font-smo
     point('.quote textarea[name="message"]', [0.5, 0.5]);
     await wait(4400);
 
-    // End
-    point(null);
-    await cut(async () => { win.style.display = "none"; cap.classList.remove("is-on"); hud.classList.remove("is-on"); });
-    await card("Four looks.|One site.", "Same features in each. Choose the one that's yours.", 2600);
-    await card("Liemex\u2022", "A proposal from Lumen adl", 2600);
+    // End: the four looks
+    await ending(false);
     window.__done = true;
   };
 
