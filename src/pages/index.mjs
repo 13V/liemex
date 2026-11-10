@@ -47,7 +47,7 @@ export default {
       </div>
     </div>
   </div>
-  <p class="hero__cap"><span class="mono">LX-01</span> Herringbone oak parquetry</p>
+  <p class="hero__cap">Herringbone oak parquetry</p>
   ${ruler()}
 </section>
 
@@ -142,7 +142,7 @@ ${roomPromo("spotted-gum")}
         ${work.map(([t, c], i) => `
         <li class="tk">
           <div class="frame" data-reveal="photo">${img(`work-${i + 1}`, t, { w: 900, h: 1200 })}</div>
-          <p class="tk__cap"><span class="mono">LX-${String(i + 1).padStart(2, "0")}</span><strong>${t}</strong><span>${c}</span></p>
+          <p class="tk__cap"><strong>${t}</strong><span>${c}</span></p>
         </li>`).join("")}
         <li class="work__end">
           <p class="h-md">Got a room like these in mind?</p>

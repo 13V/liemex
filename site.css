@@ -234,9 +234,9 @@ body:has(.hdr--over) { padding-top: 0; }
 .tk { width: clamp(250px, 25vw, 400px); }
 .tk:nth-child(even) { margin-top: clamp(24px, 5vh, 64px); }
 .tk .frame { aspect-ratio: 3 / 4; }
-.tk__cap { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin-top: 14px; font-size: 15px; }
+.tk__cap { display: grid; gap: 2px; margin-top: 14px; font-size: 15px; }
 .tk__cap .mono { color: var(--red-d); padding-top: 3px; }
-.tk__cap span:last-child { grid-column: 2; color: var(--muted); font-size: 14px; }
+.tk__cap span:last-child { color: var(--muted); font-size: 14px; }
 .work__end { width: clamp(260px, 26vw, 400px); align-self: center; display: grid; gap: 24px; justify-items: start; padding-right: var(--gutter); }
 .work__bar { height: 2px; background: var(--line); }
 .work__bar i { display: block; height: 100%; background: var(--text); transform-origin: 0 50%; transform: scaleX(var(--tp, 0)); }

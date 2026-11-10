@@ -455,6 +455,7 @@ const draw = () => (fine ? composer.render() : renderer.render(scene, camera));
 // If the first second of frames is slow, this machine can't afford the fine detail: drop to the plain renderer.
 // Watch the frame time while the camera is moving and step the resolution down until it is smooth.
 const pace = (now) => {
+  if (lite) return;   // being filmed: keep full resolution
   if (last && now - last < 200) { spent += now - last; frames++; }
   last = now;
   if (frames < 24) return;
