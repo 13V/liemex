@@ -28,3 +28,10 @@ Built by Lumen adl. Static HTML, CSS and JS; one small build script, no dependen
 - `vercel.json` redirects the old WordPress addresses to the new pages. The 350-odd WooCommerce
   product pages and 16 species pages are folded into `/products` and `/timber-species`.
 - The catalogue PDFs still link to the files on the WordPress site. Move them into this repo first.
+
+## The proposal and its film
+
+- `proposal.html` (at `/proposal`) is Lumen adl's proposal to Liemex. `preview.html` holds the alternative looks it frames.
+- The film in it is rendered from `film/film.html`, a 1920 x 1080 composition that drives the real site in a
+  window. Re-render with `node serve.mjs &` then `node film/record.cjs`; it writes `media/liemex-film-*.mp4`.
+  The 3D room scene takes about half an hour on a machine with no graphics card.

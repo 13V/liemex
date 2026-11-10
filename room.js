@@ -51,7 +51,8 @@ const $ = (s) => dlg.querySelector(s);
 const canvas = $(".room__canvas");
 
 /* ---------- Renderer ---------- */
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: !big, powerPreference: "high-performance" });
+const lite = !!window.__roomLite;   // set by film/film.html: skip the occlusion pass, which software rendering can't afford
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !big || lite, powerPreference: "high-performance" });
 renderer.setPixelRatio(Math.min(devicePixelRatio, big ? 1.5 : 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -439,7 +440,7 @@ const dress = (m, t) => { m.material.map = t.map; m.material.roughnessMap = t.gr
 
 /* ---------- Fine detail on a desktop: soft occlusion where things meet ---------- */
 let composer = null, gtao = null;
-if (big) {
+if (big && !lite) {
   composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(4, 4, { type: THREE.HalfFloatType, samples: 4 }));
   composer.addPass(new RenderPass(scene, camera));
   gtao = new GTAOPass(scene, camera, 4, 4);
