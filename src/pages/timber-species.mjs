@@ -20,7 +20,7 @@ ${roomPromo("tasmanian-oak", "roompromo--top")}
   <ul class="species" id="species">
     ${species.map((s, i) => `
     <li class="specie" id="${s.slug}" data-item data-tags="${s.type}">
-      ${photo(`species/${s.slug}`, `${s.name} grain`, { w: 1280, h: 800 })}
+      ${photo(`timber/${s.slug}`, `${s.name} grain`, { w: 1600, h: 1000 })}
       <div class="specie__body">
         <p class="mono">${String(i + 1).padStart(2, "0")} · ${s.type}</p>
         <h2>${s.name}</h2>

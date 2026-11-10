@@ -545,7 +545,7 @@ const species = [["tasmanian-oak","Tasmanian oak","#c69974","Elegant and durable
 const light = (hex) => { const n = parseInt(hex.slice(1), 16); return ((n >> 16) * 0.3 + ((n >> 8) & 255) * 0.59 + (n & 255) * 0.11) > 150; };
 document.querySelectorAll("[data-dir]").forEach((dir) => {
   const rack = dir.querySelector("[data-rack]");
-  rack.innerHTML = species.map(([slug, name], i) => `<button type="button" aria-pressed="${i === 3}" aria-label="${name}" data-i="${i}"><img src="/images/species/${slug}-v.webp" alt="" loading="lazy"></button>`).join("");
+  rack.innerHTML = species.map(([slug, name], i) => `<button type="button" aria-pressed="${i === 3}" aria-label="${name}" data-i="${i}"><img src="/images/timber/${slug}-v.webp" alt="" loading="lazy"></button>`).join("");
   const pick = (b) => {
     const [, name, colour, text] = species[+b.dataset.i];
     rack.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
@@ -590,10 +590,10 @@ document.querySelectorAll("[data-dir]").forEach((dir) => {
       }
       c.toBlob((blob) => res(`url(${URL.createObjectURL(blob)})`), "image/jpeg", 0.86);
     };
-    im.src = `/images/species/${slug}-v.webp`;
+    im.src = `/images/timber/${slug}-v.webp`;
   })).get(slug);
 
-  box.innerHTML = species.map(([slug, nm], i) => `<button class="c__s" type="button" aria-pressed="${i === 3}" data-i="${i}" style="--r:${((i * 37) % 9 - 4) * 0.9}deg;--y:${((i * 53) % 7 - 3) * 3}px"><span class="card"><img src="/images/species/${slug}-v.webp" alt="" loading="lazy"><b>${nm}</b><small>No. ${String(i + 1).padStart(2, "0")}</small></span></button>`).join("");
+  box.innerHTML = species.map(([slug, nm], i) => `<button class="c__s" type="button" aria-pressed="${i === 3}" data-i="${i}" style="--r:${((i * 37) % 9 - 4) * 0.9}deg;--y:${((i * 53) % 7 - 3) * 3}px"><span class="card"><img src="/images/timber/${slug}-v.webp" alt="" loading="lazy"><b>${nm}</b><small>No. ${String(i + 1).padStart(2, "0")}</small></span></button>`).join("");
   let current = -1, busy = 0;
   const pick = async (i) => {
     if (i === current) return;
@@ -623,7 +623,7 @@ document.querySelectorAll("[data-dir]").forEach((dir) => {
   const root = document.querySelector("[data-d]"), grid = root.querySelector("[data-d-grid]"), [a, b] = root.querySelectorAll("[data-d-slab]");
   const soft = new Set(["baltic-pine", "cypress-pine", "radiata-pine"]);
   const set = (k, v) => root.querySelectorAll(`[data-d-${k}]`).forEach((el) => { el.textContent = v; });
-  grid.innerHTML = species.map(([slug, nm], i) => `<button type="button" aria-pressed="${i === 3}" data-i="${i}"><span class="im"><img src="/images/species/${slug}.webp" alt="" loading="lazy"></span><b>${nm}</b><small>No. ${String(i + 1).padStart(2, "0")}</small></button>`).join("");
+  grid.innerHTML = species.map(([slug, nm], i) => `<button type="button" aria-pressed="${i === 3}" data-i="${i}"><span class="im"><img src="/images/timber/${slug}.webp" alt="" loading="lazy"></span><b>${nm}</b><small>No. ${String(i + 1).padStart(2, "0")}</small></button>`).join("");
   let cur = -1, busy = 0;
   const pick = async (i, instant) => {
     if (i === cur) return;
@@ -663,7 +663,7 @@ document.querySelectorAll("[data-dir]").forEach((dir) => {
   const copy = scene.querySelector("[data-e-copy]"), head = scene.querySelector("[data-e-head]"), hint = scene.querySelector("[data-e-hint]");
   const chosen = [0, 3, 2, 6, 7, 1, 16], N = chosen.length, GAP = 5;
   const stagger = [0.07, -0.05, 0.03, -0.08, 0.05, -0.03, 0.08];            // board ends, as a share of the height
-  stage.innerHTML = chosen.map((k) => `<a class="e__b" href="/"><img class="ph" src="/images/hero-wide.webp" alt=""><img class="gr" src="/images/species/${species[k][0]}-v.webp" alt=""><span><i>${String(k + 1).padStart(2, "0")}</i><b>${species[k][1]}</b></span></a>`).join("");
+  stage.innerHTML = chosen.map((k) => `<a class="e__b" href="/"><img class="ph" src="/images/hero-wide.webp" alt=""><img class="gr" src="/images/timber/${species[k][0]}-v.webp" alt=""><span><i>${String(k + 1).padStart(2, "0")}</i><b>${species[k][1]}</b></span></a>`).join("");
   const bs = [...stage.children];
   const live = matchMedia("(min-width: 900px) and (prefers-reduced-motion: no-preference)");
   const sm = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };

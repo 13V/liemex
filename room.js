@@ -44,7 +44,7 @@ dlg.innerHTML = `
     <a class="btn btn--primary" href="/contact#quote" data-r-ask><span></span><i class="btn__cell">${arrow}</i></a>
   </div>
   <div class="room__strip" role="group" aria-label="Choose a timber">
-    ${species.map((s) => `<button type="button" data-pick="${s.slug}" aria-label="${s.name}" title="${s.name}"><img src="/images/species/${s.slug}-v.webp" alt="" loading="lazy"></button>`).join("")}
+    ${species.map((s) => `<button type="button" data-pick="${s.slug}" aria-label="${s.name}" title="${s.name}"><img src="/images/timber/${s.slug}-v.webp" alt="" loading="lazy"></button>`).join("")}
   </div>
   <p class="room__note">An illustration drawn from our sample of each timber. Real boards vary in colour and grain; see them at the yard.</p>`;
 document.body.append(dlg);
@@ -346,7 +346,7 @@ const bakeEnv = () => {
    grey canvas gives each board its own sheen and a hairline shadow at every joint. */
 const SIZE = 2048, K = 1, FLOOR = 13;   // 4096 looked no better at room distance and took four times as long to paint
 const images = new Map();
-const loadImage = (slug) => images.get(slug) || images.set(slug, new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = `/images/species/${slug}-v.webp`; })).get(slug);
+const loadImage = (slug) => images.get(slug) || images.set(slug, new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = `/images/timber/${slug}-v.webp`; })).get(slug);
 const tones = new Map();
 const tonesOf = (slug, im) => {
   if (tones.has(slug)) return tones.get(slug);

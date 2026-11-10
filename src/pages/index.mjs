@@ -69,7 +69,7 @@ export default {
   <div class="rack__boards" data-rack role="list">
     ${species.map((s, i) => `
     <a class="board${i === 0 ? " is-open" : ""}" role="listitem" href="/timber-species#${s.slug}" style="--i:${i}" data-board data-room="${s.slug}">
-      <img src="/images/species/${s.slug}-v.webp" alt="" width="800" height="1415" loading="lazy" decoding="async">
+      <img src="/images/timber/${s.slug}-v.webp" alt="" width="1200" height="2122" loading="lazy" decoding="async">
       <span class="board__tag"><i class="dot"></i>${s.name}</span>
       <span class="board__info">
         <span class="mono">${String(i + 1).padStart(2, "0")} · ${s.type}</span>
