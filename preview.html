@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liemex: two type directions</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+/* A comparison page, not part of the site. Two looks for the same three sections: A wood type, B gallery. */
+@font-face { font-family: "Besley"; src: url("/fonts/besley.woff2") format("woff2"); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: "Besley"; src: url("/fonts/besley-italic.woff2") format("woff2"); font-weight: 400 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Cormorant"; src: url("/fonts/cormorant.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Cormorant"; src: url("/fonts/cormorant-italic.woff2") format("woff2"); font-weight: 300 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Instrument Sans"; src: url("/fonts/instrument-sans.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font: 400 17px/1.5 "Instrument Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; background: #1b1511; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+h1, h2, h3, p, ul { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1480px; margin-inline: auto; padding-inline: clamp(18px, 4vw, 56px); }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+.switch { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 8px; padding: 10px clamp(18px, 4vw, 56px); background: #1b1511; color: #f4eee2; font-size: 14px; }
+.switch span { margin-right: auto; opacity: 0.7; }
+.switch a { padding: 9px 16px; border: 1px solid rgba(244, 238, 226, 0.35); border-radius: 999px; font-weight: 600; }
+.switch a:hover { background: #f4eee2; color: #1b1511; }
+.tag { padding: 14px clamp(18px, 4vw, 56px); background: #1b1511; color: #f4eee2; font-size: 14px; }
+.tag b { font-weight: 700; }
+
+/* Both: the rack. A board widens on hover and hands its colour to the section. */
+.rack { display: flex; gap: 3px; }
+.rack button { position: relative; flex: 1 1 0; min-width: 0; padding: 0; border: 0; background: none; cursor: pointer; overflow: hidden; transition: flex-grow 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+.rack button[aria-pressed="true"] { flex-grow: 5; }
+.rack img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.dwg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+
+/* ================= A: wood type ================= */
+.a { --cream: #f4eee2; --walnut: #2b1d14; --sp: #923c2d; --sp-d: color-mix(in oklab, var(--sp) 62%, #2b1d14); background: var(--cream); color: var(--walnut); transition: --sp 600ms; }
+.a .display { font-family: "Besley", Georgia, serif; }
+.a__bar { display: flex; align-items: center; gap: 28px; height: 84px; }
+.a__logo { display: flex; align-items: center; gap: 12px; margin-right: auto; font: 900 34px/1 "Besley", serif; letter-spacing: -0.02em; }
+.a__logo svg { width: 46px; height: 46px; color: var(--sp-d); transition: color 600ms; }
+.a__nav { display: flex; gap: 26px; font-weight: 600; font-size: 15.5px; }
+.a .btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 7px; background: var(--walnut); color: var(--cream); font-weight: 700; transition: background-color 300ms; }
+.a .btn:hover { background: var(--sp-d); }
+.a .btn--line { background: none; color: var(--walnut); box-shadow: inset 0 0 0 1.5px var(--walnut); }
+.a .btn--line:hover { background: var(--walnut); color: var(--cream); }
+.a__rule { height: 9px; border-top: 4px solid var(--walnut); border-bottom: 1px solid var(--walnut); }
+.a__hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 72px); align-items: end; padding-block: clamp(36px, 5vw, 72px) clamp(48px, 6vw, 96px); }
+.a__h1 { font: 900 clamp(60px, 10.4vw, 190px)/0.86 "Besley", serif; letter-spacing: -0.035em; }
+.a__h1 em { display: block; font-weight: 500; font-style: italic; letter-spacing: -0.03em; color: var(--sp-d); transition: color 600ms; }
+.a__sub { display: grid; grid-template-columns: minmax(0, 38ch) auto; gap: 28px; align-items: end; justify-content: space-between; margin-top: clamp(28px, 3.5vw, 52px); padding-top: 22px; border-top: 1px solid var(--walnut); }
+.a__sub p { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.42; }
+.a__cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.a__photo { position: relative; }
+.a__photo::before { content: ""; position: absolute; inset: 9% -5% -5% 12%; background: var(--sp); border-radius: 10px; transition: background-color 600ms; }
+.a__photo img { position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; }
+.a__stamp { position: absolute; z-index: 1; left: -58px; bottom: 34px; width: 132px; height: 132px; color: var(--cream); background: var(--walnut); border-radius: 50%; padding: 9px; transform: rotate(-11deg); }
+.a__stamp text { font: 700 10.4px "Instrument Sans", sans-serif; letter-spacing: 0.16em; fill: currentColor; }
+.a__band { position: relative; background: var(--sp); color: #fff8ec; padding-block: clamp(56px, 7vw, 112px); overflow: hidden; transition: background-color 600ms; }
+.a__band.is-light { color: var(--walnut); }
+.a__rings { position: absolute; right: -14vw; top: -22vw; width: 62vw; opacity: 0.2; pointer-events: none; }
+.a__rings circle { fill: none; stroke: currentColor; stroke-width: 1.4; }
+.a__bandhead { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: clamp(24px, 3vw, 44px); }
+.a__bandhead h2 { font: 900 clamp(52px, 9vw, 160px)/0.86 "Besley", serif; letter-spacing: -0.035em; }
+.a__bandhead p { max-width: 34ch; font-size: 18px; }
+.a .rack { position: relative; height: clamp(280px, 40vh, 440px); }
+.a .rack button { border-radius: 6px; }
+.a__rows { padding-block: clamp(56px, 7vw, 112px); }
+.a__rows h2 { font: 900 clamp(38px, 4.6vw, 76px)/0.92 "Besley", serif; letter-spacing: -0.03em; margin-bottom: 28px; }
+.a__row { display: grid; grid-template-columns: 84px minmax(0, 5fr) minmax(0, 5fr) 110px; gap: 28px; align-items: center; padding: 26px 0; border-top: 1px solid var(--walnut); }
+.a__row:last-child { border-bottom: 4px solid var(--walnut); }
+.a__row i { font: italic 500 22px "Besley", serif; color: var(--sp-d); }
+.a__row h3 { font: 800 clamp(34px, 4vw, 64px)/0.95 "Besley", serif; letter-spacing: -0.03em; }
+.a__row p { color: #5b4a3d; font-size: 16px; max-width: 44ch; }
+.a__row svg { width: 100%; color: var(--walnut); }
+
+/* ================= B: gallery ================= */
+.b { --paper: #f7f4ee; --text: #26221d; --soft: #7a7168; --sp: #923c2d; background: var(--paper); color: var(--text); }
+.b .caps { font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+.b__bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 92px; }
+.b__nav { display: flex; gap: 30px; }
+.b__logo { font: 500 30px/1 "Cormorant", serif; letter-spacing: 0.3em; text-transform: uppercase; padding-left: 0.3em; }
+.b .btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border: 1px solid var(--text); border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 300ms, color 300ms; }
+.b .btn:hover, .b .btn--fill { background: var(--text); color: var(--paper); }
+.b .btn--fill:hover { background: none; color: var(--text); }
+.b__hero { text-align: center; padding-block: clamp(48px, 6vw, 96px) 0; }
+.b__h1 { font: 300 clamp(56px, 9.2vw, 168px)/0.92 "Cormorant", serif; letter-spacing: -0.02em; margin: 26px auto 30px; max-width: 12ch; }
+.b__h1 em { font-style: italic; font-weight: 400; }
+.b__hero p.lede { max-width: 46ch; margin: 0 auto 30px; color: var(--soft); font-size: 18px; }
+.b__cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: clamp(40px, 5vw, 72px); }
+.b__photo img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 62%; border-radius: 28px 28px 0 0; }
+.b__band { padding-block: clamp(72px, 9vw, 152px); }
+.b__bandhead { text-align: center; margin-bottom: clamp(32px, 4vw, 60px); }
+.b__bandhead h2 { font: 300 clamp(48px, 6.4vw, 112px)/0.95 "Cormorant", serif; letter-spacing: -0.02em; margin-top: 18px; }
+.b__bandhead h2 em { font-style: italic; }
+.b .rack { height: clamp(300px, 44vh, 480px); gap: 10px; }
+.b .rack button { border-radius: 999px 999px 0 0; }
+.b__name { display: flex; align-items: baseline; justify-content: center; gap: 14px; margin-top: 30px; font: italic 400 clamp(30px, 3vw, 46px)/1 "Cormorant", serif; }
+.b__name i { width: 12px; height: 12px; border-radius: 50%; background: var(--sp); transition: background-color 500ms; }
+.b__rows { padding-bottom: clamp(72px, 9vw, 152px); }
+.b__row { display: grid; grid-template-columns: 70px minmax(0, 5fr) minmax(0, 5fr) 100px; gap: 28px; align-items: center; padding: 34px 0; border-top: 1px solid rgba(38, 34, 29, 0.2); }
+.b__row:last-child { border-bottom: 1px solid rgba(38, 34, 29, 0.2); }
+.b__row h3 { font: 300 clamp(36px, 4.2vw, 68px)/1 "Cormorant", serif; letter-spacing: -0.015em; }
+.b__row p { color: var(--soft); font-size: 16px; max-width: 44ch; }
+.b__row svg { width: 100%; color: var(--soft); stroke-width: 1; }
+.b__row .caps { color: var(--soft); }
+
+@media (max-width: 860px) {
+  .a__nav, .b__nav { display: none; }
+  .b__bar { grid-template-columns: 1fr auto; }
+  .a__hero { grid-template-columns: 1fr; }
+  .a__sub { grid-template-columns: 1fr; }
+  .a__stamp { left: auto; right: 14px; bottom: -34px; width: 104px; height: 104px; }
+  .a__photo::before { inset: 8% -3% -4% 10%; }
+  .a__row, .b__row { grid-template-columns: 44px 1fr; gap: 6px 14px; }
+  .a__row p, .b__row p { grid-column: 2; }
+  .a__row svg, .b__row svg { display: none; }
+  .rack button[aria-pressed="true"] { flex-grow: 7; }
+  .b .rack { gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 1ms !important; } }
+</style>
+</head>
+<body>
+
+<nav class="switch" aria-label="Directions">
+  <span>Liemex: two looks, same content. Hover or tap a board in each.</span>
+  <a href="#a">A · Wood type</a>
+  <a href="#b">B · Gallery</a>
+  <a href="/">Current site</a>
+</nav>
+
+<!-- ============ A ============ -->
+<p class="tag" id="a"><b>A · Wood type.</b> Besley, a Clarendon slab like the letters once cut from timber. Cream and walnut. The page takes the colour of the timber you pick.</p>
+<section class="a" data-dir>
+  <div class="wrap">
+    <div class="a__bar">
+      <a class="a__logo" href="#a">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="22"/><circle cx="24" cy="25" r="16.5"/><circle cx="25" cy="26" r="11.5"/><circle cx="25.5" cy="27" r="7"/><circle cx="26" cy="27.5" r="3"/></g></svg>
+        Liemex
+      </a>
+      <div class="a__nav"><a href="#a">Products</a><a href="#a">Timber species</a><a href="#a">Gallery</a><a href="#a">About</a><a href="#a">(08) 8444 1800</a></div>
+      <a class="btn" href="#a">Get a quote</a>
+    </div>
+    <div class="a__rule"></div>
+    <div class="a__hero">
+      <div>
+        <h1 class="a__h1">Solid timber, <em>machined here.</em></h1>
+        <div class="a__sub">
+          <p>Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Supplying South Australian builders, joiners and homeowners for over 30 years.</p>
+          <div class="a__cta"><a class="btn" href="#a">Get a quote</a><a class="btn btn--line" href="#a">See the range</a></div>
+        </div>
+      </div>
+      <div class="a__photo">
+        <img src="/images/hero-tall.webp" alt="Herringbone oak parquetry in a double-height living room" width="1000" height="1613">
+        <svg class="a__stamp" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="circ" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs>
+          <text><textPath href="#circ">SOLID TIMBER SPECIALISTS · PORT ADELAIDE · </textPath></text>
+          <g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="60" cy="60" r="30"/><circle cx="60" cy="61" r="22"/><circle cx="61" cy="62" r="14"/><circle cx="62" cy="63" r="6.5"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="a__band" data-band>
+    <svg class="a__rings" viewBox="0 0 400 400" aria-hidden="true"><g><circle cx="200" cy="200" r="24"/><circle cx="203" cy="198" r="48"/><circle cx="205" cy="197" r="74"/><circle cx="206" cy="196" r="98"/><circle cx="208" cy="196" r="124"/><circle cx="208" cy="195" r="150"/><circle cx="210" cy="195" r="174"/><circle cx="210" cy="194" r="196"/></g></svg>
+    <div class="wrap">
+      <div class="a__bandhead">
+        <h2 data-name>Jarrah</h2>
+        <p data-text>Dense West Australian hardwood in deep reds, supplied as flooring, decking and stair treads.</p>
+      </div>
+      <div class="rack" data-rack></div>
+    </div>
+  </div>
+
+  <div class="wrap a__rows">
+    <h2>What leaves the yard</h2>
+    <div class="a__row"><i>No. 1</i><h3>Flooring</h3><p>Solid tongue and groove boards, overlay and parquetry, in Australian hardwoods, oak and traditional 152 × 22 Baltic pine.</p><svg class="dwg" viewBox="0 0 120 80"><path d="M10 26H98V35H108V45H98V54H10V45H20V35H10Z"/><path d="M22 54C30 38 52 30 76 30M36 54C42 44 58 38 80 38M52 54C56 50 66 46 84 46" stroke-width="1" opacity=".6"/></svg></div>
+    <div class="a__row"><i>No. 2</i><h3>Doors</h3><p>Solid timber internal and external doors, a range unique to Liemex. Made to order, to your sizes.</p><svg class="dwg" viewBox="0 0 120 80"><path d="M38 6H82V74H38ZM44 12H57V36H44ZM63 12H76V36H63ZM44 44H57V68H44ZM63 44H76V68H63Z"/></svg></div>
+    <div class="a__row"><i>No. 3</i><h3>Mouldings</h3><p>Architraves, skirtings and second-fix profiles, run on our own moulders. We match heritage profiles.</p><svg class="dwg" viewBox="0 0 120 80"><path d="M44 74V22C44 12 48 8 53 8C58 8 59 13 59 17C59 22 62 24 66 25C72 27 74 32 74 40V74Z"/></svg></div>
+  </div>
+</section>
+
+<!-- ============ B ============ -->
+<p class="tag" id="b"><b>B · Gallery.</b> Cormorant, a fine high-contrast serif, with small capitals and a lot of air. Quiet, pale, closest to the room.</p>
+<section class="b" data-dir>
+  <div class="wrap">
+    <div class="b__bar">
+      <div class="b__nav caps"><a href="#b">Products</a><a href="#b">Species</a><a href="#b">Gallery</a></div>
+      <a class="b__logo" href="#b">Liemex</a>
+      <div style="display:flex;justify-content:flex-end"><a class="btn" href="#b">Get a quote</a></div>
+    </div>
+    <div class="b__hero">
+      <p class="caps">Solid timber specialists · Port Adelaide</p>
+      <h1 class="b__h1">Solid timber, <em>machined here</em></h1>
+      <p class="lede">Flooring, doors, decking, cladding and mouldings from a timber yard with its own machine shop. Over 30 years supplying South Australian builders, joiners and homeowners.</p>
+      <div class="b__cta"><a class="btn btn--fill" href="#b">Get a quote</a><a class="btn" href="#b">See the range</a></div>
+      <div class="b__photo"><img src="/images/hero-wide.webp" alt="Herringbone oak parquetry in a double-height living room" width="1921" height="1191"></div>
+    </div>
+  </div>
+
+  <div class="b__band">
+    <div class="wrap">
+      <div class="b__bandhead"><p class="caps">Seventeen timbers</p><h2>In the <em>rack</em></h2></div>
+      <div class="rack" data-rack></div>
+      <p class="b__name"><i></i><span data-name>Jarrah</span></p>
+    </div>
+  </div>
+
+  <div class="wrap b__rows">
+    <div class="b__row"><span class="caps">01</span><h3>Flooring</h3><p>Solid tongue and groove boards, overlay and parquetry, in Australian hardwoods, oak and traditional 152 × 22 Baltic pine.</p><svg class="dwg" viewBox="0 0 120 80"><path d="M10 26H98V35H108V45H98V54H10V45H20V35H10Z"/></svg></div>
+    <div class="b__row"><span class="caps">02</span><h3>Doors</h3><p>Solid timber internal and external doors, a range unique to Liemex. Made to order, to your sizes.</p><svg class="dwg" viewBox="0 0 120 80"><path d="M38 6H82V74H38ZM44 12H57V36H44ZM63 12H76V36H63ZM44 44H57V68H44ZM63 44H76V68H63Z"/></svg></div>
+    <div class="b__row"><span class="caps">03</span><h3>Mouldings</h3><p>Architraves, skirtings and second-fix profiles, run on our own moulders. We match heritage profiles.</p><svg class="dwg" viewBox="0 0 120 80"><path d="M44 74V22C44 12 48 8 53 8C58 8 59 13 59 17C59 22 62 24 66 25C72 27 74 32 74 40V74Z"/></svg></div>
+  </div>
+</section>
+
+<script>
+const species = [["tasmanian-oak","Tasmanian oak","#c69974","Elegant and durable, at home in both modern and classic interiors."],["baltic-pine","Baltic pine","#90958d","Light-coloured softwood with a smooth finish. The traditional Adelaide floorboard."],["spotted-gum","Spotted gum","#907160","High-strength timber with lively natural colour variation."],["jarrah","Jarrah","#923c2d","Dense West Australian hardwood in deep reds, supplied as flooring, decking and stair treads."],["victorian-ash","Victorian ash","#c89c75","Clean, consistent appearance and a fine grain. Machines and finishes well."],["australian-chestnut","Australian chestnut","#d39e6e","Light to medium hardwood that is easy to work and finishes well."],["redgum","Red gum","#b6361a","Deep red hardwood, durable and suited to structural work."],["tasmanian-blackwood","Tasmanian blackwood","#b47d57","Dark hardwood with a striking grain for high-end joinery."],["marri","Marri","#ad7b4b","Medium hardwood with rich tones and plenty of feature."],["karri","Karri","#844436","Strong, durable hardwood with reddish hues."],["kapur","Kapur","#a5513f","Dense hardwood for decking and heavy-use applications."],["silvertop-ash","Silvertop ash","#b6835f","Light hardwood with a smooth finish, excellent for joinery."],["flooded-gum","Flooded gum","#c65c48","Also sold as rose gum. Light timber with natural character."],["brush-box","Brush box","#8c4c37","Heavy hardwood with a fine grain."],["maranti","Meranti","#b89378","Rich reddish-brown tones, from the mahogany family."],["cypress-pine","Cypress pine","#fce4b6","Durable softwood, resistant to termites and decay."],["radiata-pine","Radiata pine","#facf65","Plantation softwood, light and easy to work with."]];
+const light = (hex) => { const n = parseInt(hex.slice(1), 16); return ((n >> 16) * 0.3 + ((n >> 8) & 255) * 0.59 + (n & 255) * 0.11) > 150; };
+document.querySelectorAll("[data-dir]").forEach((dir) => {
+  const rack = dir.querySelector("[data-rack]");
+  rack.innerHTML = species.map(([slug, name], i) => `<button type="button" aria-pressed="${i === 3}" aria-label="${name}" data-i="${i}"><img src="/images/species/${slug}-v.webp" alt="" loading="lazy"></button>`).join("");
+  const pick = (b) => {
+    const [, name, colour, text] = species[+b.dataset.i];
+    rack.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    dir.style.setProperty("--sp", colour);
+    dir.querySelectorAll("[data-name]").forEach((el) => { el.textContent = name; });
+    dir.querySelectorAll("[data-text]").forEach((el) => { el.textContent = text; });
+    dir.querySelector("[data-band]")?.classList.toggle("is-light", light(colour));
+  };
+  rack.addEventListener("pointerover", (e) => { const b = e.target.closest("button"); if (b && matchMedia("(hover: hover)").matches) pick(b); });
+  rack.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) pick(b); });
+  rack.addEventListener("focusin", (e) => { const b = e.target.closest("button"); if (b) pick(b); });
+});
+</script>
+</body>
+</html>
