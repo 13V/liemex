@@ -2,5 +2,5 @@
   "name": "liemex",
   "private": true,
   "type": "module",
-  "scripts": { "build": "node build.mjs", "dev": "node build.mjs && node serve.mjs" }
+  "scripts": { "pages": "node build.mjs", "dev": "node build.mjs && node serve.mjs" }
 }
