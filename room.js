@@ -54,11 +54,12 @@ const canvas = $(".room__canvas");
 /* ---------- Renderer ---------- */
 const lite = !!window.__roomLite;   // set by film/film.html: skip the occlusion pass, which software rendering can't afford
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
-renderer.setPixelRatio(Math.min(devicePixelRatio, big ? 1.5 : 1.35));
+let ratio = Math.min(devicePixelRatio, 1.25);
+renderer.setPixelRatio(ratio);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap;   // the cheaper filter; the sun's edges are softened by the blobs under things
 renderer.shadowMap.autoUpdate = false;   // nothing in the room moves, so shadows are drawn once and reused
-const reshadow = () => { renderer.shadowMap.needsUpdate = true; };
+const reshadow = () => { renderer.shadowMap.needsUpdate = true; requestAnimationFrame(() => wake()); };
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.08;
 renderer.localClippingEnabled = true;
@@ -171,7 +172,7 @@ const posts = [BACK + 0.42, BACK + 1.95, BACK + 3.5, BACK + 5.05, BACK + 6.6, BA
 posts.forEach((z, i) => box(0.1, HEAD, i === 2 || i === 3 ? 0.11 : 0.075, frameMat, GX, HEAD / 2, z));
 box(0.1, 0.06, 1.53, frameMat, GX, 2.06, BACK + 1.185, false);               // a transom over the first light
 box(0.03, 0.2, 0.03, frameMat, GX + 0.07, 1.05, BACK + 3.62, false);         // door pull
-const glass = new THREE.Mesh(new THREE.PlaneGeometry(12, HEAD).rotateY(Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.03, metalness: 0, transparent: true, opacity: 0.1, envMapIntensity: 1.6, depthWrite: false }));
+const glass = new THREE.Mesh(new THREE.PlaneGeometry(12, HEAD).rotateY(Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.03, metalness: 0, transparent: true, opacity: 0.1, envMapIntensity: 1.6, depthWrite: false }));
 glass.position.set(GX, HEAD / 2, 1.6);
 scene.add(glass);
 // Outside: a bright, hazy outlook from high up, on a wide curved backdrop, with a terrace and a glass balustrade.
@@ -186,7 +187,7 @@ const outside = (() => {
   m.position.set(-3, 2.9, 0.6);   // the horizon sits low: mostly sky, a far suburb below it
   scene.add(m);
   const deck = box(2.7, 0.06, 13, new THREE.MeshStandardMaterial({ color: 0xb9b2a6, roughness: 0.9 }), LEFT - 1.42, -0.014, 1.6, false);   // its top sits just above the timber, which would otherwise show outside
-  const rail = new THREE.Mesh(new THREE.PlaneGeometry(13, 1.05).rotateY(Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: 0xdfeee9, roughness: 0.05, transparent: true, opacity: 0.16, depthWrite: false }));
+  const rail = new THREE.Mesh(new THREE.PlaneGeometry(13, 1.05).rotateY(Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0xdfeee9, roughness: 0.05, transparent: true, opacity: 0.16, depthWrite: false }));
   rail.position.set(LEFT - 2.5, 0.55, 1.6);
   scene.add(rail);
   box(0.04, 0.04, 13, frameMat, LEFT - 2.5, 1.09, 1.6, false);
@@ -238,7 +239,7 @@ box(0.16, 0.012, 12.2, gap, CX, H - 0.004, 1.5, false);
 box(3.2, 0.012, 0.16, gap, LEFT + 1.6, H - 0.004, BACK + 0.22, false);
 
 /* ---------- Timber: one material for the door, skirting and stools ---------- */
-const timber = new THREE.MeshPhysicalMaterial({ roughness: 0.42, clearcoat: 0.25, clearcoatRoughness: 0.3 });
+const timber = new THREE.MeshStandardMaterial({ roughness: 0.36 });
 box(8.6, 0.14, 0.02, timber, 1.6, 0.07, BACK + 0.01);                      // skirting
 const DX = 1.9;                                                             // a four-panel door, as in the catalogue
 box(0.86, 2.1, 0.04, timber, DX, 1.05, BACK + 0.03);
@@ -425,7 +426,7 @@ const paintTimber = (im, tn, seed) => {
 
 const floorGeo = new THREE.PlaneGeometry(FLOOR, FLOOR).rotateX(-Math.PI / 2);
 const makeFloor = (y) => {
-  const m = new THREE.Mesh(floorGeo, new THREE.MeshPhysicalMaterial({ roughness: 0.62, bumpScale: 0.9, clearcoat: 0.32, clearcoatRoughness: 0.28, envMapIntensity: 1.25 }));
+  const m = new THREE.Mesh(floorGeo, new THREE.MeshStandardMaterial({ roughness: 0.5, bumpScale: 0.9, envMapIntensity: 1.35 }));   // a plain material: the lacquer layer doubled the cost of every floor pixel
   m.position.set(0.6, y, 1.6);
   m.receiveShadow = true;
   scene.add(m);
@@ -449,14 +450,17 @@ if (false) {   // the occlusion pass cost more than half of every frame; the sof
   composer.addPass(gtao);
   composer.addPass(new OutputPass());
 }
-let fine = !!composer, frames = 0, spent = 0, last = 0;
+let fine = false, frames = 0, spent = 0, last = 0;
 const draw = () => (fine ? composer.render() : renderer.render(scene, camera));
 // If the first second of frames is slow, this machine can't afford the fine detail: drop to the plain renderer.
+// Watch the frame time while the camera is moving and step the resolution down until it is smooth.
 const pace = (now) => {
-  if (frames < 0) return;
-  if (last) { spent += now - last; frames++; }
+  if (last && now - last < 200) { spent += now - last; frames++; }
   last = now;
-  if (frames === 40) { if (spent / 40 > 28) { renderer.setPixelRatio(1); fit(); } frames = -1; }   // a slow machine: drop to one pixel per pixel
+  if (frames < 24) return;
+  const avg = spent / frames;
+  frames = 0; spent = 0;
+  if (avg > 21 && ratio > 0.7) { ratio = Math.max(0.7, ratio - 0.2); renderer.setPixelRatio(ratio); fit(); }
 };
 
 /* ---------- State ---------- */
@@ -496,22 +500,28 @@ const show = async (slug, instant) => {
     timber.needsUpdate = true;
     laying.visible = false;
     layT = null;
+    wake();
   };
   if (instant || reduce.matches || !floor.material.map) return done();
   dress(laying, next);
   laying.visible = true;
   layT = performance.now();
+  wake();
   pending = done;
 };
 
+// Draw only while something is changing: the arrival, a drag settling, or a floor being laid. Then stop, so the
+// page stays quick and the graphics card rests. wake() starts it again.
+let running = false, still = 0;
+const wake = () => { still = 0; if (!running && open) { running = true; last = 0; raf = requestAnimationFrame(tick); } };
 const tick = (now) => {
-  raf = requestAnimationFrame(tick);
   pace(now);
-  const arrive = reduce.matches ? 1 : easeOut(clamp((now - t0 - 250) / 2800));   // the camera eases in, then follows the pointer
-  az += (azT - az) * 0.06;
-  pol += (polT - pol) * 0.06;
-  const drift = reduce.matches ? 0 : Math.sin(now / 5200) * 0.025;
-  const a = 0.74 + az + drift, p = 0.24 + pol, d = 7.4 * (1.36 - 0.36 * arrive);
+  const arriving = !reduce.matches && now - t0 < 3200;
+  const arrive = reduce.matches ? 1 : easeOut(clamp((now - t0 - 250) / 2800));
+  const moved = Math.abs(azT - az) + Math.abs(polT - pol);
+  az += (azT - az) * 0.2;                        // follows the hand closely
+  pol += (polT - pol) * 0.2;
+  const a = 0.74 + az, p = 0.24 + pol, d = 7.4 * (1.36 - 0.36 * arrive);
   camera.position.set(target.x + Math.sin(a) * Math.cos(p) * d, target.y + Math.sin(p) * d + 0.3, target.z + Math.cos(a) * Math.cos(p) * d);
   camera.lookAt(target);
   if (layT !== null) {
@@ -520,14 +530,18 @@ const tick = (now) => {
     if (t === 1) { pending?.(); pending = null; }
   }
   draw();
+  still = arriving || drag || layT !== null || moved > 0.0004 ? 0 : still + 1;
+  if (still > 3) { running = false; return; }
+  raf = requestAnimationFrame(tick);
 };
 
 /* ---------- Controls ---------- */
 let drag = null;
-canvas.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, az: azT, pol: polT }; canvas.setPointerCapture(e.pointerId); dlg.classList.add("is-dragged"); });
+canvas.addEventListener("pointerdown", (e) => { wake(); drag = { x: e.clientX, y: e.clientY, az: azT, pol: polT }; canvas.setPointerCapture(e.pointerId); dlg.classList.add("is-dragged"); });
 canvas.addEventListener("pointermove", (e) => {
   if (!drag) return;
   azT = clamp(drag.az - ((e.clientX - drag.x) / innerWidth) * 1.6, -0.5, 0.32);
+  wake();
   polT = clamp(drag.pol + ((e.clientY - drag.y) / innerHeight) * 0.6, -0.1, 0.24);
 });
 const drop = () => { drag = null; };
@@ -536,6 +550,7 @@ canvas.addEventListener("pointercancel", drop);
 dlg.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") azT = clamp(azT + 0.12, -0.5, 0.32);
   if (e.key === "ArrowRight") azT = clamp(azT - 0.12, -0.5, 0.32);
+  wake();
 });
 
 dlg.addEventListener("click", (e) => {
@@ -555,9 +570,9 @@ dlg.addEventListener("click", (e) => {
     if (form) { e.preventDefault(); dlg.close(); document.dispatchEvent(new CustomEvent("liemex:ask")); document.getElementById("quote")?.scrollIntoView({ behavior: reduce.matches ? "auto" : "smooth" }); }
   }
 });
-dlg.addEventListener("close", () => { open = false; cancelAnimationFrame(raf); document.documentElement.classList.remove("room-open"); });
-addEventListener("resize", () => open && fit());
-document.addEventListener("visibilitychange", () => { if (!open) return; cancelAnimationFrame(raf); if (!document.hidden) raf = requestAnimationFrame(tick); });
+dlg.addEventListener("close", () => { open = false; running = false; cancelAnimationFrame(raf); document.documentElement.classList.remove("room-open"); });
+addEventListener("resize", () => { if (open) { fit(); wake(); } });
+document.addEventListener("visibilitychange", () => { if (!open) return; cancelAnimationFrame(raf); running = false; if (!document.hidden) wake(); });
 
 export async function openRoom(slug) {
   if (open) return show(slug);
@@ -573,6 +588,7 @@ export async function openRoom(slug) {
   if (!baked) { baked = true; furniture.then(() => { bakeEnv(); reshadow(); }); }
   t0 = performance.now();
   last = 0;
-  raf = requestAnimationFrame(tick);
+  running = false;
+  wake();
   requestAnimationFrame(() => dlg.classList.add("is-ready"));
 }

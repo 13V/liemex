@@ -428,7 +428,7 @@ html.room-open { overflow: hidden; }
 .room.is-dragged .room__hint { opacity: 0; }
 .room__close { pointer-events: auto; min-height: 44px; padding: 0 18px; background: rgba(20, 16, 12, 0.5); border: 1.5px solid rgba(240, 233, 220, 0.5); border-radius: 2px; color: inherit; font-weight: 700; cursor: pointer; transition: background-color 200ms, color 200ms; }
 .room__close:hover { background: var(--on); color: var(--ink); }
-.room__info { left: var(--gutter); bottom: 132px; width: min(440px, calc(100vw - 2 * var(--gutter))); display: grid; gap: 14px; justify-items: start; padding: 28px; background: rgba(20, 16, 12, 0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.room__info { left: var(--gutter); bottom: 132px; width: min(440px, calc(100vw - 2 * var(--gutter))); display: grid; gap: 14px; justify-items: start; padding: 28px; background: rgba(20, 16, 12, 0.93); }
 .room__info .mono { color: var(--amber); }
 .room__info .h-xl { font-size: clamp(44px, 5vw, 84px); }
 .room__text { max-width: 36ch; }
