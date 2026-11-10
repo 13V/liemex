@@ -53,8 +53,8 @@ const canvas = $(".room__canvas");
 
 /* ---------- Renderer ---------- */
 const lite = !!window.__roomLite;   // set by film/film.html: skip the occlusion pass, which software rendering can't afford
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
-let ratio = Math.min(devicePixelRatio, 1.25);
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !lite, powerPreference: "high-performance" });   // filming in software: every sample costs seconds
+let ratio = lite ? 1 : Math.min(devicePixelRatio, 1.25);
 renderer.setPixelRatio(ratio);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFShadowMap;   // the cheaper filter; the sun's edges are softened by the blobs under things
