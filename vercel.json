@@ -1,21 +1,99 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "functions": { "api/enquiry.js": { "maxDuration": 15 } },
+  "functions": {
+    "api/enquiry.js": {
+      "maxDuration": 15
+    }
+  },
   "headers": [
-    { "source": "/fonts/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
-    { "source": "/images/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }] }
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/models/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/vendor/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    }
   ],
   "redirects": [
-    { "source": "/about-us-quality-timber", "destination": "/about", "permanent": true },
-    { "source": "/about-us-quality-timber/contact-liemex", "destination": "/contact", "permanent": true },
-    { "source": "/about-us-quality-timber/privacy-policy", "destination": "/privacy", "permanent": true },
-    { "source": "/contact-liemex", "destination": "/contact", "permanent": true },
-    { "source": "/gallery/:slug", "destination": "/gallery", "permanent": true },
-    { "source": "/product-category/cladding-and-linings", "destination": "/products#cladding", "permanent": true },
-    { "source": "/product-category/lettice-screens", "destination": "/products#screens", "permanent": true },
-    { "source": "/product-category/:slug", "destination": "/products#:slug", "permanent": true },
-    { "source": "/timber-doors-in-adelaide", "destination": "/products#doors", "permanent": true },
-    { "source": "/timber-species/:slug", "destination": "/timber-species", "permanent": true }
+    {
+      "source": "/about-us-quality-timber",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/about-us-quality-timber/contact-liemex",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/about-us-quality-timber/privacy-policy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/contact-liemex",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/gallery/:slug",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/cladding-and-linings",
+      "destination": "/products#cladding",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/lettice-screens",
+      "destination": "/products#screens",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/:slug",
+      "destination": "/products#:slug",
+      "permanent": true
+    },
+    {
+      "source": "/timber-doors-in-adelaide",
+      "destination": "/products#doors",
+      "permanent": true
+    },
+    {
+      "source": "/timber-species/:slug",
+      "destination": "/timber-species",
+      "permanent": true
+    }
   ]
 }
