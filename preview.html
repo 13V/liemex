@@ -306,6 +306,16 @@ button { font: inherit; color: inherit; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition-duration: 1ms !important; } }
 </style>
+<script>(() => { const o = new URLSearchParams(location.search).get("only"); if (o) document.documentElement.dataset.only = o; })();</script>
+<style>
+html[data-only] .switch, html[data-only] .tag, html[data-only] body > section { display: none; }
+html[data-only="a"] section.a, html[data-only="d"] section.d, html[data-only="e"] section.e { display: block; }
+html[data-only] .a__band, html[data-only] .a__rows, html[data-only] .d > .wrap, html[data-only] .e__index { display: none; }
+html[data-only] body { background: #f4eee2; }
+html[data-only="e"] body { background: #1d3a2f; }
+html[data-only] a { pointer-events: none; }
+html[data-only] { scrollbar-width: none; } html[data-only]::-webkit-scrollbar { display: none; }
+</style>
 </head>
 <body>
 

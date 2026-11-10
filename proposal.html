@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A new website for Liemex | Proposal from Lumen adl</title>
+<meta name="description" content="Four looks for the new Liemex website, what it will do, and what we need from you.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+/* The proposal. Lumen adl's own look: black, white, Inter. The work shown inside the frames is Liemex's. */
+@font-face { font-family: "Inter"; src: url("/fonts/inter-latin-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("/fonts/inter-latin-500.woff2") format("woff2"); font-weight: 500 600; font-display: swap; }
+:root { --ink: #0c0c0c; --paper: #ffffff; --soft: #6b6b6b; --line: rgba(12, 12, 12, 0.14); --tint: #f4f3f0; --ease: cubic-bezier(0.16, 1, 0.3, 1); --gutter: clamp(18px, 4vw, 56px); }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.55 "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p, ul, ol, dl, dd { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.wrap { max-width: 1320px; margin-inline: auto; padding-inline: var(--gutter); }
+.label { font-size: 12.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+.h1 { font-size: clamp(44px, 7.4vw, 124px); font-weight: 500; line-height: 0.96; letter-spacing: -0.045em; text-wrap: balance; }
+.h2 { font-size: clamp(32px, 4.2vw, 64px); font-weight: 500; line-height: 1; letter-spacing: -0.04em; text-wrap: balance; }
+.lede { font-size: clamp(18px, 1.5vw, 22px); line-height: 1.45; color: var(--soft); max-width: 46ch; text-wrap: pretty; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 500; font-size: 15.5px; text-decoration: none; border: 1px solid var(--ink); cursor: pointer; transition: background-color 250ms, color 250ms; }
+.btn:hover { background: var(--paper); color: var(--ink); }
+.btn--line { background: none; color: var(--ink); border-color: var(--line); }
+.btn--line:hover { border-color: var(--ink); }
+.arrow { transition: transform 500ms var(--ease); }
+a:hover .arrow { transform: translateX(4px); }
+
+.top { position: sticky; top: 0; z-index: 30; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.top__in { display: flex; align-items: center; gap: 24px; height: 60px; font-size: 14.5px; }
+.top__brand { margin-right: auto; font-weight: 500; text-decoration: none; }
+.top__brand span { color: var(--soft); }
+.top nav { display: flex; gap: 22px; }
+.top nav a { text-decoration: none; color: var(--soft); transition: color 200ms; }
+.top nav a:hover { color: var(--ink); }
+
+.cover { padding-block: clamp(64px, 10vw, 150px) clamp(48px, 6vw, 88px); }
+.cover .h1 { margin: 22px 0 32px; max-width: 12ch; }
+.cover__row { display: flex; flex-wrap: wrap; gap: 28px 64px; align-items: flex-end; justify-content: space-between; }
+.cover__acts { display: flex; flex-wrap: wrap; gap: 10px; }
+.cover__meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(48px, 6vw, 88px); border-top: 1px solid var(--ink); }
+.cover__meta div { padding: 18px 20px 0 0; }
+.cover__meta dt { font-size: 12.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); }
+.cover__meta dd { margin-top: 6px; font-weight: 500; }
+
+section { padding-block: clamp(64px, 8vw, 128px); }
+.band { background: var(--tint); }
+.head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 56px; align-items: end; margin-bottom: clamp(32px, 4vw, 60px); }
+.head .label { grid-column: 1 / -1; }
+
+/* ---------- Styles: tabs, a browser frame, a note ---------- */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 18px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-weight: 500; font-size: 15.5px; cursor: pointer; transition: background-color 250ms, color 250ms, border-color 250ms; }
+.tab:hover { border-color: var(--ink); }
+.tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.tab small { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: #e9f3e6; color: #24552f; }
+.tab[aria-selected="true"] small { background: #2f6d3d; color: #fff; }
+.stylebar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+.device { display: inline-flex; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); }
+.device button { min-height: 38px; padding: 0 16px; border: 0; border-radius: 999px; background: none; font-size: 14.5px; font-weight: 500; cursor: pointer; }
+.device button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.frame { border: 1px solid var(--line); border-radius: 14px; background: var(--paper); overflow: hidden; box-shadow: 0 30px 80px rgba(12, 12, 12, 0.12); }
+.frame__chrome { display: flex; align-items: center; gap: 7px; height: 40px; padding: 0 14px; border-bottom: 1px solid var(--line); background: #fafaf9; }
+.frame__chrome i { width: 10px; height: 10px; border-radius: 50%; background: #d9d8d5; }
+.frame__chrome span { margin-left: 14px; font-size: 13px; color: var(--soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.frame__view { position: relative; overflow: hidden; background: #ecebe8; transition: height 500ms var(--ease); }
+.frame__view iframe { position: absolute; left: 50%; top: 0; border: 0; transform-origin: 0 0; background: #fff; opacity: 0; transition: opacity 500ms; }
+.frame__view iframe.is-on { opacity: 1; }
+.frame.is-phone .frame__view iframe { border-radius: 26px; box-shadow: 0 0 0 9px #111, 0 24px 60px rgba(12, 12, 12, 0.25); }
+.stylenote { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px 56px; margin-top: clamp(28px, 3vw, 44px); }
+.stylenote h3 { font-size: clamp(26px, 2.6vw, 40px); font-weight: 500; letter-spacing: -0.035em; line-height: 1.05; }
+.stylenote p.sum { margin-top: 12px; color: var(--soft); }
+.stylenote ul { border-top: 1px solid var(--line); }
+.stylenote li { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.stylenote li span:first-child { color: var(--soft); }
+.hint { margin-top: 14px; font-size: 14.5px; color: var(--soft); }
+
+/* ---------- Features ---------- */
+.feats { border-top: 1px solid var(--ink); }
+.feat { display: grid; grid-template-columns: 56px minmax(0, 4fr) minmax(0, 6fr) auto; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.feat > span { font-size: 13px; color: var(--soft); padding-top: 8px; font-variant-numeric: tabular-nums; }
+.feat h3 { font-size: clamp(22px, 2.1vw, 30px); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+.feat p { color: var(--soft); max-width: 54ch; }
+.feat p b { color: var(--ink); font-weight: 500; }
+.feat a { align-self: center; white-space: nowrap; font-weight: 500; text-decoration: none; display: inline-flex; gap: 8px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--ink); }
+
+/* ---------- Found, needs, steps ---------- */
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.card { padding: 26px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+.card h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 8px; }
+.card p { color: var(--soft); font-size: 16px; }
+.needs { counter-reset: n; border-top: 1px solid var(--ink); }
+.needs li { counter-increment: n; display: grid; grid-template-columns: 56px minmax(0, 4fr) minmax(0, 7fr); gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.needs li::before { content: counter(n, decimal-leading-zero); font-size: 13px; color: var(--soft); padding-top: 5px; }
+.needs b { font-weight: 500; font-size: 19px; letter-spacing: -0.02em; }
+.needs span { color: var(--soft); }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; counter-reset: s; }
+.steps li { counter-increment: s; padding-top: 18px; border-top: 1px solid var(--ink); }
+.steps li::before { content: counter(s, decimal-leading-zero); display: block; font-size: 13px; color: var(--soft); margin-bottom: 36px; }
+.steps b { display: block; font-weight: 500; font-size: 20px; letter-spacing: -0.02em; margin-bottom: 6px; }
+.steps span { color: var(--soft); font-size: 16px; }
+
+.end { background: var(--ink); color: var(--paper); }
+.end .lede { color: #b5b5b5; }
+.end__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px; }
+.end .h2 { max-width: 14ch; margin: 18px 0 20px; }
+.end .label { color: #9a9a9a; }
+.end .btn { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.end .btn:hover { background: none; color: var(--paper); }
+.foot { padding: 22px 0; background: var(--ink); color: #9a9a9a; font-size: 14px; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+.foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+.foot a { color: #fff; }
+
+[data-rise] { opacity: 0; transform: translateY(22px); transition: opacity 900ms var(--ease), transform 1100ms var(--ease); }
+[data-rise].is-in { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  .top nav { display: none; }
+  .head, .stylenote, .cols, .steps { grid-template-columns: 1fr; }
+  .cover__meta { grid-template-columns: 1fr 1fr; }
+  .feat { grid-template-columns: 34px 1fr; gap: 8px 14px; }
+  .feat p, .feat a { grid-column: 2; }
+  .feat a { justify-self: start; }
+  .needs li { grid-template-columns: 34px 1fr; gap: 6px 14px; }
+  .needs span { grid-column: 2; }
+  .stylenote li { grid-template-columns: 104px 1fr; }
+  .steps li::before { margin-bottom: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } [data-rise] { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top__in">
+    <a class="top__brand" href="#top">Lumen adl <span>for Liemex</span></a>
+    <nav aria-label="Proposal"><a href="#styles">The looks</a><a href="#features">What it does</a><a href="#found">What we found</a><a href="#needs">What we need</a><a href="#next">Next steps</a></nav>
+    <a class="btn" style="min-height:40px;padding:0 16px;font-size:14.5px" href="/">Open the working site</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap cover">
+    <p class="label">Website proposal · November 2026</p>
+    <h1 class="h1">A new website for Liemex</h1>
+    <div class="cover__row">
+      <p class="lede">This isn't a mock-up. The site is already built and running, with your products, timbers and photos in it. What's left is to choose how it looks and to get a few details from you.</p>
+      <div class="cover__acts">
+        <a class="btn" href="#styles">See the four looks <span class="arrow">↓</span></a>
+        <a class="btn btn--line" href="/">Open the working site <span class="arrow">→</span></a>
+      </div>
+    </div>
+    <dl class="cover__meta">
+      <div><dt>Prepared for</dt><dd>Liemex, Baltic Pine &amp; European Timber</dd></div>
+      <div><dt>Prepared by</dt><dd>Troy Watson, Lumen adl</dd></div>
+      <div><dt>What's built</dt><dd>7 pages, 17 timbers, 356 product lines</dd></div>
+      <div><dt>Status</dt><dd>Working preview, hidden from Google</dd></div>
+    </dl>
+  </div>
+
+  <section class="band" id="styles">
+    <div class="wrap">
+      <div class="head" data-rise>
+        <p class="label">01 · Four looks</p>
+        <h2 class="h2">Same site, four ways it could look</h2>
+        <p class="lede">The content and the features are identical in each. Switch between them, and flip to the phone view. These are the live pages, so you can scroll inside the frame.</p>
+      </div>
+      <div class="stylebar" data-rise>
+        <div class="tabs" role="tablist" aria-label="Looks" data-tabs></div>
+        <div class="device" role="group" aria-label="Screen size"><button type="button" aria-pressed="true" data-device="desktop">Desktop</button><button type="button" aria-pressed="false" data-device="phone">Phone</button></div>
+      </div>
+      <div class="frame" data-frame data-rise>
+        <div class="frame__chrome"><i></i><i></i><i></i><span>liemex.com.au</span></div>
+        <div class="frame__view" data-view></div>
+      </div>
+      <p class="hint" data-hint></p>
+      <div class="stylenote" data-rise>
+        <div><h3 data-s-name></h3><p class="sum" data-s-sum></p></div>
+        <ul data-s-list></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="head" data-rise>
+        <p class="label">02 · What it does</p>
+        <h2 class="h2">Built to turn a browser into an enquiry</h2>
+        <p class="lede">Everything here already works. Each link opens that part of the site.</p>
+      </div>
+      <div class="feats">
+        <div class="feat" data-rise><span>01</span><h3>See a timber laid in a room</h3><p>Pick any of the 17 timbers and a 3D living room opens with that timber on the floor, the door, the skirting and the stools. <b>Switch between boards and herringbone, drag to look around, change timber and watch the floor relay.</b></p><a href="/timber-species">Try it <span class="arrow">→</span></a></div>
+        <div class="feat" data-rise><span>02</span><h3>The timber rack</h3><p>All 17 species stand side by side as boards. Hover or tap one and it opens with what it is and what it suits. <b>One click from there to the room, or to a quote for that timber.</b></p><a href="/#species">Try it <span class="arrow">→</span></a></div>
+        <div class="feat" data-rise><span>03</span><h3>One board, start to floor</h3><p>As you scroll, a 152 × 22 Baltic pine board goes from rough sawn to dressed, gets its tongue and groove, takes a finish and locks into a floor. <b>It shows in ten seconds that you machine your own timber.</b></p><a href="/#bench">Try it <span class="arrow">→</span></a></div>
+        <div class="feat" data-rise><span>04</span><h3>How many metres is that?</h3><p>A customer enters the area and a board width and gets lineal metres, with a tenth added for cuts. <b>"Price this" drops the figure straight into the quote form.</b></p><a href="/#calculator">Try it <span class="arrow">→</span></a></div>
+        <div class="feat" data-rise><span>05</span><h3>Your work, front and centre</h3><p>Your floors, doors and decks run across the screen on the homepage, and the full gallery filters by flooring, doors, decking and joinery. <b>Every photo is your own.</b></p><a href="/gallery">Try it <span class="arrow">→</span></a></div>
+        <div class="feat" data-rise><span>06</span><h3>A quote form that reaches the yard</h3><p>Enquiries are emailed to you with the customer's details, the timber they were looking at and any metres they worked out. <b>The page only says "thanks" once the enquiry has actually been delivered.</b></p><a href="/contact">Try it <span class="arrow">→</span></a></div>
+        <div class="feat" data-rise><span>07</span><h3>The whole range on one page</h3><p>Flooring, doors, cladding, mouldings, decking, lattice and stairs, each with what's in it, a drawing of the profile and a button to ask about it. <b>Your three catalogues are there to download.</b></p><a href="/products">Try it <span class="arrow">→</span></a></div>
+        <div class="feat" data-rise><span>08</span><h3>Made for phones first</h3><p>A call button stays within thumb reach on every page, and the phone number is one tap from anywhere. <b>The site also works for people who have animation turned off.</b></p><a href="/">Open on your phone <span class="arrow">→</span></a></div>
+        <div class="feat" data-rise><span>09</span><h3>Kind to your Google ranking</h3><p>Your old page addresses are redirected to the new ones so existing links and search results keep working. <b>The preview is hidden from Google until launch, so it can't compete with your current site.</b></p><a href="/about">See a page <span class="arrow">→</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="found">
+    <div class="wrap">
+      <div class="head" data-rise>
+        <p class="label">03 · What we found</p>
+        <h2 class="h2">Why the current site is costing you</h2>
+        <p class="lede">We went through liemex.com.au as a customer would. Three things stood out.</p>
+      </div>
+      <div class="cols">
+        <div class="card" data-rise><h3>It says it isn't finished</h3><p>The product range on the homepage carries the words "Still under construction". A customer deciding who to ring reads that as a reason to ring someone else.</p></div>
+        <div class="card" data-rise><h3>It disagrees with itself</h3><p>The homepage says 40+ years and the About page says over 30. Two different email addresses appear. Small things, but they cost trust.</p></div>
+        <div class="card" data-rise><h3>Your best asset is buried</h3><p>You saw, dress and profile your own timber, and you can match a heritage moulding. That's the reason to choose you over a big-box store, and the current site barely mentions it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="needs">
+    <div class="wrap">
+      <div class="head" data-rise>
+        <p class="label">04 · What we need from you</p>
+        <h2 class="h2">Six things to finish it</h2>
+        <p class="lede">None of them take long. The photos would make the biggest difference.</p>
+      </div>
+      <ol class="needs">
+        <li data-rise><b>Pick a look</b><span>One of the four above, or the parts of each you like.</span></li>
+        <li data-rise><b>Confirm the facts</b><span>How many years you've been trading, which email address enquiries should go to, and your Saturday hours (the current site says 10 to 11am).</span></li>
+        <li data-rise><b>Better photos</b><span>Most of the photos on your current site are small. A half-day shoot at the yard, of the boards, the machines and a few finished jobs, would lift the site more than anything else. Sharp photos of each timber would also make the room far more lifelike.</span></li>
+        <li data-rise><b>Your logo</b><span>We've set the name in type for now. Tell us whether to keep your current logo, tidy it, or go with the new wordmark.</span></li>
+        <li data-rise><b>The catalogues</b><span>The three PDF catalogues, so we can host them on the new site.</span></li>
+        <li data-rise><b>How deep the product pages go</b><span>Your current site lists about 356 products one by one. We've gathered them into one clear page per range. If you'd like every product to have its own page, that's a second stage.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="next">
+    <div class="wrap">
+      <div class="head" data-rise>
+        <p class="label">05 · Next steps</p>
+        <h2 class="h2">From here to live</h2>
+      </div>
+      <ol class="steps">
+        <li data-rise><b>You choose</b><span>Tell us which look, and send the details above.</span></li>
+        <li data-rise><b>We finish</b><span>The whole site goes into that look, with your photos, logo and confirmed details.</span></li>
+        <li data-rise><b>You check</b><span>You go through it on your phone and computer and tell us what to change.</span></li>
+        <li data-rise><b>We launch</b><span>The new site replaces the old one at liemex.com.au, and the old addresses point to the new pages.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="end">
+    <div class="wrap end__row">
+      <div>
+        <p class="label">Have a proper look</p>
+        <h2 class="h2">The site is live. Go and use it.</h2>
+        <p class="lede">Pick a timber, lay it in the room, work out some metres. Then tell Troy which look is yours.</p>
+      </div>
+      <a class="btn" href="/">Open the working site <span class="arrow">→</span></a>
+    </div>
+  </section>
+</main>
+<footer class="foot"><div class="wrap"><p>Prepared for Liemex by Troy Watson, <a href="https://www.lumenadl.com" target="_blank" rel="noopener">Lumen adl</a></p><p>The preview is private and hidden from search engines.</p></div></footer>
+
+<script>
+(() => {
+  const looks = [
+    { id: "rack", name: "The Rack", tag: "Our pick", src: "/preview?only=e", hint: "Scroll inside the frame: the photo comes apart into boards, and each board becomes a timber.",
+      sum: "Deep eucalypt green, wide capitals, and one piece of motion people will remember.",
+      rows: [["Feels like", "A confident, modern brand. Recognisable from across a room."], ["Type", "Wide capitals in two weights, heavy and hairline."], ["Colour", "Deep green and cream, so every timber stands out against it."], ["Signature", "The hero photo spreads into boards that turn into your timbers."], ["Best if", "You want to look like the leader, and carry the look onto utes and signage."]] },
+    { id: "library", name: "The Library", src: "/preview?only=d", hint: "The hero is shown here. Under it sits a strict grid of all 17 timbers.",
+      sum: "Quiet and architectural. The photography leads and the type stays out of the way.",
+      rows: [["Feels like", "An architectural materials supplier. Calm, exact, expensive."], ["Type", "A clean sans with a fine serif italic for emphasis."], ["Colour", "Warm white and charcoal. Timber colour appears only as a small dot."], ["Signature", "A material library: pick a sample, see the board and its details."], ["Best if", "Architects and designers are the customers you most want to win."]] },
+    { id: "woodtype", name: "Wood Type", src: "/preview?only=a", hint: "The hero is shown here. Below it, the whole band takes the colour of the timber you pick.",
+      sum: "Warm and established, set in a slab typeface like the letters once cut from timber.",
+      rows: [["Feels like", "A trusted merchant with thirty years behind it."], ["Type", "A heavy Clarendon slab, with its italic."], ["Colour", "Cream and walnut. The page takes the colour of the chosen timber."], ["Signature", "A growth-ring mark and a round grade stamp."], ["Best if", "Heritage, villas and restoration work are the heart of the business."]] },
+    { id: "yard", name: "The Yard", tag: "As built", src: "/", hint: "This is the working site as it stands. Scroll inside the frame to go through the whole homepage.",
+      sum: "The look the working site is in today: dark, bold and workshop-like.",
+      rows: [["Feels like", "A timber yard and machine shop. Direct and hard-working."], ["Type", "Tall, heavy condensed capitals."], ["Colour", "Charcoal and raw pine with a red accent."], ["Signature", "Planks lift off every photo as it arrives."], ["Best if", "Builders and joiners are the main audience."]] },
+  ];
+  const $ = (s) => document.querySelector(s);
+  const tabs = $("[data-tabs]"), view = $("[data-view]"), frame = $("[data-frame]");
+  const frames = new Map();
+  let current = looks[0], device = "desktop";
+  tabs.innerHTML = looks.map((l, i) => `<button class="tab" role="tab" type="button" aria-selected="${i === 0}" data-look="${l.id}">${l.name}${l.tag ? `<small>${l.tag}</small>` : ""}</button>`).join("");
+
+  const size = () => (device === "phone" ? [390, 780] : [1440, 860]);
+  const layout = () => {
+    const [w, h] = size(), cw = view.clientWidth;
+    const scale = device === "phone" ? Math.min(1, (innerHeight * 0.74) / h) : cw / w;
+    const pad = device === "phone" ? 28 : 0;
+    view.style.height = `${h * scale + pad * 2}px`;
+    frames.forEach((f) => { f.style.width = `${w}px`; f.style.height = `${h}px`; f.style.top = `${pad}px`; f.style.transform = `translateX(${(-w * scale) / 2}px) scale(${scale})`; });
+    frame.classList.toggle("is-phone", device === "phone");
+  };
+  const show = (look) => {
+    current = look;
+    tabs.querySelectorAll("[data-look]").forEach((t) => t.setAttribute("aria-selected", String(t.dataset.look === look.id)));
+    if (!frames.has(look.id)) {                       // each look loads the first time it is chosen
+      const f = document.createElement("iframe");
+      f.title = `${look.name} preview`;
+      f.src = look.src;
+      view.append(f);
+      frames.set(look.id, f);
+    }
+    layout();
+    frames.forEach((f, id) => f.classList.toggle("is-on", id === look.id));
+    $("[data-s-name]").textContent = look.name;
+    $("[data-s-sum]").textContent = look.sum;
+    $("[data-s-list]").innerHTML = look.rows.map(([k, v]) => `<li><span>${k}</span><span>${v}</span></li>`).join("");
+    $("[data-hint]").textContent = look.hint;
+  };
+  tabs.addEventListener("click", (e) => { const t = e.target.closest("[data-look]"); if (t) show(looks.find((l) => l.id === t.dataset.look)); });
+  document.querySelectorAll("[data-device]").forEach((b) => b.addEventListener("click", () => {
+    device = b.dataset.device;
+    document.querySelectorAll("[data-device]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    layout();
+  }));
+  addEventListener("resize", layout);
+  if (matchMedia("(max-width: 700px)").matches) { device = "phone"; document.querySelectorAll("[data-device]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.device === "phone"))); }
+  show(looks[0]);
+
+  const io = new IntersectionObserver((es) => es.forEach((e, i) => { if (e.isIntersecting) { e.target.style.transitionDelay = `${Math.min(i, 4) * 70}ms`; e.target.classList.add("is-in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll("[data-rise]").forEach((el) => io.observe(el));
+})();
+</script>
+</body>
+</html>
