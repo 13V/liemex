@@ -527,6 +527,7 @@ const tick = (now) => {
   const a = 0.74 + az, p = (narrow ? 0.25 : 0.24) + pol, d = (narrow ? 8.0 : 7.4) * (1.36 - 0.36 * arrive);   // any higher and the camera is above the ceiling
   const ty = narrow ? 0.45 : target.y;
   camera.position.set(target.x + Math.sin(a) * Math.cos(p) * d, ty + Math.sin(p) * d + 0.3, target.z + Math.cos(a) * Math.cos(p) * d);
+  camera.position.y = Math.min(camera.position.y, H - 0.3);   // never above the ceiling, however far it is dragged
   camera.lookAt(target.x, ty, target.z);
   if (layT !== null) {
     const t = clamp((now - layT) / 1600);
